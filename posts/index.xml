@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Tech Blog</title><link>https://rycCJ.github.io/posts/</link><description>Recent content in Posts on Tech Blog</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Sat, 09 Aug 2025 17:06:14 +0800</lastBuildDate><atom:link href="https://rycCJ.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Publishing_process</title><link>https://rycCJ.github.io/posts/publishing_process/</link><pubDate>Sat, 09 Aug 2025 17:06:14 +0800</pubDate><guid>https://rycCJ.github.io/posts/publishing_process/</guid><description>&lt;p>&lt;strong>1.创建一篇新文章&lt;/strong>
+打开Git Bash 终端，进入根目录d:/Blog&lt;/p>
+&lt;blockquote>
+&lt;p>hugo new content posts/hello-world.md&lt;/p>&lt;/blockquote>
+&lt;p>告诉Hugo，在 content/posts/ 目录下，创建一个名为 hello-world.md 的新文章。&lt;/p>
+&lt;p>&lt;strong>2.编写文章内容&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>打开VS Code，在 hello-world.md里面写内容&lt;/li>
+&lt;li>将draft：true改为draft：false&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>3.在本地预览效果&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>回到Git Bash终端，运行：
+&lt;blockquote>
+&lt;p>hugo server&lt;/p>&lt;/blockquote>
+&lt;/li>
+&lt;li>终端会启动一个本地服务器，并显示网址 http://localhost:1313/,打开网址浏览即可&lt;/li>
+&lt;li>预览完毕后，回到终端，按 Ctrl + C 组合键，停止本地服务器。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>4.提交并推送到GitHub (自动发布)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>添加更改到暂存区&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>git add .&lt;/p>&lt;/blockquote>
+&lt;ul>
+&lt;li>提交更改到本地仓库 (创建一个新的提交记录)&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>git commit -m &amp;ldquo;feat: Add my first post &amp;lsquo;Hello World&amp;rsquo;&amp;rdquo;&lt;/p>&lt;/blockquote>
+&lt;p>feat: 是一种规范的提交信息前缀，意思是“增加新功能”，这里指增加了新文章。&lt;/p>
+&lt;ul>
+&lt;li>推送到GitHub (这是触发自动部署的扳机)&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>git push origin main&lt;/p>&lt;/blockquote>
+&lt;p>&lt;strong>5.检查线上部署&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>打开浏览器，进入您之前创建的源码仓 (Blog-Source) 的GitHub页面。&lt;/li>
+&lt;li>点击页面上方的 “Actions” 选项卡。&lt;/li>
+&lt;li>您会看到一个新的工作流（Workflow）正在运行，它前面会有一个黄色的小圆圈。这就是GitHub在后台帮您生成和部署网站。&lt;/li>
+&lt;li>等待1-2分钟，当黄色圆圈变成绿色的对勾 (✓) 时，就代表您的网站已经部署成功了。&lt;/li>
+&lt;li>现在，请在浏览器中访问您的线上博客地址：&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>https://&amp;lt;您的GitHub用户名&amp;gt;.github.io&lt;/p></description></item></channel></rss>
