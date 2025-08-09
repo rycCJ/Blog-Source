@@ -1,0 +1,36 @@
+# .github/workflows/deploy.yml
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # 监视 main 分支的 push 事件
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true  # 拉取主题子模块
+          fetch-depth: 0    # 拉取所有历史记录
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build
+        run: hugo --minify # 运行hugo命令构建网站
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 部署到您的 GitHub Pages 发布仓
+          publish_repo: rycCJ/rycCJ.github.io
+          # 确保是这个用户在部署
+          user_name: 'rycCJ'
+          user_email: 'ryc1819009649@outlook.com'
