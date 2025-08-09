@@ -13,52 +13,7 @@
       <link>http://localhost:1313/Blog-Source/posts/publishing_process/</link>
       <pubDate>Sat, 09 Aug 2025 17:06:14 +0800</pubDate>
       <guid>http://localhost:1313/Blog-Source/posts/publishing_process/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;1.创建一篇新文章&lt;/strong&gt;
-打开Git Bash 终端，进入根目录d:/Blog&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;hugo new content posts/hello-world.md&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;告诉Hugo，在 content/posts/ 目录下，创建一个名为 hello-world.md 的新文章。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2.编写文章内容&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;打开VS Code，在 hello-world.md里面写内容&lt;/li&gt;
-&lt;li&gt;将draft：true改为draft：false&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;3.在本地预览效果&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;回到Git Bash终端，运行：
-&lt;blockquote&gt;
-&lt;p&gt;hugo server&lt;/p&gt;&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;终端会启动一个本地服务器，并显示网址 http://localhost:1313/,打开网址浏览即可&lt;/li&gt;
-&lt;li&gt;预览完毕后，回到终端，按 Ctrl + C 组合键，停止本地服务器。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;4.提交并推送到GitHub (自动发布)&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;添加更改到暂存区&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;git add .&lt;/p&gt;&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;提交更改到本地仓库 (创建一个新的提交记录)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;git commit -m &amp;ldquo;feat: Add my first post &amp;lsquo;Hello World&amp;rsquo;&amp;rdquo;&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;feat: 是一种规范的提交信息前缀，意思是“增加新功能”，这里指增加了新文章。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;推送到GitHub (这是触发自动部署的扳机)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;git push origin main&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;strong&gt;5.检查线上部署&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;打开浏览器，进入您之前创建的源码仓 (Blog-Source) 的GitHub页面。&lt;/li&gt;
-&lt;li&gt;点击页面上方的 “Actions” 选项卡。&lt;/li&gt;
-&lt;li&gt;您会看到一个新的工作流（Workflow）正在运行，它前面会有一个黄色的小圆圈。这就是GitHub在后台帮您生成和部署网站。&lt;/li&gt;
-&lt;li&gt;等待1-2分钟，当黄色圆圈变成绿色的对勾 (✓) 时，就代表您的网站已经部署成功了。&lt;/li&gt;
-&lt;li&gt;现在，请在浏览器中访问您的线上博客地址：&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;https://&amp;lt;您的GitHub用户名&amp;gt;.github.io&lt;/p&gt;</description>
+      <description></description>
     </item>
   </channel>
 </rss>

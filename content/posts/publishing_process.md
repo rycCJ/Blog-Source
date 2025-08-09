@@ -29,7 +29,16 @@ summary: "  " # <--- 在这里定义摘要
 >git commit -m "feat: Add my first post 'Hello World'"
 
 feat: 是一种规范的提交信息前缀，意思是“增加新功能”，这里指增加了新文章。
+>>写了一篇新文章？用 feat。
+
+>>修改了一篇文章的内容或错别字？用 docs。
+
+>>修正了一个导致网站显示不正常的Bug？用 fix。
+
+>>更新了 .gitignore 或者 deploy.yml？用 chore。
+
 - 推送到GitHub (这是触发自动部署的扳机)
+
 >git push origin main
   
 **5.检查线上部署**
