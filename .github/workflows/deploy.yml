@@ -1,42 +1,57 @@
 # .github/workflows/deploy.yml
-name: Deploy GitHub Pages
+# 使用官方推荐的、更稳定的 GitHub Actions 部署流程
+name: Deploy GitHub Pages site
 
 on:
+  # 在推送到 main 分支时运行
   push:
-    branches:
-      - main  # 监视 main 分支的 push 事件
+    branches: ["main"]
 
-# --- 新增的关键部分 ---
-# 授予工作流向您的仓库写入内容的权限
+  # 允许您在 Actions 页面手动触发此工作流
+  workflow_dispatch:
+
+# 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
 permissions:
-  contents: write
-# --- 权限设置结束 ---
+  contents: read
+  pages: write
+  id-token: write
+
+# 只允许同时进行一次部署，取消正在进行中的旧部署
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  # 构建任务
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true  # 拉取主题子模块
-          fetch-depth: 0    # 拉取所有历史记录
-
+          submodules: true
+          fetch-depth: 0
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
           extended: true
-
       - name: Build
-        run: hugo --minify # 运行hugo命令构建网站
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+        run: hugo --minify
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # 部署到您的 GitHub Pages 发布仓 (请确保这里的用户名和仓库名正确)
-          publish_repo: rycCJ/rycCJ.github.io
-          # 确保是这个用户在部署
-          user_name: 'rycCJ'
-          user_email: 'ryc1819009649@outlook.com'
+          # Hugo默认将网站文件生成到 "public" 目录
+          path: './public'
+
+  # 部署任务
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
