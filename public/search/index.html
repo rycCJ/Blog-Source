@@ -5,12 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Tags | CJ&#39;s Blog</title>
+<title>搜索 | CJ&#39;s Blog</title>
 <meta name="keywords" content="">
-<meta name="description" content="在这里记录我的学习与思考">
+<meta name="description" content="搜索 - CJ&#39;s Blog">
 <meta name="author" content="rycCJ">
-<link rel="canonical" href="http://localhost:1313/Blog-Source/tags/">
-<link crossorigin="anonymous" href="/Blog-Source/assets/css/stylesheet.36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b.css" integrity="sha256-NoGb6llgkNi0jPENmDE4KZYZeqfk/Ib3kvfAjJyk0js=" rel="preload stylesheet" as="style">
+<link rel="canonical" href="http://localhost:1313/Blog-Source/search/">
+<link crossorigin="anonymous" href="/Blog-Source/assets/css/stylesheet.36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b.css" integrity="sha256-NoGb6llgkNi0jPENmDE4KZYZeqfk/Ib3kvfAjJyk0js=" rel="preload stylesheet" as="style"><link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json">
+<script defer crossorigin="anonymous" src="/Blog-Source/assets/js/search.0cb52d6b1628dc11278c9d7d1418939954e1ba118f5e2c29f43a3c0b14d5a8e4.js" integrity="sha256-DLUtaxYo3BEnjJ19FBiTmVThuhGPXiwp9Do8CxTVqOQ="></script>
 <link rel="icon" href="http://localhost:1313/Blog-Source/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/Blog-Source/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/Blog-Source/favicon-32x32.png">
@@ -18,8 +19,7 @@
 <link rel="mask-icon" href="http://localhost:1313/Blog-Source/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/Blog-Source/tags/index.xml">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/Blog-Source/tags/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/Blog-Source/search/">
 <noscript>
     <style>
         #theme-toggle,
@@ -106,7 +106,7 @@
             </li>
             <li>
                 <a href="http://localhost:1313/Blog-Source/search/" title="搜索 (Alt &#43; /)" accesskey=/>
-                    <span>搜索</span>
+                    <span class="active">搜索</span>
                 </a>
             </li>
             <li>
@@ -118,12 +118,21 @@
     </nav>
 </header>
 <main class="main">
+
 <header class="page-header">
-    <h1>Tags</h1>
+    <h1>搜索 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+    </h1>
 </header>
 
-<ul class="terms-tags">
-</ul>
+<div id="searchbox">
+    <input id="searchInput" autofocus placeholder="搜索 ↵"
+        aria-label="search" type="search" autocomplete="off" maxlength="64">
+    <ul id="searchResults" aria-label="search results"></ul>
+</div>
     </main>
     
 <footer class="footer">

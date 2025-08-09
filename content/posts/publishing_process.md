@@ -1,8 +1,9 @@
-+++
-date = '2025-08-09T17:06:14+08:00'
-draft = false
-title = 'Publishing_process'
-+++
+---
+date: '2025-08-09T17:06:14+08:00'
+draft: false
+title: 'Publishing_process 博客发布流程'
+summary: "  " # <--- 在这里定义摘要
+---
 
 
 **1.创建一篇新文章**

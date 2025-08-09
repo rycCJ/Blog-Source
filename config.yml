@@ -1,7 +1,7 @@
 # config.yml
 baseURL: "https://rycCJ.github.io/Blog-Source/" 
 languageCode: "zh-cn"              # 网站语言
-title: "Tech Blog"                 # 网站标题
+title: "CJ's Blog"                 # 网站标题
 theme: "PaperMod"                  # 主题名称，必须和themes文件夹里的名字一致
 
 params:
@@ -11,7 +11,7 @@ params:
   ShowShareButtons: true           # 显示分享按钮
   ShowPostNavLinks: true           # 显示上一篇/下一篇文章导航
   ShowCodeCopyButtons: true        # 代码块显示复制按钮
-
+  ShowPostMetaDataInLists: false # 在文章列表页（如首页、归档页）隐藏元数据 
 menu:
   main:
     - identifier: archives

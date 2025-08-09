@@ -2,17 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/posts/</loc>
+    <loc>http://localhost:1313/Blog-Source/about/</loc>
+    <lastmod>2025-08-09T21:15:24+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/Blog-Source/</loc>
+    <lastmod>2025-08-09T21:15:24+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/Blog-Source/posts/</loc>
     <lastmod>2025-08-09T17:06:14+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/publishing_process/</loc>
+    <loc>http://localhost:1313/Blog-Source/posts/publishing_process/</loc>
     <lastmod>2025-08-09T17:06:14+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2025-08-09T17:06:14+08:00</lastmod>
+    <loc>http://localhost:1313/Blog-Source/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>http://localhost:1313/Blog-Source/tags/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>http://localhost:1313/Blog-Source/search/</loc>
+  </url><url>
+    <loc>http://localhost:1313/Blog-Source/archives/</loc>
   </url>
 </urlset>
