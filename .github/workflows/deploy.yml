@@ -6,6 +6,12 @@ on:
     branches:
       - main  # 监视 main 分支的 push 事件
 
+# --- 新增的关键部分 ---
+# 授予工作流向您的仓库写入内容的权限
+permissions:
+  contents: write
+# --- 权限设置结束 ---
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -29,7 +35,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # 部署到您的 GitHub Pages 发布仓
+          # 部署到您的 GitHub Pages 发布仓 (请确保这里的用户名和仓库名正确)
           publish_repo: rycCJ/rycCJ.github.io
           # 确保是这个用户在部署
           user_name: 'rycCJ'
