@@ -1,0 +1,28 @@
+# config.yml
+baseURL: "https://rycCJ.github.io/"  # 关键！替换成您自己的GitHub Pages地址
+languageCode: "zh-cn"              # 网站语言
+title: "Tech Blog"                 # 网站标题
+theme: "PaperMod"                  # 主题名称，必须和themes文件夹里的名字一致
+
+params:
+  author: "rycCJ"                # 作者名
+  description: "在这里记录我的学习与思考" # 网站描述
+  ShowReadingTime: true            # 显示文章阅读时间
+  ShowShareButtons: true           # 显示分享按钮
+  ShowPostNavLinks: true           # 显示上一篇/下一篇文章导航
+  ShowCodeCopyButtons: true        # 代码块显示复制按钮
+
+menu:
+  main:
+    - identifier: archives
+      name: "归档"
+      url: "/archives/"
+      weight: 10
+    - identifier: search
+      name: "搜索"
+      url: "/search/"
+      weight: 20
+    - identifier: about
+      name: "关于"
+      url: "/about/"
+      weight: 30
