@@ -6,8 +6,15 @@
     <description>Recent content in Posts on CJ&#39;s Blog</description>
     <generator>Hugo -- 0.148.2</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 09 Aug 2025 17:06:14 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 11 Aug 2025 09:35:45 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/Blog-Source/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Create_new_Project</title>
+      <link>http://localhost:1313/Blog-Source/posts/create_new_project/</link>
+      <pubDate>Mon, 11 Aug 2025 09:35:45 +0800</pubDate>
+      <guid>http://localhost:1313/Blog-Source/posts/create_new_project/</guid>
+      <description>带虚拟环境的 Python 项目</description>
+    </item>
     <item>
       <title>Publishing_process 博客发布流程</title>
       <link>http://localhost:1313/Blog-Source/posts/publishing_process/</link>
