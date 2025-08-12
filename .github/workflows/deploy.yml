@@ -34,7 +34,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_access_token: ${{ secrets.ACTION_DEPLOY_TOKEN }} # <--- 修改这一行
           # 部署到您的 GitHub Pages 发布仓
           external_repository: rycCJ/rycCJ.github.io
           # 推送到目标仓库的 main 分支
