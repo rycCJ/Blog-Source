@@ -1,6 +1,53 @@
+# # .github/workflows/deploy.yml
+# # 用于双仓库模式的部署流程
+# name: Deploy to rycCJ.github.io
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
+
+# # 授予工作流向您的仓库写入内容的权限
+# permissions:
+#   contents: write
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+#         with:
+#           submodules: true
+#           fetch-depth: 0
+
+#       - name: Setup Hugo
+#         uses: peaceiris/actions-hugo@v3
+#         with:
+#           hugo-version: 'latest'
+#           extended: true
+
+#       - name: Build
+#         run: hugo --minify
+
+#       - name: Deploy
+#         uses: peaceiris/actions-gh-pages@v3
+#         with:
+#           deploy_key: ${{ secrets.ACTION_DEPLOY_TOKEN }} # <--- 修改这一行
+#           # 部署到您的 GitHub Pages 发布仓
+#           external_repository: rycCJ/rycCJ.github.io
+#           # 推送到目标仓库的 main 分支
+#           publish_branch: main
+#           # Hugo生成的网站文件默认在 public 目录
+#           publish_dir: ./public
+#           # 提交代码时使用的用户名和邮箱
+#           user_name: 'rycCJ'
+#           user_email: 'ryc1819009649@outlook.com'
+
 # .github/workflows/deploy.yml
-# 用于双仓库模式的部署流程
-name: Deploy to rycCJ.github.io
+# 使用手动编写的Git命令进行部署，最稳定可靠
+name: Manual Deploy to rycCJ.github.io
 
 on:
   push:
@@ -8,15 +55,15 @@ on:
       - main
   workflow_dispatch:
 
-# 授予工作流向您的仓库写入内容的权限
+# 源码仓只需要读取权限即可
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Source Code
         uses: actions/checkout@v4
         with:
           submodules: true
@@ -28,19 +75,24 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
-      - name: Build
+      - name: Build Hugo Site
         run: hugo --minify
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          deploy_key: ${{ secrets.ACTION_DEPLOY_TOKEN }} # <--- 修改这一行
-          # 部署到您的 GitHub Pages 发布仓
-          external_repository: rycCJ/rycCJ.github.io
-          # 推送到目标仓库的 main 分支
-          publish_branch: main
-          # Hugo生成的网站文件默认在 public 目录
-          publish_dir: ./public
-          # 提交代码时使用的用户名和邮箱
-          user_name: 'rycCJ'
-          user_email: 'ryc1819009649@outlook.com'
+      - name: Deploy to GitHub Pages Repo
+        env:
+          # 将我们创建的PAT令牌传入环境变量
+          DEPLOY_TOKEN: ${{ secrets.ACTION_DEPLOY_TOKEN }}
+        run: |
+          # 进入构建好的网站目录
+          cd public
+          
+          # 初始化一个新的Git仓库
+          git init
+          git config user.name "rycCJ"
+          git config user.email "ryc1819009649@outlook.com"
+          git add .
+          git commit -m "Deploy commit from GitHub Actions"
+          
+          # 强制推送到 rycCJ.github.io 仓库的 main 分支
+          # 我们在这里直接构造带有令牌的HTTPS URL，确保使用HTTPS协议
+          git push --force "https://x-access-token:${DEPLOY_TOKEN}@github.com/rycCJ/rycCJ.github.io.git" main
