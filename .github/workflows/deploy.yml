@@ -80,19 +80,19 @@ jobs:
 
       - name: Deploy to GitHub Pages Repo
         env:
-          # 将我们创建的PAT令牌传入环境变量
           DEPLOY_TOKEN: ${{ secrets.ACTION_DEPLOY_TOKEN }}
         run: |
           # 进入构建好的网站目录
           cd public
-          
+
           # 初始化一个新的Git仓库
           git init
+          # 设置提交代码时使用的用户名和邮箱
           git config user.name "rycCJ"
           git config user.email "ryc1819009649@outlook.com"
           git add .
           git commit -m "Deploy commit from GitHub Actions"
-          
+
           # 强制推送到 rycCJ.github.io 仓库的 main 分支
-          # 我们在这里直接构造带有令牌的HTTPS URL，确保使用HTTPS协议
-          git push --force "https://x-access-token:${DEPLOY_TOKEN}@github.com/rycCJ/rycCJ.github.io.git" main
+          # 使用 HEAD:main 这种最稳健的写法
+          git push --force "https://x-access-token:${DEPLOY_TOKEN}@github.com/rycCJ/rycCJ.github.io.git" HEAD:main
