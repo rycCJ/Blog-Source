@@ -1,5 +1,5 @@
 # config.yml
-baseURL: "https://rycCJ.github.io/Blog-Source/" 
+baseURL: "https://rycCJ.github.io/" 
 languageCode: "zh-cn"              # 网站语言
 title: "CJ's Blog"                 # 网站标题
 theme: "PaperMod"                  # 主题名称，必须和themes文件夹里的名字一致
