@@ -1,38 +1,115 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CJ&#39;s Blog</title>
-    <link>http://localhost:1313/Blog-Source/</link>
-    <description>Recent content on CJ&#39;s Blog</description>
-    <generator>Hugo -- 0.148.2</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Mon, 11 Aug 2025 09:35:45 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/Blog-Source/index.xml" rel="self" type="application/rss+xml" />
+    <title>My awesome website</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on My awesome website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>ryc1819009649@163.com (Can)</managingEditor>
+    <webMaster>ryc1819009649@163.com (Can)</webMaster>
+    <copyright>© 2025 Can</copyright>
+    <lastBuildDate>Thu, 11 Sep 2025 17:27:14 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
-      <title>Create_new_Project</title>
-      <link>http://localhost:1313/Blog-Source/posts/create_new_project/</link>
-      <pubDate>Mon, 11 Aug 2025 09:35:45 +0800</pubDate>
-      <guid>http://localhost:1313/Blog-Source/posts/create_new_project/</guid>
-      <description>带虚拟环境的 Python 项目</description>
+      <title>Test</title>
+      <link>http://localhost:1313/posts/test/</link>
+      <pubDate>Thu, 11 Sep 2025 17:27:14 +0800</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
+      <guid>http://localhost:1313/posts/test/</guid>
+      <description>在这里写下您的文章摘要&amp;hellip;</description>
+      
     </item>
+    
+    <item>
+      <title>Conda Start</title>
+      <link>http://localhost:1313/posts/conda_start/</link>
+      <pubDate>Mon, 08 Sep 2025 16:31:36 +0800</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
+      <guid>http://localhost:1313/posts/conda_start/</guid>
+      <description>Conda使用</description>
+      
+    </item>
+    
+    <item>
+      <title>Morris Traversal</title>
+      <link>http://localhost:1313/notes/morris_traversal/</link>
+      <pubDate>Wed, 03 Sep 2025 19:24:33 +0800</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
+      <guid>http://localhost:1313/notes/morris_traversal/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>A Folder to Git</title>
+      <link>http://localhost:1313/posts/a_folder_to_git/</link>
+      <pubDate>Tue, 02 Sep 2025 22:55:18 +0800</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
+      <guid>http://localhost:1313/posts/a_folder_to_git/</guid>
+      <description>本地文件夹上传至GitHub</description>
+      
+    </item>
+    
+    <item>
+      <title>Create New Project</title>
+      <link>http://localhost:1313/posts/create_new_project/</link>
+      <pubDate>Mon, 11 Aug 2025 20:08:00 +0800</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
+      <guid>http://localhost:1313/posts/create_new_project/</guid>
+      <description>带虚拟环境的 Python 项目</description>
+      
+    </item>
+    
     <item>
       <title>About me</title>
-      <link>http://localhost:1313/Blog-Source/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Sat, 09 Aug 2025 21:15:24 +0800</pubDate>
-      <guid>http://localhost:1313/Blog-Source/about/</guid>
-      <description>&lt;p&gt;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-欢迎来到我的博客&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;研究生在读，此博客主要记录一些我的一些学习心得，学习笔记，以及学习时候遇到的一些问题。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;Welcome to my blog！&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;I&amp;rsquo;m a graduate student, and this blog primarily records my learning experiences, notes, and any problems I encounter while studying.&lt;/p&gt;&lt;/blockquote&gt;</description>
+      <author>ryc1819009649@163.com (Can)</author>
+      <guid>http://localhost:1313/about/</guid>
+      <description></description>
+      
     </item>
+    
     <item>
       <title>Publishing_process 博客发布流程</title>
-      <link>http://localhost:1313/Blog-Source/posts/publishing_process/</link>
+      <link>http://localhost:1313/posts/publishing_process/</link>
       <pubDate>Sat, 09 Aug 2025 17:06:14 +0800</pubDate>
-      <guid>http://localhost:1313/Blog-Source/posts/publishing_process/</guid>
+      <author>ryc1819009649@163.com (Can)</author>
+      <guid>http://localhost:1313/posts/publishing_process/</guid>
       <description></description>
+      
     </item>
+    
+    <item>
+      <title></title>
+      <link>http://localhost:1313/notes/111/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
+      <guid>http://localhost:1313/notes/111/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>搜索</title>
+      <link>http://localhost:1313/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
+      <guid>http://localhost:1313/search/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>文章归档</title>
+      <link>http://localhost:1313/archives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
+      <guid>http://localhost:1313/archives/</guid>
+      <description></description>
+      
+    </item>
+    
   </channel>
 </rss>

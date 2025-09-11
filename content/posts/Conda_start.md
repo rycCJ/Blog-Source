@@ -30,8 +30,8 @@ conda environments:
 
    base           /home/username/Anaconda3
    myenvironment   * /home/username/Anaconda3/envs/myenvironment
-当前环境带*
 ```
+当前环境带*
 
 改变当前环境为默认的一个
 ```
