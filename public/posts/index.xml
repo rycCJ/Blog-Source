@@ -2,61 +2,61 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on My awesome website</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://rycCJ.github.io/posts/</link>
     <description>Recent content in Posts on My awesome website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>ryc1819009649@163.com (Can)</managingEditor>
     <webMaster>ryc1819009649@163.com (Can)</webMaster>
     <copyright>© 2025 Can</copyright>
-    <lastBuildDate>Thu, 11 Sep 2025 17:27:14 +0800</lastBuildDate><atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Sep 2025 17:27:14 +0800</lastBuildDate><atom:link href="https://rycCJ.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Test</title>
-      <link>http://localhost:1313/posts/test/</link>
+      <link>https://rycCJ.github.io/posts/test/</link>
       <pubDate>Thu, 11 Sep 2025 17:27:14 +0800</pubDate>
       <author>ryc1819009649@163.com (Can)</author>
-      <guid>http://localhost:1313/posts/test/</guid>
+      <guid>https://rycCJ.github.io/posts/test/</guid>
       <description>在这里写下您的文章摘要&amp;hellip;</description>
       
     </item>
     
     <item>
       <title>Conda Start</title>
-      <link>http://localhost:1313/posts/conda_start/</link>
+      <link>https://rycCJ.github.io/posts/conda_start/</link>
       <pubDate>Mon, 08 Sep 2025 16:31:36 +0800</pubDate>
       <author>ryc1819009649@163.com (Can)</author>
-      <guid>http://localhost:1313/posts/conda_start/</guid>
+      <guid>https://rycCJ.github.io/posts/conda_start/</guid>
       <description>Conda使用</description>
       
     </item>
     
     <item>
       <title>A Folder to Git</title>
-      <link>http://localhost:1313/posts/a_folder_to_git/</link>
+      <link>https://rycCJ.github.io/posts/a_folder_to_git/</link>
       <pubDate>Tue, 02 Sep 2025 22:55:18 +0800</pubDate>
       <author>ryc1819009649@163.com (Can)</author>
-      <guid>http://localhost:1313/posts/a_folder_to_git/</guid>
+      <guid>https://rycCJ.github.io/posts/a_folder_to_git/</guid>
       <description>本地文件夹上传至GitHub</description>
       
     </item>
     
     <item>
       <title>Create New Project</title>
-      <link>http://localhost:1313/posts/create_new_project/</link>
+      <link>https://rycCJ.github.io/posts/create_new_project/</link>
       <pubDate>Mon, 11 Aug 2025 20:08:00 +0800</pubDate>
       <author>ryc1819009649@163.com (Can)</author>
-      <guid>http://localhost:1313/posts/create_new_project/</guid>
+      <guid>https://rycCJ.github.io/posts/create_new_project/</guid>
       <description>带虚拟环境的 Python 项目</description>
       
     </item>
     
     <item>
       <title>Publishing_process 博客发布流程</title>
-      <link>http://localhost:1313/posts/publishing_process/</link>
+      <link>https://rycCJ.github.io/posts/publishing_process/</link>
       <pubDate>Sat, 09 Aug 2025 17:06:14 +0800</pubDate>
       <author>ryc1819009649@163.com (Can)</author>
-      <guid>http://localhost:1313/posts/publishing_process/</guid>
+      <guid>https://rycCJ.github.io/posts/publishing_process/</guid>
       <description></description>
       
     </item>
