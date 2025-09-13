@@ -25,7 +25,7 @@ disableTextInHeader = false
 backgroundImageWidth = 1200
 
 defaultBackgroundImage = "/img/futuristic-cyber-room-moewalls-com-ezgif.com-video-to-gif-converter.gif" # used as default for background images 
-defaultFeaturedImage = "/img/chill-mario-pixel-moewalls-com-ezgif.com-crop.gif" # used as default for featured images in all articles
+# defaultFeaturedImage = "/img/chill-mario-pixel-moewalls-com-ezgif.com-crop.gif" # used as default for featured images in all articles
 defaultSocialImage = "/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif" # used as default for social media sharing (Open Graph and Twitter)
 
 highlightCurrentMenuArea = true
@@ -48,9 +48,9 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showScrollToTop = true
 
 [homepage]
-  layout = "profile" # valid options: page, profile, hero, card, background, custom
+  layout = "background" # valid options: page, profile, hero, card, background, custom
   #homepageImage = "IMAGE.jpg" # used in: hero, and card
-  showRecent = false
+  showRecent = true
   showRecentItems = 5
   showMoreLink = false
   showMoreLinkDest = "/posts/"
@@ -118,7 +118,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showBreadcrumbs = false
   showViews = false
   showLikes = false
-  showTableOfContents = false
+  showTableOfContents = true
   cardView = false
 
 [term]
