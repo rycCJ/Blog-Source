@@ -24,7 +24,7 @@ disableImageOptimizationMD = true
 disableTextInHeader = false
 backgroundImageWidth = 1200
 
-defaultBackgroundImage = "/img/futuristic-cyber-room-moewalls-com-ezgif.com-video-to-gif-converter.gif" # used as default for background images 
+defaultBackgroundImage = "/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif" # used as default for background images 
 # defaultFeaturedImage = "/img/chill-mario-pixel-moewalls-com-ezgif.com-crop.gif" # used as default for featured images in all articles
 defaultSocialImage = "/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif" # used as default for social media sharing (Open Graph and Twitter)
 

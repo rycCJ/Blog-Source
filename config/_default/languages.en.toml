@@ -9,17 +9,17 @@ displayName = "EN"
 isoCode = "en"
 rtl = false
 dateFormat = "2 January 2006"
-logo = "img/Can.jpg"
+# logo = "img/Can.jpg"
 # secondaryLogo = "img/secondary-logo.png"
 description = "Thoughts and conclusions about learning"
-copyright = "Copy, _right?_ :thinking_face:"
+copyright = "© 2024-{year} Can. All rights reserved."
 
 [params.author]
 name = "Can"
 email = "ryc1819009649@163.com"
 image = "img/Can.jpg"
 imageQuality = 96
-headline = "Here is my blog"
+headline = "Thoughts and conclusions about learning"
 bio = "A little bit about you"
 links = [
   # { email = "ryc1819009649@163.com" },
