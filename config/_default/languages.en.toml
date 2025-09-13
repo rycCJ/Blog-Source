@@ -9,9 +9,9 @@ displayName = "EN"
 isoCode = "en"
 rtl = false
 dateFormat = "2 January 2006"
-# logo = "img/logo.png"
+logo = "img/Can.jpg"
 # secondaryLogo = "img/secondary-logo.png"
-# description = "My awesome website"
+description = "Thoughts and conclusions about learning"
 # copyright = "Copy, _right?_ :thinking_face:"
 
 [params.author]
@@ -23,6 +23,7 @@ headline = "Here is my blog"
 bio = "A little bit about you"
 links = [
   { email = "ryc1819009649@163.com" },
+  { github = "https://github.com/rycCJ" },
   #     { link = "https://link-to-some-website.com/" },
   #     { amazon = "https://www.amazon.com/hz/wishlist/ls/wishlist-id" },
   #     { apple = "https://www.apple.com" },

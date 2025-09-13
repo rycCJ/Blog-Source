@@ -93,9 +93,9 @@ weight = 30
 #   url = "https://github.com/nunocoracao/blowfish"
 #   weight = 40
 
-[[footer]]
-name = "Privacy"
-url = "https://external-link"
+# [[footer]]
+# name = "Privacy"
+# url = "https://external-link"
 
 
 # config/_default/menus.toml
@@ -126,12 +126,12 @@ url = "https://external-link"
 
 # config/_default/menus.toml
 
-[[subnavigation]]
-name = "An interesting topic"
-pageRef = "tags/interesting-topic"
-weight = 10
+# [[subnavigation]]
+# name = "An interesting topic"
+# pageRef = "tags/interesting-topic"
+# weight = 10
 
-[[subnavigation]]
-name = "My Awesome Category"
-pageRef = "categories/awesome"
-weight = 20
+# [[subnavigation]]
+# name = "My Awesome Category"
+# pageRef = "categories/awesome"
+# weight = 20

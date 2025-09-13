@@ -14,23 +14,23 @@ enableA11y = false
 enableSearch = true
 enableCodeCopy = true
 
-replyByEmail = false
+replyByEmail = true
 
 # mainSections = ["section1", "section2"]
-# robots = ""
+robots = "index, follow"  # “欢迎！请阅读这个页面的内容，并将它收录到你的搜索结果中。”,“这个页面上的所有链接都是可信的，请沿着它们去发现和收录更多的页面。”
 
-disableImageOptimization = false
-disableImageOptimizationMD = false
+disableImageOptimization = true
+disableImageOptimizationMD = true
 disableTextInHeader = false
-# backgroundImageWidth = 1200
+backgroundImageWidth = 1200
 
-# defaultBackgroundImage = "IMAGE.jpg" # used as default for background images 
-# defaultFeaturedImage = "IMAGE.jpg" # used as default for featured images in all articles
-# defaultSocialImage = "/android-chrome-512x512.png" # used as default for social media sharing (Open Graph and Twitter)
+defaultBackgroundImage = "/img/futuristic-cyber-room-moewalls-com-ezgif.com-video-to-gif-converter.gif" # used as default for background images 
+defaultFeaturedImage = "/img/chill-mario-pixel-moewalls-com-ezgif.com-crop.gif" # used as default for featured images in all articles
+defaultSocialImage = "/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif" # used as default for social media sharing (Open Graph and Twitter)
 
-# highlightCurrentMenuArea = true
-# smartTOC = true
-# smartTOCHideUnfocusedChildren = true
+highlightCurrentMenuArea = true
+smartTOC = true
+smartTOCHideUnfocusedChildren = true
 
 fingerprintAlgorithm = "sha512" # Valid values are "sha512" (default), "sha384", "sha256"
 

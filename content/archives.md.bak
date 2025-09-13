@@ -1,0 +1,8 @@
+---
+title: "文章归档"
+layout: "archives"  # 关键！告诉Hugo使用主题里的“归档”布局
+hidemeta: true
+comments: false
+---
+
+//archives 和 about serch都是上一个主题的文件，使用上一个主题时候，去掉.back
