@@ -12,7 +12,6 @@ dateFormat = "2 January 2006"
 # logo = "img/Can_1.jpg"
 # secondaryLogo = "img/secondary-logo.png"
 description = "Thoughts and conclusions about learning"
-copyright = "Can. All rights reserved."
 
 [params.author]
 name = "Can"
