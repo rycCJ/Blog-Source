@@ -1,6 +1,7 @@
 ---
 date: '2025-08-11T20:08:00+08:00'
 draft: false
+tags: ["Git","Python"]
 title: 'Create New Project' # <--- 修改这一行
 summary: "带虚拟环境的 Python 项目"
 ---

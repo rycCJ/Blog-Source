@@ -1,6 +1,7 @@
 ---
 date: '2025-09-02T22:55:18+08:00'
 draft: false
+tags: ["Git"]
 title: 'A Folder to Git' # <--- 修改这一行
 summary: "本地文件夹上传至GitHub"
 ---

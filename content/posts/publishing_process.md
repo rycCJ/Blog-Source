@@ -1,6 +1,7 @@
 ---
 date: '2025-08-09T17:06:14+08:00'
 draft: false
+tags: ["Git"]
 title: 'Publishing_process 博客发布流程'
 summary: "  " # <--- 在这里定义摘要
 ---

@@ -1,179 +1,75 @@
-# -- Theme Options --
-# These options control how the theme functions and allow you to
-# customise the display of your website.
-#
-# Refer to the theme docs for more details about each of these parameters.
-# https://blowfish.page/docs/configuration/#theme-parameters
+# =================================================================
+# BLOWFISH 主题参数文件 (params.toml)
+# =================================================================
 
-colorScheme = "ocean"  
-#blowfish （默认）、avocado、fire、ocean、forest、princess、neon、bloody、terminal、marvel、noir、autumn、congo和slate
-defaultAppearance = "light" # valid options: light or dark
+# --- 常规设置 ---
+colorScheme = "ocean"
+defaultAppearance = "dark"      # 您可以改为 'light'
 autoSwitchAppearance = true
+disableImageOptimization = true # 全局禁用图片优化，如果您自己处理图片的话
+disableTextInHeader = false
+# 版权信息，使用 {year} 占位符
+copyright = "© 2024-{year} Can. All rights reserved."
 
-enableA11y = false
+# --- 特色图片 ---
+defaultBackgroundImage = "/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"
+# defaultFeaturedImage = "/img/chill-mario-pixel-moewalls-com-ezgif.com-crop.gif"
+defaultSocialImage = "/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"
+
+# --- 功能开关 ---
 enableSearch = true
 enableCodeCopy = true
-
 replyByEmail = true
-
-# mainSections = ["section1", "section2"]
-robots = "index, follow"  # “欢迎！请阅读这个页面的内容，并将它收录到你的搜索结果中。”,“这个页面上的所有链接都是可信的，请沿着它们去发现和收录更多的页面。”
-
-disableImageOptimization = true
-disableImageOptimizationMD = true
-disableTextInHeader = false
-backgroundImageWidth = 1200
-
-defaultBackgroundImage = "/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif" # used as default for background images 
-# defaultFeaturedImage = "/img/chill-mario-pixel-moewalls-com-ezgif.com-crop.gif" # used as default for featured images in all articles
-defaultSocialImage = "/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif" # used as default for social media sharing (Open Graph and Twitter)
-
 highlightCurrentMenuArea = true
 smartTOC = true
 smartTOCHideUnfocusedChildren = true
 
-fingerprintAlgorithm = "sha512" # Valid values are "sha512" (default), "sha384", "sha256"
-copyright = "© 2024-{year} Can. All rights reserved."
-
-giteaDefaultServer = "https://git.fsfe.org"
-forgejoDefaultServer = "https://v11.next.forgejo.org"
-
+# --- 头部 ---
 [header]
-  layout = "basic" # valid options: basic, fixed, fixed-fill, fixed-gradient, fixed-fill-blur
+layout = "basic"
 
+# --- 页脚 ---
 [footer]
-  showMenu = true
-  showCopyright = true
-  showThemeAttribution = true
-  showAppearanceSwitcher = true
-  showScrollToTop = true
+showMenu = true
+showCopyright = true
+showThemeAttribution = true
+showAppearanceSwitcher = true
+showScrollToTop = true
 
+# --- 主页 ---
 [homepage]
-  layout = "hero" # valid options: page, profile, hero, card, background, custom
-  #homepageImage = "IMAGE.jpg" # used in: hero, and card
-  showRecent = true
-  showRecentItems = 5
-  showMoreLink = false
-  showMoreLinkDest = "/posts/"
-  cardView = false
-  cardViewScreenWidth = false
-  layoutBackgroundBlur = false # only used when layout equals background
-  disableHeroImageFilter = false # only used when layout equals hero
+layout = "background" # 您之前想用的 hero 布局
+showRecent = true
+showRecentItems = 5
 
+# --- 文章页面 ---
 [article]
-  showDate = true
-  showViews = false
-  showLikes = false
-  showDateOnlyInArticle = false
-  showDateUpdated = false
-  showAuthor = true
-  # showAuthorBottom = false
-  showHero = true
-  heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
-  layoutBackgroundBlur = true # only used when heroStyle equals background or thumbAndBackground
-  layoutBackgroundHeaderSpace = true # only used when heroStyle equals background
-  showBreadcrumbs = false
-  showDraftLabel = true
-  showEdit = false
-  # editURL = "https://github.com/username/repo/"
-  editAppendPath = true
-  seriesOpened = false
-  showHeadingAnchors = true
-  showPagination = true
-  invertPagination = false
-  showReadingTime = true
-  showTableOfContents = false
-  # showRelatedContent = false
-  # relatedContentLimit = 3
-  showTaxonomies = false # use showTaxonomies OR showCategoryOnly, not both
-  showCategoryOnly = false # use showTaxonomies OR showCategoryOnly, not both
-  showAuthorsBadges = false
-  showWordCount = true
-  # sharingLinks = [ "linkedin", "twitter", "bluesky", "mastodon", "reddit", "pinterest", "facebook", "email", "whatsapp", "telegram", "line"]
-  showZenMode = false
+showDate = true
+showDateUpdated = false
+showAuthor = true
+showHero = true
+heroStyle = "background"
+showBreadcrumbs = false
+showReadingTime = true
+showWordCount = true
+showTableOfContents = true # 建议在文章页开启目录
+showTaxonomies = true      # 在文章末尾显示标签和分类
+showPagination = true
+showViews = true           # 如果配置了 Firebase，设为 true
+showLikes = true           # 如果配置了 Firebase，设为 true
 
+# --- 列表页面 ---
 [list]
-  showHero = true
-heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
-  layoutBackgroundBlur = true # only used when heroStyle equals background or thumbAndBackground
-  layoutBackgroundHeaderSpace = true # only used when heroStyle equals background
-  showBreadcrumbs = false
-  showSummary = false
-  showViews = false
-  showLikes = false
-  showTableOfContents = false
-  showCards = false
-  orderByWeight = false
-  groupByYear = true
-  cardView = false
-  cardViewScreenWidth = false
-  constrainItemsWidth = false
+showHero = true
+heroStyle = "background"
+showBreadcrumbs = false
+showSummary = true       # 建议在列表页显示摘要
+groupByYear = true
 
-[sitemap]
-  excludedKinds = ["taxonomy", "term"]
-
+# --- 分类法和词条页面 ---
 [taxonomy]
-  showTermCount = true
-  showHero = false
-  # heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
-  showBreadcrumbs = false
-  showViews = false
-  showLikes = false
-  showTableOfContents = true
-  cardView = false
+showTermCount = true
+showHero = false     # 建议分类页保持简洁
 
 [term]
-  showHero = false
-  # heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
-  showBreadcrumbs = false
-  showViews = false
-  showLikes = false
-  showTableOfContents = true
-  groupByYear = false
-  cardView = false
-  cardViewScreenWidth = false
-
-[firebase]
-  # apiKey = "XXXXXX"
-  # authDomain = "XXXXXX"
-  # projectId = "XXXXXX"
-  # storageBucket = "XXXXXX"
-  # messagingSenderId = "XXXXXX"
-  # appId = "XXXXXX"
-  # measurementId = "XXXXXX"
-
-[fathomAnalytics]
-  # site = "ABC12345"
-  # domain = "llama.yoursite.com"
-
-[umamiAnalytics]
-  # websiteid = "ABC12345"
-  # domain = "llama.yoursite.com"
-  # dataDomains = "yoursite.com,yoursite2.com"
-  # scriptName = ""
-  # enableTrackEvent = true
-
-[selineAnalytics]
-  # token = "XXXXXX"
-  # enableTrackEvent = true
-
-[buymeacoffee]
-  # identifier = ""
-  # globalWidget = true
-  # globalWidgetMessage = "Hello"
-  # globalWidgetColor = "#FFDD00"
-  # globalWidgetPosition = "Right"
-
-[verification]
-  # google = ""
-  # bing = ""
-  # pinterest = ""
-  # yandex = ""
-  # fediverse = ""
-
-[rssnext]
-  # feedId = ""
-  # userId = ""
-
-[advertisement]
-  # adsense = ""
+showHero = false # 建议词条页保持简洁

@@ -1,0 +1,42 @@
+<footer id="site-footer" class="py-10 print:hidden">
+  {{/* Footer menu -- 保留原始功能 */}}
+  {{ if .Site.Params.footer.showMenu | default true }}
+  {{ with .Site.Menus.footer }}
+  <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+    <ul class="flex list-none flex-col sm:flex-row">
+      {{ range . }}
+      <li
+        class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+          href="{{ .URL | relURL }}" title="{{ .Title | default .Name }}">
+          {{ .Name | markdownify }}
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </nav>
+  {{ end }}
+  {{ end }}
+  <div class="flex items-center justify-between">
+
+    {{/* --- 这是我们修改的核心部分 --- */}}
+    {{ if .Site.Params.footer.showCopyright | default true }}
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      {{ replace .Site.Params.copyright "{year}" now.Year | markdownify }}
+    </p>
+    {{ end }}
+    {{/* --- 核心修改结束 --- */}}
+
+
+    {{/* Theme attribution -- 保留原始功能 */}}
+    {{ if .Site.Params.footer.showThemeAttribution | default true }}
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      {{ $hugo := printf `<a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a>` }}
+      {{ $blowfish := printf `<a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>` }}
+      {{ i18n "footer.powered_by" (dict "Hugo" $hugo "Theme" $blowfish) | safeHTML }}
+    </p>
+    {{ end }}
+  </div>
+</footer>

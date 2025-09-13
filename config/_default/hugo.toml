@@ -1,74 +1,62 @@
-# -- Site Configuration --
-# Refer to the theme docs for more details about each of these parameters.
-# https://blowfish.page/docs/getting-started/
-# config/_default/hugo.toml
-
-theme = "blowfish"                   # UNCOMMENT THIS LINE
+# =================================================================
+# HUGO 主配置文件 (hugo.toml)
+# =================================================================
 baseURL = "https://rycCJ.github.io/"
 languageCode = "en"
-
-
-# baseURL = "https://your_domain.com/"
 defaultContentLanguage = "en"
-
-# pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
+title = "Can's Blog"
+theme = "blowfish"
 
 enableRobotsTXT = true
 summaryLength = 0
-
-buildDrafts = false
-buildFuture = false
-
 enableEmoji = true
 
-# googleAnalytics = "G-XXXXXXXXX"
+# 这是一个独立的顶级配置，告诉 Hugo 不要为分类法和词条页面生成独立的页面
+# 这也会影响 sitemap 的生成，因为这些页面从一开始就不会被创建
+excludedKinds = ["taxonomy", "term"]
 
+# 分页设置
 [pagination]
 pagerSize = 10
 
+# 图片处理
 [imaging]
 anchor = 'Center'
 
+# 分类法定义
 [taxonomies]
 tag = "tags"
 category = "categories"
 author = "authors"
 series = "series"
 
+# 站点地图设置
 [sitemap]
 changefreq = 'daily'
 filename = 'sitemap.xml'
 priority = 0.5
 
+# 输出格式，确保有 JSON 以支持搜索
 [outputs]
 home = ["HTML", "RSS", "JSON"]
 
+# 相关文章设置
 [related]
 threshold = 0
 toLower = false
-
 [[related.indices]]
 name = "tags"
 weight = 100
-
 [[related.indices]]
 name = "categories"
 weight = 100
 
-[[related.indices]]
-name = "series"
-weight = 50
-
-[[related.indices]]
-name = "authors"
-weight = 20
-
-[[related.indices]]
-name = "date"
-weight = 10
-
-[[related.indices]]
-applyFilter = false
-name = 'fragmentrefs'
-type = 'fragments'
-weight = 10
+# Firebase 配置 (请填入您的真实密钥)
+[firebase]
+# apiKey = "XXXXXX"
+# authDomain = "XXXXXX"
+# projectId = "XXXXXX"
+# storageBucket = "XXXXXX"
+# messagingSenderId = "XXXXXX"
+# appId = "XXXXXX"
+# measurementId = "XXXXXX"
