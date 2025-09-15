@@ -113,23 +113,23 @@ int main() {
 **如何正确思考 maxDepth(root) 的过程？**
 - 1.我的目标：实现 maxDepth(root) 函数。
 
-- 2.第一步：找终止条件。 什么情况下最简单？树是空的！if (root == nullptr)，深度就是 0。搞定。
+- 2.第一步：找终止条件。 什么情况下最简单？树是空的！`if (root == nullptr)`，深度就是 0。搞定。
 
-- 3.第二步：找递归关系。 如果树不空，root 指向一个节点。这棵树的深度和它的左右孩子有什么关系？
+- 3.第二步：找递归关系。 如果树不空，`root` 指向一个节点。这棵树的深度和它的左右孩子有什么关系？
 
 我需要知道左子树的深度。
 
 我需要知道右子树的深度。
 
-整棵树的深度就是 max(左深度, 右深度) + 1。
+整棵树的深度就是 `max(左深度, 右深度) + 1`。
 
 - 4.第三步：写代码（信念之跃）。
 
-如何获取左子树的深度？直接调用 maxDepth(root->left)。相信它！ 不要去想它内部是怎么对 root->left 的子节点进行递归的。就把它当成 int leftDepth = getLeftDepth() 这么一个普通的函数调用。
+如何获取左子树的深度？直接调用`maxDepth(root->left)`。相信它！ 不要去想它内部是怎么对 `root->left` 的子节点进行递归的。就把它当成 `int leftDepth = getLeftDepth()` 这么一个普通的函数调用。
 
-如何获取右子树的深度？同理，调用 maxDepth(root->right)。相信它！
+如何获取右子树的深度？同理，调用 `maxDepth(root->right)`。相信它！
 
-拿到 leftDepth 和 rightDepth 后，根据第二步的分析，return std::max(leftDepth, rightDepth) + 1;。
+拿到 `leftDepth` 和 `rightDepth` 后，根据第二步的分析，`return std::max(leftDepth, rightDepth) + 1`;。
 
 **整个思考过程，我们只关注“当前层”的逻辑。** 我们把对子树的处理完全委托给了递归调用，我们是“管理者”，不是“微观执行者”。
 
@@ -156,13 +156,13 @@ void preOrderTraversal(TreeNode* root) {
     preOrderTraversal(root->right);
 }
 ```
-正确思考 preOrderTraversal：
+正确思考 `preOrderTraversal`：
 
 - 1.我的目标：按“根-左-右”的顺序打印树。
 
-- 2.终止条件：root 是 nullptr，没什么可打印的，直接 return。
+- 2.终止条件：`root` 是 `nullptr`，没什么可打印的，直接 `return`。
 
-- 3.当前层的逻辑：如果 root 不是 nullptr，根据“根-左-右”的定义，我应该：
+- 3.当前层的逻辑：如果 `root` 不是 `nullptr`，根据“根-左-右”的定义，我应该：
 
 >> 先处理“根”：`cout << root->val`;
 
@@ -174,7 +174,7 @@ void preOrderTraversal(TreeNode* root) {
 
 ---
 ## 总结与建议
-- 明确函数定义：在写递归函数之前，用一句话清晰地描述这个函数的功能。例如：“`maxDepth(node)`的功能是返回以 node 为根的子树的最大深度”。在后续的递归调用中，始终坚信你调用的就是这个已经实现的功能。
+- 明确函数定义：在写递归函数之前，用一句话清晰地描述这个函数的功能。例如：“`maxDepth(node)`的功能是返回以 `node` 为根的子树的最大深度”。在后续的递归调用中，始终坚信你调用的就是这个已经实现的功能。
 
 - 只考虑当前层：你的所有逻辑都应该只围绕“当前节点”展开。你需要做什么？你需要从子问题的解中得到什么信息？你如何利用这些信息？
 
