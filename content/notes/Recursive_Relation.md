@@ -116,20 +116,19 @@ int main() {
 - 2.第一步：找终止条件。 什么情况下最简单？树是空的！`if (root == nullptr)`，深度就是 0。搞定。
 
 - 3.第二步：找递归关系。 如果树不空，`root` 指向一个节点。这棵树的深度和它的左右孩子有什么关系？
+>> 左子树的深度。
 
-我需要知道左子树的深度。
+>> 右子树的深度。
 
-我需要知道右子树的深度。
-
-整棵树的深度就是 `max(左深度, 右深度) + 1`。
+>> 整棵树的深度就是 `max(左深度, 右深度) + 1`。
 
 - 4.第三步：写代码（信念之跃）。
 
-如何获取左子树的深度？直接调用`maxDepth(root->left)`。相信它！ 不要去想它内部是怎么对 `root->left` 的子节点进行递归的。就把它当成 `int leftDepth = getLeftDepth()` 这么一个普通的函数调用。
+>> 如何获取左子树的深度？直接调用`maxDepth(root->left)`。相信它！ 不要去想它内部是怎么对 `root->left` 的子节点进行递归的。就把它当成 `int leftDepth = getLeftDepth()` 这么一个普通的函数调用。
 
-如何获取右子树的深度？同理，调用 `maxDepth(root->right)`。相信它！
+>> 如何获取右子树的深度？同理，调用 `maxDepth(root->right)`。相信它！
 
-拿到 `leftDepth` 和 `rightDepth` 后，根据第二步的分析，`return std::max(leftDepth, rightDepth) + 1`;。
+>> 拿到 `leftDepth` 和 `rightDepth` 后，根据第二步的分析，`return std::max(leftDepth, rightDepth) + 1`;。
 
 **整个思考过程，我们只关注“当前层”的逻辑。** 我们把对子树的处理完全委托给了递归调用，我们是“管理者”，不是“微观执行者”。
 
