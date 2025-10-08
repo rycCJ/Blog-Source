@@ -1,5 +1,5 @@
 ---
-title: "Recursive Relation" # <--- 修改这一行
+title: "递归基础及题目（Recursive Relation）" # <--- 修改这一行
 date: 2025-09-15T18:25:38+08:00
 draft: false
 tags: ["Algorithm", "Recursion", "C++"]
@@ -11,15 +11,12 @@ featured: true
 
 ## 递归的核心思想：不是人肉压栈，而是“甩锅”
 
-{{< alert icon="fire" cardColor="#e63946" iconColor="#1d3557" textColor="#f1faee" >}}
 初学者的困境：人肉模拟调用栈
-{{< /alert >}}
 
 当递归层数很少时，比如三层，你还能模拟：`main` 调用 `A`，`A` 调用 `B`，`B` 调用 `C`。`C` 返回给 `B`，`B` 返回给 `A`，`A` 返回给 `main`。但当层数一多，你的大脑就会像计算机内存溢出一样，难以追踪。
 
-{{< alert >}}
 **正确的递归思维方式是“信任”或者叫“信念之跃”（Leap of Faith）。**
-{{< /alert >}}
+
 你只需要关注两件事：
 
 - 1.终止条件（Base Case）：什么时候问题小到可以直接解决，不需要再“甩锅”给下一层了？
@@ -196,9 +193,10 @@ void preOrderTraversal(TreeNode* root) {
 
 这类问题的核心是“访问”到每一个节点并执行简单操作，递归函数本身通常没有返回值（void）或者返回一个包含所有节点值的列表。
 
-核心思路：定义一个 traverse(node) 函数，在函数内部先处理当前节点，然后递归调用 traverse(node->left) 和 traverse(node->right)。根据处理当前节点的时机不同，分为前、中、后序遍历。
+**核心思路：**
+定义一个 traverse(node) 函数，在函数内部先处理当前节点，然后递归调用 `traverse(node->left) `和 `traverse(node->right)`。根据处理当前节点的时机不同，分为前、中、后序遍历。
 
-经典题目:
+**经典题目:**
 
 <a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener noreferrer">144. 二叉树的前序遍历</a>
 
@@ -269,13 +267,14 @@ public:
 
 这是最最常见的一类递归问题。你相信递归函数能帮你解决子问题，然后你只需要思考如何利用子问题的解来解决当前问题。
 
-**核心思路** ：“我不知道怎么解决整棵树的问题，但我假设 solve(root->left) 和 solve(root->right) 已经帮我解决了左右子树的问题并返回了正确的结果。现在，我只需要在当前 root 节点，利用这两个结果，计算出当前树的结果，然后 return 回去。”
+**核心思路** ：
+“我不知道怎么解决整棵树的问题，但我假设 `solve(root->left) `和 `solve(root->right) `已经帮我解决了左右子树的问题并返回了正确的结果。现在，我只需要在当前 root 节点，利用这两个结果，计算出当前树的结果，然后 return 回去。”
 
 **经典题目**:
 
 <a href="  https://leetcode.cn/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">104. 二叉树的最大深度</a> (我们之前讨论过的)
 
-左子树深度 = solve(root->left), 右子树深度 = solve(root->right)
+左子树深度 = `solve(root->left)`, 右子树深度 = `solve(root->right)`
 
 当前树深度 = max(左子树深度, 右子树深度) + 1
 
@@ -389,12 +388,14 @@ public:
 
 这类问题与上一类相反，子问题的解决需要依赖其父节点的信息。因此，你需要通过递归函数的参数将信息自上而下地传递下去。
 
-**核心思路**：“我需要定义一个 solve(node, state) 函数，其中 state 是从根节点到我父节点为止积累的状态。在函数内部，我根据 state 和当前 node 的值计算出新的状态 new_state，然后把它传递给我的子节点 solve(node->left, new_state) 和 solve(node->right, new_state)。”
+**核心思路**：
+“我需要定义一个 `solve(node, state) `函数，其中 `state` 是从根节点到我父节点为止积累的状态。在函数内部，我根据 `state `和当前`node` 的值计算出新的状态 new_state，然后把它传递给我的子节点`solve(node->left, new_state)`和 `solve(node->right, new_state)`。”
 
 **经典题目**:
+
 <a href="https://leetcode.cn/problems/path-sum/description/" target="_blank" rel="noopener noreferrer">112. 路径总和</a>
 
-向下传递 targetSum - node->val。
+向下传递 `targetSum - node->val`。
 
 ```cpp
   bool hasPathSum(TreeNode *root, int targetSum) {
@@ -412,7 +413,7 @@ public:
 
 <a href="https://leetcode.cn/problems/sum-root-to-leaf-numbers/description/" target="_blank" rel="noopener noreferrer">129. 求根节点到叶节点数字之和</a>
 
-向下传递 currentSum \* 10 + node->val。
+向下传递 `currentSum \* 10 + node->val`。
 
 ```cpp
 class Solution {
@@ -511,13 +512,15 @@ public:
 
 这类问题通常涉及两棵树，或者需要翻转、修改树的结构。
 
-**核心思路：** 递归函数通常同时作用于两棵树的对应节点，或者在修改完当前节点的结构后，再对子节点进行递归调用。
+**核心思路：**
+
+递归函数通常同时作用于两棵树的对应节点，或者在修改完当前节点的结构后，再对子节点进行递归调用。
 
 **经典题目:**
 
 <a href=" https://leetcode.cn/problems/same-tree/" target="_blank" rel="noopener noreferrer">100. 相同的树 </a>
 
-isSameTree(p, q) 依赖于 isSameTree(p->left, q->left) 和 isSameTree(p->right, q->right) 的结果。
+`isSameTree(p, q)` 依赖于 `isSameTree(p->left, q->left) `和 `isSameTree(p->right, q->right) `的结果。
 
 ```cpp
 class Solution {
@@ -540,7 +543,7 @@ public:
 
 <a href=" https://leetcode.cn/problems/symmetric-tree/" target="_blank" rel="noopener noreferrer">101. 对称二叉树 </a>
 
-这是判断两棵树是否镜像对称的变体。递归函数 isMirror(p, q) 依赖于 isMirror(p->left, q->right) 和 isMirror(p->right, q->left)。
+这是判断两棵树是否镜像对称的变体。递归函数 `isMirror(p, q) `依赖于 `isMirror(p->left, q->right) `和` isMirror(p->right, q->left)`。
 
 ```cpp
 class Solution {
@@ -567,7 +570,7 @@ public:
 
 <a href=" https://leetcode.cn/problems/invert-binary-tree/" target="_blank" rel="noopener noreferrer">226. 翻转二叉树 </a>
 
-在当前节点交换左右子节点，然后递归调用 invertTree(root->left) 和 invertTree(root->right)。
+在当前节点交换左右子节点，然后递归调用` invertTree(root->left)` 和 `invertTree(root->right)`。
 
 ```cpp
 class Solution {
@@ -585,7 +588,7 @@ public:
 
 ```
 
-总结与练习建议
+## 总结与练习建议
 
 | 题号         | 题目                 | 核心思路                                   | 类 别           | 状态     |
 | ------------ | -------------------- | ------------------------------------------ | --------------- | -------- |
@@ -601,7 +604,7 @@ public:
 | 101          | 对称二叉树           | 同时递归比较一棵树的内外侧子树             | 结构比较        | &#x2705; |
 | 226          | 翻转二叉树           | 交换当前节点的左右子节点，然后递归翻转子树 | 结构修改        | &#x2705; |
 
-如何练习：
+**如何练习：**
 
 从基础遍历开始，确保你理解前、中、后序的区别。
 
