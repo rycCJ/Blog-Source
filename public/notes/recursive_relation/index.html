@@ -14,8 +14,8 @@
   <meta name="theme-color">
 
   
-  <title>Recursive Relation &middot; Can&#39;s Blog</title>
-    <meta name="title" content="Recursive Relation &middot; Can&#39;s Blog">
+  <title>递归基础及题目（Recursive Relation） &middot; Can&#39;s Blog</title>
+    <meta name="title" content="递归基础及题目（Recursive Relation） &middot; Can&#39;s Blog">
 
   
   <meta name="description" content="Thoughts and conclusions about learning">
@@ -100,7 +100,7 @@
   
   <meta property="og:url" content="http://localhost:1313/notes/recursive_relation/">
   <meta property="og:site_name" content="Can&#39;s Blog">
-  <meta property="og:title" content="Recursive Relation">
+  <meta property="og:title" content="递归基础及题目（Recursive Relation）">
   <meta property="og:description" content="Thoughts and conclusions about learning">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
@@ -113,7 +113,7 @@
 
   
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Recursive Relation">
+  <meta name="twitter:title" content="递归基础及题目（Recursive Relation）">
   <meta name="twitter:description" content="Thoughts and conclusions about learning">
 <meta name="twitter:image" content="http://localhost:1313/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
     <meta property="og:image" content="http://localhost:1313/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
@@ -122,8 +122,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Notes",
-    "name": "Recursive Relation",
-    "headline": "Recursive Relation",
+    "name": "递归基础及题目（Recursive Relation）",
+    "headline": "递归基础及题目（Recursive Relation）",
     
     
     "inLanguage": "en",
@@ -141,7 +141,7 @@
     "keywords": ["Algorithm","Recursion","C++"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "337"
+    "wordCount": "1284"
   }]
   </script>
 
@@ -531,7 +531,7 @@
     <header id="single_header" class="mt-5 max-w-prose">
       
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        Recursive Relation
+        递归基础及题目（Recursive Relation）
       </h1>
       <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         
@@ -590,7 +590,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2025-09-15T18:25:38&#43;08:00">15 September 2025</time><span class="px-2 text-primary-500">&middot;</span><span>337 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">2 mins</span><span class="px-2 text-primary-500">&middot;</span><span>
+      <time datetime="2025-09-15T18:25:38&#43;08:00">15 September 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1284 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span><span class="px-2 text-primary-500">&middot;</span><span>
   
   
     
@@ -795,7 +795,7 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8 lg:w-1/5 lg:shrink-0">
           <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
             
               <details
@@ -814,6 +814,11 @@
     <li><a href="#以二叉树为例">以二叉树为例</a></li>
     <li><a href="#再举一例二叉树的前序遍历">再举一例：二叉树的前序遍历</a></li>
     <li><a href="#总结与建议">总结与建议</a></li>
+    <li><a href="#1-基础遍历类-basic-traversal">1. 基础遍历类 (Basic Traversal)</a></li>
+    <li><a href="#2-分治--自下而上信息汇总-divide-and-conquer--bottom-up">2. 分治 / 自下而上信息汇总 (Divide and Conquer / Bottom-up)</a></li>
+    <li><a href="#3-路径问题--自上而下信息传递-path-problems--top-down">3. 路径问题 / 自上而下信息传递 (Path Problems / Top-down)</a></li>
+    <li><a href="#4-结构比较与修改-structural-comparison--modification">4. 结构比较与修改 (Structural Comparison &amp; Modification)</a></li>
+    <li><a href="#总结与练习建议">总结与练习建议</a></li>
   </ul>
 </nav>
   </div>
@@ -831,6 +836,11 @@
     <li><a href="#以二叉树为例">以二叉树为例</a></li>
     <li><a href="#再举一例二叉树的前序遍历">再举一例：二叉树的前序遍历</a></li>
     <li><a href="#总结与建议">总结与建议</a></li>
+    <li><a href="#1-基础遍历类-basic-traversal">1. 基础遍历类 (Basic Traversal)</a></li>
+    <li><a href="#2-分治--自下而上信息汇总-divide-and-conquer--bottom-up">2. 分治 / 自下而上信息汇总 (Divide and Conquer / Bottom-up)</a></li>
+    <li><a href="#3-路径问题--自上而下信息传递-path-problems--top-down">3. 路径问题 / 自上而下信息传递 (Path Problems / Top-down)</a></li>
+    <li><a href="#4-结构比较与修改-structural-comparison--modification">4. 结构比较与修改 (Structural Comparison &amp; Modification)</a></li>
+    <li><a href="#总结与练习建议">总结与练习建议</a></li>
   </ul>
 </nav>
   </div>
@@ -927,11 +937,11 @@
       
 
 
-      <div class="min-w-0 min-h-0 max-w-fit">
+      <div class="min-w-0 min-h-0 lg:w-4/5 lg:max-w-none">
         
 
         <div class="article-content max-w-prose mb-20">
-          <p><a href="https://www.bilibili.com/video/BV1UD4y1Y769/?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=de9d0b5f46420ead2e7be875b9558767" target="_blank" rel="noopener noreferrer">B站“灵茶山艾府“的解释</a></p>
+          <p><a href="https://www.bilibili.com/video/BV1UD4y1Y769/?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=de9d0b5f46420ead2e7be875b9558767" target="_blank" rel="noopener noreferrer">B 站“灵茶山艾府“的解释</a></p>
 
 <h2 class="relative group">递归的核心思想：不是人肉压栈，而是“甩锅” 
     <div id="递归的核心思想不是人肉压栈而是甩锅" class="anchor"></div>
@@ -942,63 +952,10 @@
     </span>        
     
 </h2>
-
-  
-  
-  
-  
-
-
-
-<div
-  
-    class="flex px-4 py-3 rounded-md" style="background-color: #e63946"
-  
-  >
-  <span
-    
-      class="ltr:pr-3 rtl:pl-3 flex items-center" style="color: #1d3557"
-    
-    >
-    <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-<path fill="currentColor"  d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7 .1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4zM225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-2.8-5.6-5.6-11.2-9.8-16.8l-50.6 58.8s-81.4-103.6-87.1-110.6C133.1 243.8 112 273.2 112 306.8C112 375.4 162.6 416 225.7 416z"/></svg></span>
-  </span>
-
-  <span
-    
-      style="color: #f1faee"
-    
-    >初学者的困境：人肉模拟调用栈</span>
-</div>
-
+<p>初学者的困境：人肉模拟调用栈</p>
 <p>当递归层数很少时，比如三层，你还能模拟：<code>main</code> 调用 <code>A</code>，<code>A</code> 调用 <code>B</code>，<code>B</code> 调用 <code>C</code>。<code>C</code> 返回给 <code>B</code>，<code>B</code> 返回给 <code>A</code>，<code>A</code> 返回给 <code>main</code>。但当层数一多，你的大脑就会像计算机内存溢出一样，难以追踪。</p>
-<p>
-  
-
-
-
-<div
-  
-    class="flex px-4 py-3 rounded-md bg-primary-100 dark:bg-primary-900"
-  
-  >
-  <span
-    
-      class="text-primary-400 ltr:pr-3 rtl:pl-3 flex items-center"
-    
-    >
-    <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M506.3 417l-213.3-364c-16.33-28-57.54-28-73.98 0l-213.2 364C-10.59 444.9 9.849 480 42.74 480h426.6C502.1 480 522.6 445 506.3 417zM232 168c0-13.25 10.75-24 24-24S280 154.8 280 168v128c0 13.25-10.75 24-23.1 24S232 309.3 232 296V168zM256 416c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 401.9 273.4 416 256 416z"/></svg>
-</span>
-  </span>
-
-  <span
-    
-      class="dark:text-neutral-300"
-    
-    ><strong>正确的递归思维方式是“信任”或者叫“信念之跃”（Leap of Faith）。</strong></span>
-</div>
-
-你只需要关注两件事：</p>
+<p><strong>正确的递归思维方式是“信任”或者叫“信念之跃”（Leap of Faith）。</strong></p>
+<p>你只需要关注两件事：</p>
 <ul>
 <li>
 <p>1.终止条件（Base Case）：什么时候问题小到可以直接解决，不需要再“甩锅”给下一层了？</p>
@@ -1101,21 +1058,33 @@
 <p>1.我的目标：实现 maxDepth(root) 函数。</p>
 </li>
 <li>
-<p>2.第一步：找终止条件。 什么情况下最简单？树是空的！if (root == nullptr)，深度就是 0。搞定。</p>
+<p>2.第一步：找终止条件。 什么情况下最简单？树是空的！<code>if (root == nullptr)</code>，深度就是 0。搞定。</p>
 </li>
 <li>
-<p>3.第二步：找递归关系。 如果树不空，root 指向一个节点。这棵树的深度和它的左右孩子有什么关系？</p>
+<p>3.第二步：找递归关系。 如果树不空，<code>root</code> 指向一个节点。这棵树的深度和它的左右孩子有什么关系？</p>
 </li>
 </ul>
-<p>我需要知道左子树的深度。</p>
-<p>我需要知道右子树的深度。</p>
-<p>整棵树的深度就是 max(左深度, 右深度) + 1。</p>
+<blockquote>
+<blockquote>
+<p>左子树的深度。</p></blockquote></blockquote>
+<blockquote>
+<blockquote>
+<p>右子树的深度。</p></blockquote></blockquote>
+<blockquote>
+<blockquote>
+<p>整棵树的深度就是 <code>max(左深度, 右深度) + 1</code>。</p></blockquote></blockquote>
 <ul>
 <li>4.第三步：写代码（信念之跃）。</li>
 </ul>
-<p>如何获取左子树的深度？直接调用 maxDepth(root-&gt;left)。相信它！ 不要去想它内部是怎么对 root-&gt;left 的子节点进行递归的。就把它当成 int leftDepth = getLeftDepth() 这么一个普通的函数调用。</p>
-<p>如何获取右子树的深度？同理，调用 maxDepth(root-&gt;right)。相信它！</p>
-<p>拿到 leftDepth 和 rightDepth 后，根据第二步的分析，return std::max(leftDepth, rightDepth) + 1;。</p>
+<blockquote>
+<blockquote>
+<p>如何获取左子树的深度？直接调用<code>maxDepth(root-&gt;left)</code>。相信它！ 不要去想它内部是怎么对 <code>root-&gt;left</code> 的子节点进行递归的。就把它当成 <code>int leftDepth = getLeftDepth()</code> 这么一个普通的函数调用。</p></blockquote></blockquote>
+<blockquote>
+<blockquote>
+<p>如何获取右子树的深度？同理，调用 <code>maxDepth(root-&gt;right)</code>。相信它！</p></blockquote></blockquote>
+<blockquote>
+<blockquote>
+<p>拿到 <code>leftDepth</code> 和 <code>rightDepth</code> 后，根据第二步的分析，<code>return std::max(leftDepth, rightDepth) + 1</code>;。</p></blockquote></blockquote>
 <p><strong>整个思考过程，我们只关注“当前层”的逻辑。</strong> 我们把对子树的处理完全委托给了递归调用，我们是“管理者”，不是“微观执行者”。</p>
 <hr>
 
@@ -1146,16 +1115,16 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// “信念之跃”：我相信这个调用会完美地以前序遍历的方式打印完整个右子树
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">preOrderTraversal</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>正确思考 preOrderTraversal：</p>
+</span></span></code></pre></div><p>正确思考 <code>preOrderTraversal</code>：</p>
 <ul>
 <li>
 <p>1.我的目标：按“根-左-右”的顺序打印树。</p>
 </li>
 <li>
-<p>2.终止条件：root 是 nullptr，没什么可打印的，直接 return。</p>
+<p>2.终止条件：<code>root</code> 是 <code>nullptr</code>，没什么可打印的，直接 <code>return</code>。</p>
 </li>
 <li>
-<p>3.当前层的逻辑：如果 root 不是 nullptr，根据“根-左-右”的定义，我应该：</p>
+<p>3.当前层的逻辑：如果 <code>root</code> 不是 <code>nullptr</code>，根据“根-左-右”的定义，我应该：</p>
 </li>
 </ul>
 <blockquote>
@@ -1181,7 +1150,7 @@
 </h2>
 <ul>
 <li>
-<p>明确函数定义：在写递归函数之前，用一句话清晰地描述这个函数的功能。例如：“<code>maxDepth(node)</code>的功能是返回以 node 为根的子树的最大深度”。在后续的递归调用中，始终坚信你调用的就是这个已经实现的功能。</p>
+<p>明确函数定义：在写递归函数之前，用一句话清晰地描述这个函数的功能。例如：“<code>maxDepth(node)</code>的功能是返回以 <code>node</code> 为根的子树的最大深度”。在后续的递归调用中，始终坚信你调用的就是这个已经实现的功能。</p>
 </li>
 <li>
 <p>只考虑当前层：你的所有逻辑都应该只围绕“当前节点”展开。你需要做什么？你需要从子问题的解中得到什么信息？你如何利用这些信息？</p>
@@ -1195,6 +1164,464 @@
 </ul>
 <p>当你下次再遇到一个递归问题时，请抑制住你的大脑去模拟整个调用栈的冲动。强迫自己用上面的思维模式去思考，多练习几次，你会发现递归问题会变得异常清晰和简单。它是一种将复杂问题分解为简单、重复单元的强大思维工具。</p>
 
+<h2 class="relative group">1. 基础遍历类 (Basic Traversal) 
+    <div id="1-基础遍历类-basic-traversal" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#1-%e5%9f%ba%e7%a1%80%e9%81%8d%e5%8e%86%e7%b1%bb-basic-traversal" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>这类问题的核心是“访问”到每一个节点并执行简单操作，递归函数本身通常没有返回值（void）或者返回一个包含所有节点值的列表。</p>
+<p><strong>核心思路：</strong>
+定义一个 traverse(node) 函数，在函数内部先处理当前节点，然后递归调用 <code>traverse(node-&gt;left) </code>和 <code>traverse(node-&gt;right)</code>。根据处理当前节点的时机不同，分为前、中、后序遍历。</p>
+<p><strong>经典题目:</strong></p>
+<p><a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener noreferrer">144. 二叉树的前序遍历</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">perorder</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">perorder</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">perorder</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">preorderTraversal</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">perorder</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener noreferrer">94. 二叉树的中序遍历</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">       <span class="kt">void</span> <span class="n">inorder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">node</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">inorder</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">inorder</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">inorderTraversal</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/binary-tree-postorder-traversal/" target="_blank" rel="noopener noreferrer">145. 二叉树的后序遍历</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">postorder</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">postorder</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">postorder</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">postorderTraversal</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">postorder</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div>
+<h2 class="relative group">2. 分治 / 自下而上信息汇总 (Divide and Conquer / Bottom-up) 
+    <div id="2-分治--自下而上信息汇总-divide-and-conquer--bottom-up" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#2-%e5%88%86%e6%b2%bb--%e8%87%aa%e4%b8%8b%e8%80%8c%e4%b8%8a%e4%bf%a1%e6%81%af%e6%b1%87%e6%80%bb-divide-and-conquer--bottom-up" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>这是最最常见的一类递归问题。你相信递归函数能帮你解决子问题，然后你只需要思考如何利用子问题的解来解决当前问题。</p>
+<p><strong>核心思路</strong> ：
+“我不知道怎么解决整棵树的问题，但我假设 <code>solve(root-&gt;left) </code>和 <code>solve(root-&gt;right) </code>已经帮我解决了左右子树的问题并返回了正确的结果。现在，我只需要在当前 root 节点，利用这两个结果，计算出当前树的结果，然后 return 回去。”</p>
+<p><strong>经典题目</strong>:</p>
+<p><a href="  https://leetcode.cn/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">104. 二叉树的最大深度</a> (我们之前讨论过的)</p>
+<p>左子树深度 = <code>solve(root-&gt;left)</code>, 右子树深度 = <code>solve(root-&gt;right)</code></p>
+<p>当前树深度 = max(左子树深度, 右子树深度) + 1</p>
+<p><a href=" https://leetcode.cn/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">111. 二叉树的最小深度 </a> (最大深度的变体，注意处理只有单边子树的情况)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">minDepth</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">ldepth</span> <span class="o">=</span> <span class="n">minDepth</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">rdepth</span> <span class="o">=</span> <span class="n">minDepth</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">ldepth</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">rdepth</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">min</span><span class="p">(</span><span class="n">ldepth</span><span class="p">,</span> <span class="n">rdepth</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/diameter-of-binary-tree/" target="_blank" rel="noopener noreferrer">543. 二叉树的直径</a></p>
+<p>子问题返回子树的深度。</p>
+<p>当前节点计算的“穿过我的直径”是 左深度 + 右深度，同时更新全局最大值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">landrDepth</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">maxdepth</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">ldepth</span> <span class="o">=</span> <span class="n">landrDepth</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span><span class="n">maxdepth</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">rdepth</span> <span class="o">=</span> <span class="n">landrDepth</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span><span class="n">maxdepth</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">currentdepth</span> <span class="o">=</span> <span class="n">ldepth</span> <span class="o">+</span> <span class="n">rdepth</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">maxdepth</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">maxdepth</span><span class="p">,</span><span class="n">currentdepth</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">max</span><span class="p">(</span><span class="n">ldepth</span><span class="p">,</span><span class="n">rdepth</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">diameterOfBinaryTree</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">maxdepth</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">landrDepth</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="n">maxdepth</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">maxdepth</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/balanced-binary-tree/" target="_blank" rel="noopener noreferrer">110. 平衡二叉树</a></p>
+<p>子问题需要返回两个信息：子树是否平衡，以及子树的高度。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">isBalanced</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">dep</span><span class="p">(</span><span class="n">root</span><span class="p">)</span><span class="o">!=-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">dep</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="k">nullptr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">ldepth</span> <span class="o">=</span> <span class="n">dep</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">ldepth</span><span class="o">==-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">rdepth</span> <span class="o">=</span> <span class="n">dep</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">rdepth</span><span class="o">==-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// chazhi = max(chazhi,abs(ldepth - rdepth));
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">ldepth</span> <span class="o">-</span> <span class="n">rdepth</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">max</span><span class="p">(</span><span class="n">ldepth</span><span class="p">,</span><span class="n">rdepth</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><a href="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">236.二叉树的最近公共祖先</a></p>
+<ul>
+<li>
+<p>子问题返回在子树中是否找到了 p 或 q。</p>
+</li>
+<li>
+<p>当前节点根据左右子树的返回情况做出判断。</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">root</span> <span class="o">==</span> <span class="n">p</span> <span class="o">||</span> <span class="n">root</span> <span class="o">==</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 函数不是在“寻找祖先”，而是在“汇报发现”。这个算法巧妙地改变了子问题的定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 把一个复杂的“寻找LCA”问题，降维成了一个简单的“寻找p或q”的问题
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">TreeNode</span><span class="o">*</span> <span class="n">llow</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">TreeNode</span><span class="o">*</span> <span class="n">rlow</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">llow</span><span class="o">==</span><span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">rlow</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">llow</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;</span> <span class="n">rlow</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">llow</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">rlow</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">llow</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// if (rlow != NULL &amp;&amp; llow == NULL) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     return rlow;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="n">rlow</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div>
+<h2 class="relative group">3. 路径问题 / 自上而下信息传递 (Path Problems / Top-down) 
+    <div id="3-路径问题--自上而下信息传递-path-problems--top-down" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#3-%e8%b7%af%e5%be%84%e9%97%ae%e9%a2%98--%e8%87%aa%e4%b8%8a%e8%80%8c%e4%b8%8b%e4%bf%a1%e6%81%af%e4%bc%a0%e9%80%92-path-problems--top-down" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>这类问题与上一类相反，子问题的解决需要依赖其父节点的信息。因此，你需要通过递归函数的参数将信息自上而下地传递下去。</p>
+<p><strong>核心思路</strong>：
+“我需要定义一个 <code>solve(node, state) </code>函数，其中 <code>state</code> 是从根节点到我父节点为止积累的状态。在函数内部，我根据 <code>state </code>和当前<code>node</code> 的值计算出新的状态 new_state，然后把它传递给我的子节点<code>solve(node-&gt;left, new_state)</code>和 <code>solve(node-&gt;right, new_state)</code>。”</p>
+<p><strong>经典题目</strong>:</p>
+<p><a href="https://leetcode.cn/problems/path-sum/description/" target="_blank" rel="noopener noreferrer">112. 路径总和</a></p>
+<p>向下传递 <code>targetSum - node-&gt;val</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="nf">hasPathSum</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">targetSum</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">targetSum</span> <span class="o">-=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">targetSum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">res1</span> <span class="o">=</span> <span class="n">hasPathSum</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">targetSum</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">res2</span> <span class="o">=</span> <span class="n">hasPathSum</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">targetSum</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">res1</span> <span class="o">||</span> <span class="n">res2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></div><p><a href="https://leetcode.cn/problems/sum-root-to-leaf-numbers/description/" target="_blank" rel="noopener noreferrer">129. 求根节点到叶节点数字之和</a></p>
+<p>向下传递 <code>currentSum \* 10 + node-&gt;val</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">totalsum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">currentnum</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">parentnum</span> <span class="o">=</span> <span class="n">currentnum</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">totalsum</span> <span class="o">=</span> <span class="n">totalsum</span> <span class="o">+</span> <span class="n">parentnum</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">traverse</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">parentnum</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">traverse</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">parentnum</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">sumNumbers</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">traverse</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">totalsum</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><a href="https://leetcode.cn/problems/binary-tree-paths/description/" target="_blank" rel="noopener noreferrer">257. 二叉树的所有路径 </a></p>
+<p>向下传递当前路径的字符串 <code>currentPath + &quot;-&gt;&quot; + node-&gt;val</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">ans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">getpath</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">string</span> <span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">+</span><span class="n">to_string</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ans</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">+</span><span class="s">&#34;-&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">getpath</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">getpath</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">binaryTreePaths</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">getpath</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/path-sum-ii/description/" target="_blank" rel="noopener noreferrer">113. 路径总和 II (路径总和的升级版) </a></p>
+<p>向下传递当前路径的节点列表<code> vector&lt;int&gt; currentPath</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">path</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">ans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">cacula</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">currentnum</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="k">nullptr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">currentnum</span> <span class="o">=</span> <span class="n">currentnum</span> <span class="o">-</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">currentnum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ans</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">path</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">path</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cacula</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">currentnum</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cacula</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">currentnum</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">pathSum</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">targetSum</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cacula</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">targetSum</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div>
+<h2 class="relative group">4. 结构比较与修改 (Structural Comparison &amp; Modification) 
+    <div id="4-结构比较与修改-structural-comparison--modification" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#4-%e7%bb%93%e6%9e%84%e6%af%94%e8%be%83%e4%b8%8e%e4%bf%ae%e6%94%b9-structural-comparison--modification" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>这类问题通常涉及两棵树，或者需要翻转、修改树的结构。</p>
+<p><strong>核心思路：</strong></p>
+<p>递归函数通常同时作用于两棵树的对应节点，或者在修改完当前节点的结构后，再对子节点进行递归调用。</p>
+<p><strong>经典题目:</strong></p>
+<p><a href=" https://leetcode.cn/problems/same-tree/" target="_blank" rel="noopener noreferrer">100. 相同的树 </a></p>
+<p><code>isSameTree(p, q)</code> 依赖于 <code>isSameTree(p-&gt;left, q-&gt;left) </code>和 <code>isSameTree(p-&gt;right, q-&gt;right) </code>的结果。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">isSameTree</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">==</span><span class="k">nullptr</span><span class="o">&amp;&amp;</span><span class="n">q</span><span class="o">==</span><span class="k">nullptr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">((</span><span class="n">p</span><span class="o">==</span><span class="k">nullptr</span><span class="o">&amp;&amp;</span><span class="n">q</span><span class="o">!=</span><span class="k">nullptr</span><span class="p">)</span><span class="o">||</span><span class="p">(</span><span class="n">p</span><span class="o">!=</span><span class="k">nullptr</span><span class="o">&amp;&amp;</span><span class="n">q</span><span class="o">==</span><span class="k">nullptr</span><span class="p">)</span><span class="o">||</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">!=</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">isLeftSame</span> <span class="o">=</span> <span class="n">isSameTree</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">isRightSame</span> <span class="o">=</span> <span class="n">isSameTree</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">isLeftSame</span><span class="o">&amp;&amp;</span><span class="n">isRightSame</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/symmetric-tree/" target="_blank" rel="noopener noreferrer">101. 对称二叉树 </a></p>
+<p>这是判断两棵树是否镜像对称的变体。递归函数 <code>isMirror(p, q) </code>依赖于 <code>isMirror(p-&gt;left, q-&gt;right) </code>和<code> isMirror(p-&gt;right, q-&gt;left)</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">isMirror</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">q</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">((</span><span class="n">p</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">q</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">q</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">||</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">!=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">))</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">isSameOuter</span> <span class="o">=</span> <span class="n">isMirror</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">isSameInner</span> <span class="o">=</span> <span class="n">isMirror</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">isSameOuter</span> <span class="o">&amp;&amp;</span> <span class="n">isSameInner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="nf">isSymmetric</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">isMirror</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/invert-binary-tree/" target="_blank" rel="noopener noreferrer">226. 翻转二叉树 </a></p>
+<p>在当前节点交换左右子节点，然后递归调用<code> invertTree(root-&gt;left)</code> 和 <code>invertTree(root-&gt;right)</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TreeNode</span><span class="o">*</span> <span class="n">invertTree</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">TreeNode</span><span class="o">*</span> <span class="n">left</span> <span class="o">=</span> <span class="n">invertTree</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">TreeNode</span><span class="o">*</span> <span class="n">right</span> <span class="o">=</span> <span class="n">invertTree</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div>
+<h2 class="relative group">总结与练习建议 
+    <div id="总结与练习建议" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e6%80%bb%e7%bb%93%e4%b8%8e%e7%bb%83%e4%b9%a0%e5%bb%ba%e8%ae%ae" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<table>
+  <thead>
+      <tr>
+          <th>题号</th>
+          <th>题目</th>
+          <th>核心思路</th>
+          <th>类 别</th>
+          <th>状态</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>94, 144, 145</td>
+          <td>二叉树遍历</td>
+          <td>访问所有节点</td>
+          <td>基础遍历</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>104, 111</td>
+          <td>树的深度</td>
+          <td>从子树获取深度，组合成当前深度</td>
+          <td>分治 / 自下而上</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>543</td>
+          <td>二叉树的直径</td>
+          <td>从子树获取深度，计算穿过当前节点的直径</td>
+          <td>分治 / 自下而上</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>110</td>
+          <td>平衡二叉树</td>
+          <td>从子树获取“是否平衡”和“深度”两个信息</td>
+          <td>分治 / 自下而上</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>236</td>
+          <td>最近公共祖先</td>
+          <td>从子树获取是否包含目标节点的信息</td>
+          <td>分治 / 自下而上</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>112, 113</td>
+          <td>路径总和</td>
+          <td>将目标和减去当前值，向下传递</td>
+          <td>路径 / 自上而下</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>129</td>
+          <td>求根到叶节点数字之和</td>
+          <td>将当前路径和乘以 10 加上当前值，向下传递</td>
+          <td>路径 / 自上而下</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>257</td>
+          <td>二叉树的所有路径</td>
+          <td>将当前路径字符串拼接上当前值，向下传递</td>
+          <td>路径 / 自上而下</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>100</td>
+          <td>相同的树</td>
+          <td>同时递归比较两棵树的对应子树</td>
+          <td>结构比较</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>101</td>
+          <td>对称二叉树</td>
+          <td>同时递归比较一棵树的内外侧子树</td>
+          <td>结构比较</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>226</td>
+          <td>翻转二叉树</td>
+          <td>交换当前节点的左右子节点，然后递归翻转子树</td>
+          <td>结构修改</td>
+          <td>✅</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>如何练习：</strong></p>
+<p>从基础遍历开始，确保你理解前、中、后序的区别。</p>
+<p>主攻“分治 / 自下而上”，这是最重要的递归模式。以“最大深度”为模板，彻底理解“信任”递归调用的思想。</p>
+<p>然后练习“路径 / 自上而下”，理解通过参数传递状态的方法。</p>
+<p>最后解决结构类问题，它们通常是前面几种思想的结合或变体。</p>
+<p>几乎所有二叉树问题都能被归入这几类。当你遇到一个新问题时，先思考一下：“解决这个问题，我需要从子树获得什么信息，还是需要向子树传递什么信息？” 这能帮助你快速确定递归的结构。</p>
+
           
           
           
@@ -1202,7 +1629,7 @@
               <a
                 target="_blank"
                 class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-                href="mailto:ryc1819009649@163.com?subject=Reply%20to%20Recursive%20Relation">
+                href="mailto:ryc1819009649@163.com?subject=Reply%20to%20%e9%80%92%e5%bd%92%e5%9f%ba%e7%a1%80%e5%8f%8a%e9%a2%98%e7%9b%ae%ef%bc%88Recursive%20Relation%ef%bc%89">
                 Reply by Email
               </a>
             </strong>

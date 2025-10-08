@@ -1,0 +1,27 @@
+{{- $color := .Params.color | default "primary" -}}
+{{- $bgClass := "" -}}
+{{- $textClass := "" -}}
+{{- $borderClass := "" -}}
+{{- if eq $color "yellow" -}}
+{{- $bgClass = "bg-yellow-100 dark:bg-yellow-900" -}}
+{{- $textClass = "text-yellow-800 dark:text-yellow-300" -}}
+{{- $borderClass = "border-yellow-400 dark:border-yellow-600" -}}
+{{- else if eq $color "green" -}}
+{{- $bgClass = "bg-green-100 dark:bg-green-900" -}}
+{{- $textClass = "text-green-800 dark:text-green-300" -}}
+{{- $borderClass = "border-green-400 dark:border-green-600" -}}
+{{- else if eq $color "red" -}}
+{{- $bgClass = "bg-red-100 dark:bg-red-900" -}}
+{{- $textClass = "text-red-800 dark:text-red-300" -}}
+{{- $borderClass = "border-red-400 dark:border-red-600" -}}
+{{- else -}}
+{{- $bgClass = "bg-primary-100 dark:bg-primary-900" -}}
+{{- $textClass = "text-primary-800 dark:text-primary-300" -}}
+{{- $borderClass = "border-primary-400 dark:border-primary-600" -}}
+{{- end -}}
+<span class="flex cursor-pointer">
+    <span
+        class="rounded-md border px-1 py-[1px] text-xs font-normal {{ $borderClass }} {{ $bgClass }} {{ $textClass }}">
+        {{ .Inner }}
+    </span>
+</span>

@@ -114,3 +114,52 @@ git tag v1 main~2(main 的上两级) //建立一个标签，指向提交记录 C
 git checkout HEAD^2                   //去到当前分支的较远的 parent 节点
 git branch bugWork main^^2^           //创建 bugWork 并且移动到 main 父节点的第二个父节点的父节点
 ```
+
+### 偏离的提交历史
+
+假设你周一克隆了一个仓库，然后开始研发某个新功能。到周五时，你新功能开发测试完毕，可以发布了。但是 —— 天啊！你的同事这周写了一堆代码，还改了许多你的功能中使用的 API，这些变动会导致你新开发的功能变得不可用。但是他们已经将那些提交推送到远程仓库了，因此你的工作就变成了基于项目旧版的代码，与远程仓库最新的代码不匹配了。
+
+```
+git fetch;  //更新了本地仓库中的远程分支
+git rebase o/main;  //将我们的工作移动到最新的提交记录下
+git push  //推送到远程仓库
+```
+
+也可以使用 merge
+
+```
+git fetch;  //更新了本地仓库中的远程分支
+git merge o/main;  //将合并了新变更到我们的本地分支（为了包含远程仓库的变更
+git push  //推送到远程仓库
+```
+
+`git pull` 就是 `fetch` 和 `merge` 的简写，类似的 `git pull --rebase` 就是 `fetch` 和 `rebase` 的简写
+
+### 远程服务器拒绝!(Remote Rejected)
+
+远程服务器拒绝直接推送(push)提交到 main, 因为策略配置要求 pull requests 来提交更新.
+
+你应该按照流程,新建一个分支, 推送(push)这个分支并申请 pull request,但是你忘记并直接提交给了 main.现在你卡住并且无法推送你的更新
+
+新建一个分支 feature, 推送到远程服务器. 然后 reset 你的 main 分支和远程服务器保持一致, 否则下次你 pull 并且他人的提交和你冲突的时候就会有问题.
+
+![alt text](image-1.png)
+
+```
+git branch -f main o/main
+git checkout -b feature C2
+git push origin feature
+```
+
+### 合并多个分支
+
+![alt text](image-2.png)
+
+```
+git fetch
+git rebase o/main side1
+git rebase side1 side2
+git rebase side2 side3
+git push
+
+```
