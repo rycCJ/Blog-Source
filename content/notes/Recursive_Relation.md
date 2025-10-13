@@ -322,6 +322,8 @@ int landrDepth(TreeNode* root,int& maxdepth) {
 
 ### <a href=" https://leetcode.cn/problems/balanced-binary-tree/" target="_blank" rel="noopener noreferrer">110. 平衡二叉树</a>
 
+引入-1，蛮有意思......
+
 子问题需要返回两个信息：子树是否平衡，以及子树的高度。
 
 ```cpp
@@ -359,28 +361,27 @@ public:
 
 - 当前节点根据左右子树的返回情况做出判断。
 
+把一个复杂的“寻找 LCA”问题，降维成了一个简单的“寻找 p 或 q”的问题 emmm 怪有意思......
+
 ```cpp
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    if (root == NULL || root == p || root == q) {
+        //如果你确定树中所有节点的值唯一（比如二叉搜索树 BST 中常常是这样），那用 root->val == p->val 也可以。
+    if (root == nullptr || root == p || root == q) {
             return root;
         }
         // 函数不是在“寻找祖先”，而是在“汇报发现”。这个算法巧妙地改变了子问题的定义
         // 把一个复杂的“寻找LCA”问题，降维成了一个简单的“寻找p或q”的问题
-        TreeNode* llow = lowestCommonAncestor(root->left, p, q);
-        TreeNode* rlow = lowestCommonAncestor(root->right, p, q);
-        if (llow==NULL && rlow == NULL) {
-            return NULL;
-        }
-        if (llow != NULL & rlow != NULL) {
+        TreeNode *lAncestor = lowestCommonAncestor(root->left, p, q);
+
+        TreeNode *rAncestor = lowestCommonAncestor(root->right, p, q);
+
+        if (lAncestor ==nullptr&&rAncestor==nullptr)
+            return nullptr;
+        if (lAncestor != nullptr && rAncestor != nullptr)
             return root;
-        }
-        if (llow != NULL && rlow == NULL) {
-            return llow;
-        }
-        // if (rlow != NULL && llow == NULL) {
-        //     return rlow;
-        // }
-        return rlow;
+        if (lAncestor == nullptr && rAncestor != nullptr)
+            return rAncestor;
+        return lAncestor;
     }
 ```
 
