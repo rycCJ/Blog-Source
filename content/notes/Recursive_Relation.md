@@ -198,7 +198,7 @@ void preOrderTraversal(TreeNode* root) {
 
 **经典题目:**
 
-<a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener noreferrer">144. 二叉树的前序遍历</a>
+### <a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener noreferrer">144. 二叉树的前序遍历</a>
 
 ```cpp
     class Solution {
@@ -218,7 +218,7 @@ public:
 };
 ```
 
-<a href=" https://leetcode.cn/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener noreferrer">94. 二叉树的中序遍历</a>
+### <a href=" https://leetcode.cn/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener noreferrer">94. 二叉树的中序遍历</a>
 
 ```cpp
 class Solution
@@ -241,7 +241,7 @@ public:
 };
 ```
 
-<a href=" https://leetcode.cn/problems/binary-tree-postorder-traversal/" target="_blank" rel="noopener noreferrer">145. 二叉树的后序遍历</a>
+### <a href=" https://leetcode.cn/problems/binary-tree-postorder-traversal/" target="_blank" rel="noopener noreferrer">145. 二叉树的后序遍历</a>
 
 ```cpp
 class Solution {
@@ -272,13 +272,13 @@ public:
 
 **经典题目**:
 
-<a href="  https://leetcode.cn/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">104. 二叉树的最大深度</a> (我们之前讨论过的)
+### <a href="  https://leetcode.cn/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">104. 二叉树的最大深度</a> (我们之前讨论过的)
 
 左子树深度 = `solve(root->left)`, 右子树深度 = `solve(root->right)`
 
 当前树深度 = max(左子树深度, 右子树深度) + 1
 
-<a href=" https://leetcode.cn/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">111. 二叉树的最小深度 </a> (最大深度的变体，注意处理只有单边子树的情况)
+### <a href=" https://leetcode.cn/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">111. 二叉树的最小深度 </a> (最大深度的变体，注意处理只有单边子树的情况)
 
 ```cpp
     int minDepth(TreeNode* root) {
@@ -296,7 +296,7 @@ public:
     }
 ```
 
-<a href=" https://leetcode.cn/problems/diameter-of-binary-tree/" target="_blank" rel="noopener noreferrer">543. 二叉树的直径</a>
+### <a href=" https://leetcode.cn/problems/diameter-of-binary-tree/" target="_blank" rel="noopener noreferrer">543. 二叉树的直径</a>
 
 子问题返回子树的深度。
 
@@ -320,7 +320,7 @@ int landrDepth(TreeNode* root,int& maxdepth) {
     }
 ```
 
-<a href=" https://leetcode.cn/problems/balanced-binary-tree/" target="_blank" rel="noopener noreferrer">110. 平衡二叉树</a>
+### <a href=" https://leetcode.cn/problems/balanced-binary-tree/" target="_blank" rel="noopener noreferrer">110. 平衡二叉树</a>
 
 子问题需要返回两个信息：子树是否平衡，以及子树的高度。
 
@@ -353,7 +353,7 @@ public:
 };
 ```
 
-<a href="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">236.二叉树的最近公共祖先</a>
+### <a href="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">236.二叉树的最近公共祖先</a>
 
 - 子问题返回在子树中是否找到了 p 或 q。
 
@@ -393,7 +393,7 @@ public:
 
 **经典题目**:
 
-<a href="https://leetcode.cn/problems/path-sum/description/" target="_blank" rel="noopener noreferrer">112. 路径总和</a>
+### <a href="https://leetcode.cn/problems/path-sum/description/" target="_blank" rel="noopener noreferrer">112. 路径总和</a>
 
 向下传递 `targetSum - node->val`。
 
@@ -411,7 +411,7 @@ public:
   }
 ```
 
-<a href="https://leetcode.cn/problems/sum-root-to-leaf-numbers/description/" target="_blank" rel="noopener noreferrer">129. 求根节点到叶节点数字之和</a>
+### <a href="https://leetcode.cn/problems/sum-root-to-leaf-numbers/description/" target="_blank" rel="noopener noreferrer">129. 求根节点到叶节点数字之和</a>
 
 向下传递 `currentSum \* 10 + node->val`。
 
@@ -438,7 +438,7 @@ public:
 };
 ```
 
-<a href="https://leetcode.cn/problems/binary-tree-paths/description/" target="_blank" rel="noopener noreferrer">257. 二叉树的所有路径 </a>
+### <a href="https://leetcode.cn/problems/binary-tree-paths/description/" target="_blank" rel="noopener noreferrer">257. 二叉树的所有路径 </a>
 
 向下传递当前路径的字符串 `currentPath + "->" + node->val`。
 
@@ -467,7 +467,7 @@ public:
 };
 ```
 
-<a href=" https://leetcode.cn/problems/path-sum-ii/description/" target="_blank" rel="noopener noreferrer">113. 路径总和 II (路径总和的升级版) </a>
+### <a href=" https://leetcode.cn/problems/path-sum-ii/description/" target="_blank" rel="noopener noreferrer">113. 路径总和 II (路径总和的升级版) </a>
 
 向下传递当前路径的节点列表` vector<int> currentPath`。
 
@@ -518,7 +518,7 @@ public:
 
 **经典题目:**
 
-<a href=" https://leetcode.cn/problems/same-tree/" target="_blank" rel="noopener noreferrer">100. 相同的树 </a>
+### <a href=" https://leetcode.cn/problems/same-tree/" target="_blank" rel="noopener noreferrer">100. 相同的树 </a>
 
 `isSameTree(p, q)` 依赖于 `isSameTree(p->left, q->left) `和 `isSameTree(p->right, q->right) `的结果。
 
@@ -541,7 +541,7 @@ public:
 };
 ```
 
-<a href=" https://leetcode.cn/problems/symmetric-tree/" target="_blank" rel="noopener noreferrer">101. 对称二叉树 </a>
+### <a href=" https://leetcode.cn/problems/symmetric-tree/" target="_blank" rel="noopener noreferrer">101. 对称二叉树 </a>
 
 这是判断两棵树是否镜像对称的变体。递归函数 `isMirror(p, q) `依赖于 `isMirror(p->left, q->right) `和` isMirror(p->right, q->left)`。
 
@@ -568,7 +568,7 @@ public:
     }
 ```
 
-<a href=" https://leetcode.cn/problems/invert-binary-tree/" target="_blank" rel="noopener noreferrer">226. 翻转二叉树 </a>
+### <a href=" https://leetcode.cn/problems/invert-binary-tree/" target="_blank" rel="noopener noreferrer">226. 翻转二叉树 </a>
 
 在当前节点交换左右子节点，然后递归调用` invertTree(root->left)` 和 `invertTree(root->right)`。
 
@@ -615,3 +615,220 @@ public:
 最后解决结构类问题，它们通常是前面几种思想的结合或变体。
 
 几乎所有二叉树问题都能被归入这几类。当你遇到一个新问题时，先思考一下：“解决这个问题，我需要从子树获得什么信息，还是需要向子树传递什么信息？” 这能帮助你快速确定递归的结构。
+
+## 更多练习题目：\*\*
+
+### <a href=" https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/" target="_blank" rel="noopener noreferrer">108. 将有序数组转换为二叉搜索树 </a>
+
+```cpp
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) { return help(nums,0,nums.size()-1); }
+    TreeNode* help(vector<int>& nums, int left, int right) {
+        if (left > right) {  //左右相同的下一步就是左边大于右边，左右相同得放进树里面
+            return nullptr;
+        }
+        int mid = (left + right + 1) / 2;
+        TreeNode* root = new TreeNode(nums[mid]);
+        root->left = help(nums, left, mid - 1);
+        root->right = help(nums, mid + 1, right);
+        return root;
+    }
+};
+```
+
+### <a href=" https://leetcode.cn/problems/validate-binary-search-tree/" target="_blank" rel="noopener noreferrer">98. 验证二叉搜索树 </a>
+
+方案 1：中序遍历（推荐的简洁方法）
+**核心原理：**
+对一个二叉搜索树（BST）进行中序遍历（左 → 根 → 右），得到的节点值序列一定是严格递增的。
+
+```cpp
+class Solution {
+private:
+    // 必须用成员变量或引用参数来维护这个状态
+    long long prevVal = LLONG_MIN;
+
+public:
+    bool isValidBST(TreeNode* root) {
+        if (root == nullptr) {
+            return true;
+        }
+
+        // 1. 递归检查左子树
+        if (!isValidBST(root->left)) {
+            return false;
+        }
+
+        // 2. 检查当前节点（中序遍历的核心逻辑）
+        // 核心：当前值必须严格大于上一个值
+        if (root->val <= prevVal) {
+            return false;
+        }
+
+        // 3. 更新上一个值
+        prevVal = root->val;
+
+        // 4. 递归检查右子树
+        return isValidBST(root->right);
+    }
+};
+```
+
+方案 2：上下限递归（更基础的方法）
+
+```cpp
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        return helper(root,LLONG_MIN,LLONG_MAX);
+    }
+    bool helper(TreeNode* root, long long lower, long long upper) {
+        if (root == nullptr)
+            return true;
+        if (root->val <= lower || root->val >= upper)
+            return false;
+        bool left = helper(root->left, lower, root->val);
+        bool right = helper(root->right, root->val, upper);
+        return left && right;
+    }
+};
+```
+
+### <a href=" https://leetcode.cn/problems/kth-smallest-element-in-a-bst/" target="_blank" rel="noopener noreferrer">230. 二叉搜索树中第 K 小的元素 </a>
+
+```cpp
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        vector<int> result;
+        helper(root,result);
+        return result[k-1];
+    }
+    void helper(TreeNode* root, vector<int>& res) {
+        if (root == nullptr)
+            return;
+        helper(root->left,res);
+        res.push_back(root->val);
+        helper(root->right,res);
+    }
+};
+```
+
+使用布尔信号提前终止
+
+```cpp
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        vector<int> result;
+        helper(root, result, k);
+        return result[k - 1];
+    }
+    bool helper(TreeNode* root, vector<int>& res, int n) {
+        // 递归终止条件 1: 节点为空，返回 false (继续遍历)
+        if (root == nullptr)
+            return false;
+        // 递归终止条件 2: 已经找到 K 个元素，直接返回 true (停止)
+        if (res.size() == n) {
+            return true;
+        }
+        if (helper(root->left, res, n))
+            return true;
+        res.push_back(root->val);
+        if (res.size() == n) {
+            return true;
+        }
+        return helper(root->right, res, n);
+
+    }
+};
+```
+
+### <a href=" https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/" target="_blank" rel="noopener noreferrer">114. 二叉树展开为链表 </a>
+
+方法一：普通方法（递归）
+
+```cpp
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        vector<TreeNode*> res;
+        help(root, res);
+        int n = res.size();
+
+        for (int i = 0; i < n-1; i++) {
+            TreeNode* node = res[i];
+            node->left =nullptr;
+            node->right = res[i+1];
+        }
+    }
+    void help(TreeNode* root, vector<TreeNode*>& res) {
+        if (root != nullptr) {
+            res.push_back(root);
+            help(root->left, res);
+            help(root->right, res);
+        }
+    }
+};
+```
+
+方法二：递归/逆向先序遍历 (Right → Left → Root)
+
+```cpp
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        help(root);
+    }
+    TreeNode* pre = nullptr;
+    void help(TreeNode* root) {
+        if (root == nullptr) {
+            return;
+        }
+        help(root->right);
+        help(root->left);
+
+
+        root->right = pre;
+        root->left = nullptr;
+        pre = root;
+        return;
+    }
+};
+
+```
+
+方法三：迭代 + 寻找前驱 (Morris Traversal 思想) //看不懂思密达
+
+```cpp
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+            TreeNode* curr = root;
+
+    while (curr != nullptr) {
+        // 1. 如果有左子树
+        if (curr->left != nullptr) {
+
+            // 2. 找到左子树的最右节点 (前驱 predecessor)
+            TreeNode* predecessor = curr->left;
+            while (predecessor->right != nullptr) {
+                predecessor = predecessor->right;
+            }
+
+            // 3. 关键连接：将右子树接在左子树的末尾
+            predecessor->right = curr->right;
+
+            // 4. 重排：将左子树整体搬到右侧
+            curr->right = curr->left;
+            curr->left = nullptr; // 清空左指针
+        }
+
+        // 5. 前进到下一个节点（即原先的右子树或新的右子树的根）
+        curr = curr->right;
+    }
+    }
+
+};
+```
