@@ -63,20 +63,20 @@
     
     <item>
       <title>Publishing_process 博客发布流程</title>
-      <link>http://localhost:1313/posts/publishing_process/</link>
+      <link>http://localhost:1313/posts/learnmd/</link>
       <pubDate>Sat, 09 Aug 2025 17:06:14 +0800</pubDate>
       <author>ryc1819009649@163.com (Can)</author>
-      <guid>http://localhost:1313/posts/publishing_process/</guid>
+      <guid>http://localhost:1313/posts/learnmd/</guid>
       <description></description>
       
     </item>
     
     <item>
-      <title></title>
-      <link>http://localhost:1313/posts/learnmd/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Publishing_process 博客发布流程</title>
+      <link>http://localhost:1313/posts/publishing_process/</link>
+      <pubDate>Sat, 09 Aug 2025 17:06:14 +0800</pubDate>
       <author>ryc1819009649@163.com (Can)</author>
-      <guid>http://localhost:1313/posts/learnmd/</guid>
+      <guid>http://localhost:1313/posts/publishing_process/</guid>
       <description></description>
       
     </item>

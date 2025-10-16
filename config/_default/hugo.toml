@@ -51,6 +51,8 @@ weight = 100
 name = "categories"
 weight = 100
 
+[params]
+  customCSS = ["css/custom.css"] # <-- 直接在这里添加
 # Firebase 配置 (请填入您的真实密钥)
 [firebase]
 # apiKey = "XXXXXX"

@@ -14,87 +14,35 @@
   <meta name="theme-color">
 
   
-  <title>递归基础及题目（Recursive Relation） &middot; Can&#39;s Blog</title>
+  
+    <title>递归基础及题目（Recursive Relation） &middot; Can&#39;s Blog</title>
     <meta name="title" content="递归基础及题目（Recursive Relation） &middot; Can&#39;s Blog">
+  
 
   
-  <meta name="description" content="Thoughts and conclusions about learning">
-  <meta name="keywords" content="Algorithm,Recursion,C&#43;&#43;,">
+  
+    <meta name="description" content="Thoughts and conclusions about learning">
+  
+  
+    <meta name="keywords" content="Algorithm,Recursion,C&#43;&#43;,">
+  
   
   
   <link rel="canonical" href="http://localhost:1313/notes/recursive_relation/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.72dd52d10463a4c2741f2b70487edbea2aaf9b2342820c8b7e13d774c27a9e24808a038a8d12a089bd94c51f43ed548bac2cc6beef74002b117f5c8e54ecaa24.css"
-    integrity="sha512-ct1S0QRjpMJ0HytwSH7b6iqvmyNCggyLfhPXdMJ6niSAigOKjRKgib2UxR9D7VSLrCzGvu90ACsRf1yOVOyqJA==">
 
   
   
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+    <meta name="author" content="Can">
   
   
     
+      
+        
+          <link href="https://github.com/rycCJ" rel="me">
+        
+      
     
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.23ea3460af5452ae8f79e1d229b2694d6acd1a8f21fc49784791d34b0b171648e4bf38275b7c39a9d11f1ac8f551b76a6381522262cfc1a1df6caaf9eb86adaa.js"
-      integrity="sha512-I&#43;o0YK9UUq6PeeHSKbJpTWrNGo8h/El4R5HTSwsXFkjkvzgnW3w5qdEfGsj1UbdqY4FSImLPwaHfbKr564atqg=="
-      data-copy="Copy"
-      data-copied="Copied"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.b4b722fcb5d42f34f52b30a92f3521b69f403ca9d96d0d6179eb537cb870f5d83fdf1fe836688d95d5c99fefbda4170487711006e56051fa67ea00da10521721.js" integrity="sha512-tLci/LXULzT1KzCpLzUhtp9APKnZbQ1heetTfLhw9dg/3x/oNmiNldXJn&#43;&#43;9pBcEh3EQBuVgUfpn6gDaEFIXIQ=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
   
 
   
@@ -115,50 +63,105 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="递归基础及题目（Recursive Relation）">
   <meta name="twitter:description" content="Thoughts and conclusions about learning">
-<meta name="twitter:image" content="http://localhost:1313/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
-    <meta property="og:image" content="http://localhost:1313/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Notes",
-    "name": "递归基础及题目（Recursive Relation）",
-    "headline": "递归基础及题目（Recursive Relation）",
-    
-    
-    "inLanguage": "en",
-    "url" : "http:\/\/localhost:1313\/notes\/recursive_relation\/",
-    "author" : {
-      "@type": "Person",
-      "name": "Can"
-    },
-    "copyrightYear": "2025",
-    "dateCreated": "2025-09-15T18:25:38\u002b08:00",
-    "datePublished": "2025-09-15T18:25:38\u002b08:00",
-    
-    "dateModified": "2025-09-15T18:25:38\u002b08:00",
-    
-    "keywords": ["Algorithm","Recursion","C++"],
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "1769"
-  }]
-  </script>
-
-
 
   
   
-    <meta name="author" content="Can">
   
   
     
       
-        
-          <link href="https://github.com/rycCJ" rel="me">
-        
+    
+  
+    
       
     
+  
+    
+      
+    
+  
+  
+    
+      
+      
+        
+      
+      
+        <meta name="twitter:image" content="http://localhost:1313/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
+        <meta property="og:image" content="http://localhost:1313/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.f9007fde796f10881b03672be6ea50c329839eb5f8ca8d5d018c160118c941fcbb64e7592c77f4c8e128c36be61dfcfc72083b3e5d6a99d4755f3d376ca11ab7.css"
+    integrity="sha512-&#43;QB/3nlvEIgbA2cr5upQwymDnrX4yo1dAYwWARjJQfy7ZOdZLHf0yOEow2vmHfz8cgg7Pl1qmdR1Xz03bKEatw==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.b4b722fcb5d42f34f52b30a92f3521b69f403ca9d96d0d6179eb537cb870f5d83fdf1fe836688d95d5c99fefbda4170487711006e56051fa67ea00da10521721.js" integrity="sha512-tLci/LXULzT1KzCpLzUhtp9APKnZbQ1heetTfLhw9dg/3x/oNmiNldXJn&#43;&#43;9pBcEh3EQBuVgUfpn6gDaEFIXIQ=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.f16cf48651044bc66625c8008eb5605cc702530530daa081ce7e495e50adf778bef6cd0747382983caf5e5cc745c819dd7a969e17e545119dff14346f4fcb977.js"
+      integrity="sha512-8Wz0hlEES8ZmJcgAjrVgXMcCUwUw2qCBzn5JXlCt93i&#43;9s0HRzgpg8r15cx0XIGd16lp4X5UURnf8UNG9Py5dw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
   
 
   
@@ -188,12 +191,64 @@
 
 
 
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Notes",
+    "name": "递归基础及题目（Recursive Relation）",
+    "headline": "递归基础及题目（Recursive Relation）",
+    
+    
+    "inLanguage": "en",
+    "url" : "http:\/\/localhost:1313\/notes\/recursive_relation\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Can"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-09-15T18:25:38\u002b08:00",
+    "datePublished": "2025-09-15T18:25:38\u002b08:00",
+    
+    "dateModified": "2025-09-15T18:25:38\u002b08:00",
+    
+    "keywords": ["Algorithm","Recursion","C++"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1951"
+  }]
+  </script>
 
 
 
-
+  
+  
 
   
   
@@ -207,13 +262,36 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
         href="#main-content">
-        <span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
         Skip to main content
       </a>
     </div>
@@ -234,14 +312,14 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
   <div class="flex flex-1 items-center justify-between">
     <nav class="flex space-x-3">
       
-        <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">
+        <a href="/" class="text-base font-medium">
           Can&rsquo;s Blog
         </a>
       
@@ -254,11 +332,15 @@
   <a
   href="/notes/"
   
-  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="Notes"
+  title="Notes">
   
-  <p class="text-base font-medium" title="Notes">
-    Notes
-  </p>
+  
+    <p class="text-base font-medium">
+      Notes
+    </p>
+  
 </a>
 
 
@@ -268,11 +350,15 @@
   <a
   href="/posts/"
   
-  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="Posts"
+  title="Posts">
   
-  <p class="text-base font-medium" title="Posts">
-    Posts
-  </p>
+  
+    <p class="text-base font-medium">
+      Posts
+    </p>
+  
 </a>
 
 
@@ -282,16 +368,20 @@
   <a
   href="https://github.com/rycCJ"
   target="_blank"
-  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="GitHub"
+  title="">
   
     <span class="mr-1">
       <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
 </span>
     </span>
   
-  <p class="text-base font-medium" title="">
-    GitHub
-  </p>
+  
+    <p class="text-base font-medium">
+      GitHub
+    </p>
+  
 </a>
 
 
@@ -358,7 +448,7 @@
         id="appearance-switcher-mobile"
         aria-label="Dark mode switcher"
         type="button"
-        class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400 me-1">
         <div class="flex items-center justify-center dark:hidden">
           <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
 </span>
@@ -384,7 +474,7 @@
           id="menu-wrapper"
           class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 pt-[5px]">
           <ul
-            class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+            class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none text-end max-w-7xl">
             <li id="menu-close-button">
               <span
                 class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
@@ -399,11 +489,15 @@
   <a
     href="/notes/"
     
-    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="Notes"
+    title="Notes">
     
-    <p class="text-bg font-bg" title="Notes">
-      Notes
-    </p>
+    
+      <p class="text-bg font-bg">
+        Notes
+      </p>
+    
   </a>
 </li>
 
@@ -415,11 +509,15 @@
   <a
     href="/posts/"
     
-    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="Posts"
+    title="Posts">
     
-    <p class="text-bg font-bg" title="Posts">
-      Posts
-    </p>
+    
+      <p class="text-bg font-bg">
+        Posts
+      </p>
+    
   </a>
 </li>
 
@@ -433,16 +531,20 @@
     
       target="_blank"
     
-    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="GitHub"
+    title="">
     
       <div class="mr-2">
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
 </span>
       </div>
     
-    <p class="text-bg font-bg" title="">
-      GitHub
-    </p>
+    
+      <p class="text-bg font-bg">
+        GitHub
+      </p>
+    
   </a>
 </li>
 
@@ -486,11 +588,41 @@
       
       
         
+
+
+
+
+
+
+
+  
   
     
-      
+  
     
   
+    
+  
+    
+  
+
+
+
+  
+  
+    
+    
+  
+
+
+
+
+  
+    
+    
+  
+
+
 
 
 
@@ -499,11 +631,16 @@
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
+    
     <img
       id="background-image"
       src="/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="递归基础及题目（Recursive Relation）"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -518,9 +655,9 @@
     
     <script
       type="text/javascript"
-      src="/js/background-blur.min.0ad33cb9c066f652728b2cc09c9ceaf32645544f48e8b6b38f120d86f433ed997da275a49e6151fe0176430c45376812708d84727f3f969101fb44a4345b3f34.js"
-      integrity="sha512-CtM8ucBm9lJyiyzAnJzq8yZFVE9I6LazjxINhvQz7Zl9onWknmFR/gF2QwxFN2gScI2Ecn8/lpEB&#43;0SkNFs/NA=="
-      data-target-id="background-blur"
+      src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
+      integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
+      data-blur-id="background-blur"
       data-image-id="background-image"
       data-image-url="/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"></script>
   
@@ -590,7 +727,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2025-09-15T18:25:38&#43;08:00">15 September 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1769 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">9 mins</span><span class="px-2 text-primary-500">&middot;</span><span>
+      <time datetime="2025-09-15T18:25:38&#43;08:00">15 September 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1951 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">10 mins</span><span class="px-2 text-primary-500">&middot;</span><span>
   
   
     
@@ -672,35 +809,35 @@
         
           
             
-              <a class="relative mt-[0.5rem] mr-2" href="/tags/algorithm/"
-                ><span class="flex cursor-pointer">
+              <a class="relative mt-[0.5rem] me-2" href="/tags/algorithm/">
+                <span class="flex cursor-pointer">
   <span
     class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
     Algorithm
   </span>
 </span>
-</a
-              >
+
+              </a>
             
-              <a class="relative mt-[0.5rem] mr-2" href="/tags/recursion/"
-                ><span class="flex cursor-pointer">
+              <a class="relative mt-[0.5rem] me-2" href="/tags/recursion/">
+                <span class="flex cursor-pointer">
   <span
     class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
     Recursion
   </span>
 </span>
-</a
-              >
+
+              </a>
             
-              <a class="relative mt-[0.5rem] mr-2" href="/tags/c&#43;&#43;/"
-                ><span class="flex cursor-pointer">
+              <a class="relative mt-[0.5rem] me-2" href="/tags/c&#43;&#43;/">
+                <span class="flex cursor-pointer">
   <span
     class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
     C&#43;&#43;
   </span>
 </span>
-</a
-              >
+
+              </a>
             
           
         
@@ -736,12 +873,14 @@
     
     
       
+      
       <img
-        class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4"
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
         width="96"
         height="96"
         alt="Can"
-        src="/img/Can.jpg">
+        src="/img/Can.jpg"
+        data-zoom-src="/img/Can.jpg">
     
   
   <div class="place-self-center">
@@ -765,6 +904,7 @@
           href="https://github.com/rycCJ"
           target="_blank"
           aria-label="Github"
+          title="Github"
           rel="me noopener noreferrer"
           ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
 </span></span></a
@@ -795,19 +935,19 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
-          <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+          <div class="toc ps-5 print:hidden lg:sticky lg:top-10">
             
               <details
   open
   id="TOCView"
-  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
   <summary
-    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     Table of Contents
   </summary>
   <div
-    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
     <li><a href="#递归的核心思想不是人肉压栈而是甩锅">递归的核心思想：不是人肉压栈，而是“甩锅”</a></li>
@@ -818,24 +958,55 @@
       <ul>
         <li><a href="#144-二叉树的前序遍历"><a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener noreferrer">144. 二叉树的前序遍历</a></a></li>
         <li><a href="#94-二叉树的中序遍历"><a href=" https://leetcode.cn/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener noreferrer">94. 二叉树的中序遍历</a></a></li>
+        <li><a href="#145-二叉树的后序遍历"><a href=" https://leetcode.cn/problems/binary-tree-postorder-traversal/" target="_blank" rel="noopener noreferrer">145. 二叉树的后序遍历</a></a></li>
       </ul>
     </li>
-    <li><a href="#2-分治--自下而上信息汇总-divide-and-conquer--bottom-up">2. 分治 / 自下而上信息汇总 (Divide and Conquer / Bottom-up)</a></li>
-    <li><a href="#3-路径问题--自上而下信息传递-path-problems--top-down">3. 路径问题 / 自上而下信息传递 (Path Problems / Top-down)</a></li>
-    <li><a href="#4-结构比较与修改-structural-comparison--modification">4. 结构比较与修改 (Structural Comparison &amp; Modification)</a></li>
+    <li><a href="#2-分治--自下而上信息汇总-divide-and-conquer--bottom-up">2. 分治 / 自下而上信息汇总 (Divide and Conquer / Bottom-up)</a>
+      <ul>
+        <li><a href="#104-二叉树的最大深度-我们之前讨论过的"><a href="  https://leetcode.cn/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">104. 二叉树的最大深度</a> (我们之前讨论过的)</a></li>
+        <li><a href="#111-二叉树的最小深度--最大深度的变体注意处理只有单边子树的情况"><a href=" https://leetcode.cn/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">111. 二叉树的最小深度 </a> (最大深度的变体，注意处理只有单边子树的情况)</a></li>
+        <li><a href="#543-二叉树的直径"><a href=" https://leetcode.cn/problems/diameter-of-binary-tree/" target="_blank" rel="noopener noreferrer">543. 二叉树的直径</a></a></li>
+        <li><a href="#110-平衡二叉树"><a href=" https://leetcode.cn/problems/balanced-binary-tree/" target="_blank" rel="noopener noreferrer">110. 平衡二叉树</a></a></li>
+        <li><a href="#236二叉树的最近公共祖先"><a href="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">236.二叉树的最近公共祖先</a></a></li>
+      </ul>
+    </li>
+    <li><a href="#3-路径问题--自上而下信息传递-path-problems--top-down">3. 路径问题 / 自上而下信息传递 (Path Problems / Top-down)</a>
+      <ul>
+        <li><a href="#112-路径总和"><a href="https://leetcode.cn/problems/path-sum/description/" target="_blank" rel="noopener noreferrer">112. 路径总和</a></a></li>
+        <li><a href="#129-求根节点到叶节点数字之和"><a href="https://leetcode.cn/problems/sum-root-to-leaf-numbers/description/" target="_blank" rel="noopener noreferrer">129. 求根节点到叶节点数字之和</a></a></li>
+        <li><a href="#257-二叉树的所有路径"><a href="https://leetcode.cn/problems/binary-tree-paths/description/" target="_blank" rel="noopener noreferrer">257. 二叉树的所有路径 </a></a></li>
+        <li><a href="#113-路径总和-ii-路径总和的升级版"><a href=" https://leetcode.cn/problems/path-sum-ii/description/" target="_blank" rel="noopener noreferrer">113. 路径总和 II (路径总和的升级版) </a></a></li>
+        <li><a href="#124-二叉树中的最大路径和"><a href=" https://leetcode.cn/problems/binary-tree-maximum-path-sum/?envType=study-plan-v2&envId=top-100-liked" target="_blank" rel="noopener noreferrer">124. 二叉树中的最大路径和</a></a></li>
+      </ul>
+    </li>
+    <li><a href="#4-结构比较与修改-structural-comparison--modification">4. 结构比较与修改 (Structural Comparison &amp; Modification)</a>
+      <ul>
+        <li><a href="#100-相同的树"><a href=" https://leetcode.cn/problems/same-tree/" target="_blank" rel="noopener noreferrer">100. 相同的树 </a></a></li>
+        <li><a href="#101-对称二叉树"><a href=" https://leetcode.cn/problems/symmetric-tree/" target="_blank" rel="noopener noreferrer">101. 对称二叉树 </a></a></li>
+        <li><a href="#226-翻转二叉树"><a href=" https://leetcode.cn/problems/invert-binary-tree/" target="_blank" rel="noopener noreferrer">226. 翻转二叉树 </a></a></li>
+      </ul>
+    </li>
     <li><a href="#总结与练习建议">总结与练习建议</a></li>
-    <li><a href="#更多练习题目">更多练习题目：**</a></li>
+    <li><a href="#是否需要返回值问题">是否需要返回值问题</a></li>
+    <li><a href="#更多练习题目">更多练习题目：**</a>
+      <ul>
+        <li><a href="#108-将有序数组转换为二叉搜索树"><a href=" https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/" target="_blank" rel="noopener noreferrer">108. 将有序数组转换为二叉搜索树 </a></a></li>
+        <li><a href="#98-验证二叉搜索树"><a href=" https://leetcode.cn/problems/validate-binary-search-tree/" target="_blank" rel="noopener noreferrer">98. 验证二叉搜索树 </a></a></li>
+        <li><a href="#230-二叉搜索树中第-k-小的元素"><a href=" https://leetcode.cn/problems/kth-smallest-element-in-a-bst/" target="_blank" rel="noopener noreferrer">230. 二叉搜索树中第 K 小的元素 </a></a></li>
+        <li><a href="#114-二叉树展开为链表"><a href=" https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/" target="_blank" rel="noopener noreferrer">114. 二叉树展开为链表 </a></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
 </details>
-<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+<details class="toc-inside mt-0 overflow-hidden rounded-lg -ms-5 ps-5 lg:hidden">
   <summary
-    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     Table of Contents
   </summary>
   <div
-    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
     <li><a href="#递归的核心思想不是人肉压栈而是甩锅">递归的核心思想：不是人肉压栈，而是“甩锅”</a></li>
@@ -846,13 +1017,44 @@
       <ul>
         <li><a href="#144-二叉树的前序遍历"><a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener noreferrer">144. 二叉树的前序遍历</a></a></li>
         <li><a href="#94-二叉树的中序遍历"><a href=" https://leetcode.cn/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener noreferrer">94. 二叉树的中序遍历</a></a></li>
+        <li><a href="#145-二叉树的后序遍历"><a href=" https://leetcode.cn/problems/binary-tree-postorder-traversal/" target="_blank" rel="noopener noreferrer">145. 二叉树的后序遍历</a></a></li>
       </ul>
     </li>
-    <li><a href="#2-分治--自下而上信息汇总-divide-and-conquer--bottom-up">2. 分治 / 自下而上信息汇总 (Divide and Conquer / Bottom-up)</a></li>
-    <li><a href="#3-路径问题--自上而下信息传递-path-problems--top-down">3. 路径问题 / 自上而下信息传递 (Path Problems / Top-down)</a></li>
-    <li><a href="#4-结构比较与修改-structural-comparison--modification">4. 结构比较与修改 (Structural Comparison &amp; Modification)</a></li>
+    <li><a href="#2-分治--自下而上信息汇总-divide-and-conquer--bottom-up">2. 分治 / 自下而上信息汇总 (Divide and Conquer / Bottom-up)</a>
+      <ul>
+        <li><a href="#104-二叉树的最大深度-我们之前讨论过的"><a href="  https://leetcode.cn/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">104. 二叉树的最大深度</a> (我们之前讨论过的)</a></li>
+        <li><a href="#111-二叉树的最小深度--最大深度的变体注意处理只有单边子树的情况"><a href=" https://leetcode.cn/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">111. 二叉树的最小深度 </a> (最大深度的变体，注意处理只有单边子树的情况)</a></li>
+        <li><a href="#543-二叉树的直径"><a href=" https://leetcode.cn/problems/diameter-of-binary-tree/" target="_blank" rel="noopener noreferrer">543. 二叉树的直径</a></a></li>
+        <li><a href="#110-平衡二叉树"><a href=" https://leetcode.cn/problems/balanced-binary-tree/" target="_blank" rel="noopener noreferrer">110. 平衡二叉树</a></a></li>
+        <li><a href="#236二叉树的最近公共祖先"><a href="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">236.二叉树的最近公共祖先</a></a></li>
+      </ul>
+    </li>
+    <li><a href="#3-路径问题--自上而下信息传递-path-problems--top-down">3. 路径问题 / 自上而下信息传递 (Path Problems / Top-down)</a>
+      <ul>
+        <li><a href="#112-路径总和"><a href="https://leetcode.cn/problems/path-sum/description/" target="_blank" rel="noopener noreferrer">112. 路径总和</a></a></li>
+        <li><a href="#129-求根节点到叶节点数字之和"><a href="https://leetcode.cn/problems/sum-root-to-leaf-numbers/description/" target="_blank" rel="noopener noreferrer">129. 求根节点到叶节点数字之和</a></a></li>
+        <li><a href="#257-二叉树的所有路径"><a href="https://leetcode.cn/problems/binary-tree-paths/description/" target="_blank" rel="noopener noreferrer">257. 二叉树的所有路径 </a></a></li>
+        <li><a href="#113-路径总和-ii-路径总和的升级版"><a href=" https://leetcode.cn/problems/path-sum-ii/description/" target="_blank" rel="noopener noreferrer">113. 路径总和 II (路径总和的升级版) </a></a></li>
+        <li><a href="#124-二叉树中的最大路径和"><a href=" https://leetcode.cn/problems/binary-tree-maximum-path-sum/?envType=study-plan-v2&envId=top-100-liked" target="_blank" rel="noopener noreferrer">124. 二叉树中的最大路径和</a></a></li>
+      </ul>
+    </li>
+    <li><a href="#4-结构比较与修改-structural-comparison--modification">4. 结构比较与修改 (Structural Comparison &amp; Modification)</a>
+      <ul>
+        <li><a href="#100-相同的树"><a href=" https://leetcode.cn/problems/same-tree/" target="_blank" rel="noopener noreferrer">100. 相同的树 </a></a></li>
+        <li><a href="#101-对称二叉树"><a href=" https://leetcode.cn/problems/symmetric-tree/" target="_blank" rel="noopener noreferrer">101. 对称二叉树 </a></a></li>
+        <li><a href="#226-翻转二叉树"><a href=" https://leetcode.cn/problems/invert-binary-tree/" target="_blank" rel="noopener noreferrer">226. 翻转二叉树 </a></a></li>
+      </ul>
+    </li>
     <li><a href="#总结与练习建议">总结与练习建议</a></li>
-    <li><a href="#更多练习题目">更多练习题目：**</a></li>
+    <li><a href="#是否需要返回值问题">是否需要返回值问题</a></li>
+    <li><a href="#更多练习题目">更多练习题目：**</a>
+      <ul>
+        <li><a href="#108-将有序数组转换为二叉搜索树"><a href=" https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/" target="_blank" rel="noopener noreferrer">108. 将有序数组转换为二叉搜索树 </a></a></li>
+        <li><a href="#98-验证二叉搜索树"><a href=" https://leetcode.cn/problems/validate-binary-search-tree/" target="_blank" rel="noopener noreferrer">98. 验证二叉搜索树 </a></a></li>
+        <li><a href="#230-二叉搜索树中第-k-小的元素"><a href=" https://leetcode.cn/problems/kth-smallest-element-in-a-bst/" target="_blank" rel="noopener noreferrer">230. 二叉搜索树中第 K 小的元素 </a></a></li>
+        <li><a href="#114-二叉树展开为链表"><a href=" https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/" target="_blank" rel="noopener noreferrer">114. 二叉树展开为链表 </a></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -869,11 +1071,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -921,6 +1135,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -943,7 +1163,6 @@
 
 
             
-            
           </div>
         </div>
       
@@ -955,13 +1174,13 @@
         <div class="article-content max-w-prose mb-20">
           <p><a href="https://www.bilibili.com/video/BV1UD4y1Y769/?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=de9d0b5f46420ead2e7be875b9558767" target="_blank" rel="noopener noreferrer">B 站“灵茶山艾府“的解释</a></p>
 
-<h2 class="relative group">递归的核心思想：不是人肉压栈，而是“甩锅” 
+<h2 class="relative group">递归的核心思想：不是人肉压栈，而是“甩锅”
     <div id="递归的核心思想不是人肉压栈而是甩锅" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e9%80%92%e5%bd%92%e7%9a%84%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3%e4%b8%8d%e6%98%af%e4%ba%ba%e8%82%89%e5%8e%8b%e6%a0%88%e8%80%8c%e6%98%af%e7%94%a9%e9%94%85" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%80%92%e5%bd%92%e7%9a%84%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3%e4%b8%8d%e6%98%af%e4%ba%ba%e8%82%89%e5%8e%8b%e6%a0%88%e8%80%8c%e6%98%af%e7%94%a9%e9%94%85" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>初学者的困境：人肉模拟调用栈</p>
@@ -980,13 +1199,13 @@
 <p><strong>把递归函数本身，也当成一个黑盒的、可信赖的库函数来调用。</strong></p>
 <hr>
 
-<h2 class="relative group">以二叉树为例 
+<h2 class="relative group">以二叉树为例
     <div id="以二叉树为例" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e4%bb%a5%e4%ba%8c%e5%8f%89%e6%a0%91%e4%b8%ba%e4%be%8b" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%bb%a5%e4%ba%8c%e5%8f%89%e6%a0%91%e4%b8%ba%e4%be%8b" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
@@ -1100,13 +1319,13 @@
 <p><strong>整个思考过程，我们只关注“当前层”的逻辑。</strong> 我们把对子树的处理完全委托给了递归调用，我们是“管理者”，不是“微观执行者”。</p>
 <hr>
 
-<h2 class="relative group">再举一例：二叉树的前序遍历 
+<h2 class="relative group">再举一例：二叉树的前序遍历
     <div id="再举一例二叉树的前序遍历" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e5%86%8d%e4%b8%be%e4%b8%80%e4%be%8b%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e5%89%8d%e5%ba%8f%e9%81%8d%e5%8e%86" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%86%8d%e4%b8%be%e4%b8%80%e4%be%8b%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e5%89%8d%e5%ba%8f%e9%81%8d%e5%8e%86" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>前序遍历的顺序是：根 -&gt; 左 -&gt; 右。这个定义本身就充满了递归的味道</p>
@@ -1151,13 +1370,13 @@
 <p>代码和逻辑完全一一对应，清晰明了。 你根本不需要去想，调用 <code>preOrderTraversal(root-&gt;left)</code>之后，它又会怎么打印，怎么调用它的左孩子和右孩子。你只要相信这个函数的功能定义是正确的，你调用它，它就能完成任务。</p>
 <hr>
 
-<h2 class="relative group">总结与建议 
+<h2 class="relative group">总结与建议
     <div id="总结与建议" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e6%80%bb%e7%bb%93%e4%b8%8e%e5%bb%ba%e8%ae%ae" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%bb%e7%bb%93%e4%b8%8e%e5%bb%ba%e8%ae%ae" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <ul>
@@ -1176,13 +1395,13 @@
 </ul>
 <p>当你下次再遇到一个递归问题时，请抑制住你的大脑去模拟整个调用栈的冲动。强迫自己用上面的思维模式去思考，多练习几次，你会发现递归问题会变得异常清晰和简单。它是一种将复杂问题分解为简单、重复单元的强大思维工具。</p>
 
-<h2 class="relative group">1. 基础遍历类 (Basic Traversal) 
+<h2 class="relative group">1. 基础遍历类 (Basic Traversal)
     <div id="1-基础遍历类-basic-traversal" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#1-%e5%9f%ba%e7%a1%80%e9%81%8d%e5%8e%86%e7%b1%bb-basic-traversal" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e5%9f%ba%e7%a1%80%e9%81%8d%e5%8e%86%e7%b1%bb-basic-traversal" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>这类问题的核心是“访问”到每一个节点并执行简单操作，递归函数本身通常没有返回值（void）或者返回一个包含所有节点值的列表。</p>
@@ -1190,13 +1409,13 @@
 定义一个 traverse(node) 函数，在函数内部先处理当前节点，然后递归调用 <code>traverse(node-&gt;left) </code>和 <code>traverse(node-&gt;right)</code>。根据处理当前节点的时机不同，分为前、中、后序遍历。</p>
 <p><strong>经典题目:</strong></p>
 
-<h3 class="relative group"><a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener noreferrer">144. 二叉树的前序遍历</a> 
+<h3 class="relative group"><a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener noreferrer">144. 二叉树的前序遍历</a>
     <div id="144-二叉树的前序遍历" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#144-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e5%89%8d%e5%ba%8f%e9%81%8d%e5%8e%86" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#144-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e5%89%8d%e5%ba%8f%e9%81%8d%e5%8e%86" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
@@ -1215,13 +1434,13 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div>
-<h3 class="relative group"><a href=" https://leetcode.cn/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener noreferrer">94. 二叉树的中序遍历</a> 
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener noreferrer">94. 二叉树的中序遍历</a>
     <div id="94-二叉树的中序遍历" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#94-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e4%b8%ad%e5%ba%8f%e9%81%8d%e5%8e%86" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#94-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e4%b8%ad%e5%ba%8f%e9%81%8d%e5%8e%86" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span>
@@ -1242,7 +1461,16 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/binary-tree-postorder-traversal/" target="_blank" rel="noopener noreferrer">145. 二叉树的后序遍历</a></p>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/binary-tree-postorder-traversal/" target="_blank" rel="noopener noreferrer">145. 二叉树的后序遍历</a>
+    <div id="145-二叉树的后序遍历" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#145-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e5%90%8e%e5%ba%8f%e9%81%8d%e5%8e%86" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">postorder</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">res</span><span class="p">)</span> <span class="p">{</span>
@@ -1261,23 +1489,41 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div>
-<h2 class="relative group">2. 分治 / 自下而上信息汇总 (Divide and Conquer / Bottom-up) 
+<h2 class="relative group">2. 分治 / 自下而上信息汇总 (Divide and Conquer / Bottom-up)
     <div id="2-分治--自下而上信息汇总-divide-and-conquer--bottom-up" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#2-%e5%88%86%e6%b2%bb--%e8%87%aa%e4%b8%8b%e8%80%8c%e4%b8%8a%e4%bf%a1%e6%81%af%e6%b1%87%e6%80%bb-divide-and-conquer--bottom-up" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e5%88%86%e6%b2%bb--%e8%87%aa%e4%b8%8b%e8%80%8c%e4%b8%8a%e4%bf%a1%e6%81%af%e6%b1%87%e6%80%bb-divide-and-conquer--bottom-up" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>这是最最常见的一类递归问题。你相信递归函数能帮你解决子问题，然后你只需要思考如何利用子问题的解来解决当前问题。</p>
 <p><strong>核心思路</strong> ：
 “我不知道怎么解决整棵树的问题，但我假设 <code>solve(root-&gt;left) </code>和 <code>solve(root-&gt;right) </code>已经帮我解决了左右子树的问题并返回了正确的结果。现在，我只需要在当前 root 节点，利用这两个结果，计算出当前树的结果，然后 return 回去。”</p>
 <p><strong>经典题目</strong>:</p>
-<p><a href="  https://leetcode.cn/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">104. 二叉树的最大深度</a> (我们之前讨论过的)</p>
+
+<h3 class="relative group"><a href="  https://leetcode.cn/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">104. 二叉树的最大深度</a> (我们之前讨论过的)
+    <div id="104-二叉树的最大深度-我们之前讨论过的" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#104-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e6%9c%80%e5%a4%a7%e6%b7%b1%e5%ba%a6-%e6%88%91%e4%bb%ac%e4%b9%8b%e5%89%8d%e8%ae%a8%e8%ae%ba%e8%bf%87%e7%9a%84" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p>左子树深度 = <code>solve(root-&gt;left)</code>, 右子树深度 = <code>solve(root-&gt;right)</code></p>
 <p>当前树深度 = max(左子树深度, 右子树深度) + 1</p>
-<p><a href=" https://leetcode.cn/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">111. 二叉树的最小深度 </a> (最大深度的变体，注意处理只有单边子树的情况)</p>
+
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">111. 二叉树的最小深度 </a> (最大深度的变体，注意处理只有单边子树的情况)
+    <div id="111-二叉树的最小深度--最大深度的变体注意处理只有单边子树的情况" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#111-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e6%9c%80%e5%b0%8f%e6%b7%b1%e5%ba%a6--%e6%9c%80%e5%a4%a7%e6%b7%b1%e5%ba%a6%e7%9a%84%e5%8f%98%e4%bd%93%e6%b3%a8%e6%84%8f%e5%a4%84%e7%90%86%e5%8f%aa%e6%9c%89%e5%8d%95%e8%be%b9%e5%ad%90%e6%a0%91%e7%9a%84%e6%83%85%e5%86%b5" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">minDepth</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -1291,7 +1537,16 @@
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">min</span><span class="p">(</span><span class="n">ldepth</span><span class="p">,</span> <span class="n">rdepth</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/diameter-of-binary-tree/" target="_blank" rel="noopener noreferrer">543. 二叉树的直径</a></p>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/diameter-of-binary-tree/" target="_blank" rel="noopener noreferrer">543. 二叉树的直径</a>
+    <div id="543-二叉树的直径" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#543-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e7%9b%b4%e5%be%84" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p>子问题返回子树的深度。</p>
 <p>当前节点计算的“穿过我的直径”是 左深度 + 右深度，同时更新全局最大值。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">landrDepth</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">maxdepth</span><span class="p">)</span> <span class="p">{</span>
@@ -1309,7 +1564,17 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">maxdepth</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/balanced-binary-tree/" target="_blank" rel="noopener noreferrer">110. 平衡二叉树</a></p>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/balanced-binary-tree/" target="_blank" rel="noopener noreferrer">110. 平衡二叉树</a>
+    <div id="110-平衡二叉树" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#110-%e5%b9%b3%e8%a1%a1%e4%ba%8c%e5%8f%89%e6%a0%91" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>引入-1，蛮有意思&hellip;&hellip;</p>
 <p>子问题需要返回两个信息：子树是否平衡，以及子树的高度。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -1337,7 +1602,16 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">max</span><span class="p">(</span><span class="n">ldepth</span><span class="p">,</span><span class="n">rdepth</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p><a href="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">236.二叉树的最近公共祖先</a></p>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">236.二叉树的最近公共祖先</a>
+    <div id="236二叉树的最近公共祖先" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#236%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e6%9c%80%e8%bf%91%e5%85%ac%e5%85%b1%e7%a5%96%e5%85%88" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <ul>
 <li>
 <p>子问题返回在子树中是否找到了 p 或 q。</p>
@@ -1346,43 +1620,50 @@
 <p>当前节点根据左右子树的返回情况做出判断。</p>
 </li>
 </ul>
+<p>把一个复杂的“寻找 LCA”问题，降维成了一个简单的“寻找 p 或 q”的问题 emmm 怪有意思&hellip;&hellip;</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">root</span> <span class="o">==</span> <span class="n">p</span> <span class="o">||</span> <span class="n">root</span> <span class="o">==</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//如果你确定树中所有节点的值唯一（比如二叉搜索树 BST 中常常是这样），那用 root-&gt;val == p-&gt;val 也可以。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">||</span> <span class="n">root</span> <span class="o">==</span> <span class="n">p</span> <span class="o">||</span> <span class="n">root</span> <span class="o">==</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 函数不是在“寻找祖先”，而是在“汇报发现”。这个算法巧妙地改变了子问题的定义
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 把一个复杂的“寻找LCA”问题，降维成了一个简单的“寻找p或q”的问题
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">TreeNode</span><span class="o">*</span> <span class="n">llow</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">TreeNode</span><span class="o">*</span> <span class="n">rlow</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">llow</span><span class="o">==</span><span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">rlow</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">llow</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;</span> <span class="n">rlow</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">TreeNode</span> <span class="o">*</span><span class="n">lAncestor</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">TreeNode</span> <span class="o">*</span><span class="n">rAncestor</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">lAncestor</span> <span class="o">==</span><span class="k">nullptr</span><span class="o">&amp;&amp;</span><span class="n">rAncestor</span><span class="o">==</span><span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">lAncestor</span> <span class="o">!=</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">rAncestor</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">llow</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">rlow</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">llow</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// if (rlow != NULL &amp;&amp; llow == NULL) {
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     return rlow;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// }
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="n">rlow</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">lAncestor</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">rAncestor</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">rAncestor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">lAncestor</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span></code></pre></div>
-<h2 class="relative group">3. 路径问题 / 自上而下信息传递 (Path Problems / Top-down) 
+<h2 class="relative group">3. 路径问题 / 自上而下信息传递 (Path Problems / Top-down)
     <div id="3-路径问题--自上而下信息传递-path-problems--top-down" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#3-%e8%b7%af%e5%be%84%e9%97%ae%e9%a2%98--%e8%87%aa%e4%b8%8a%e8%80%8c%e4%b8%8b%e4%bf%a1%e6%81%af%e4%bc%a0%e9%80%92-path-problems--top-down" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#3-%e8%b7%af%e5%be%84%e9%97%ae%e9%a2%98--%e8%87%aa%e4%b8%8a%e8%80%8c%e4%b8%8b%e4%bf%a1%e6%81%af%e4%bc%a0%e9%80%92-path-problems--top-down" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>这类问题与上一类相反，子问题的解决需要依赖其父节点的信息。因此，你需要通过递归函数的参数将信息自上而下地传递下去。</p>
 <p><strong>核心思路</strong>：
 “我需要定义一个 <code>solve(node, state) </code>函数，其中 <code>state</code> 是从根节点到我父节点为止积累的状态。在函数内部，我根据 <code>state </code>和当前<code>node</code> 的值计算出新的状态 new_state，然后把它传递给我的子节点<code>solve(node-&gt;left, new_state)</code>和 <code>solve(node-&gt;right, new_state)</code>。”</p>
 <p><strong>经典题目</strong>:</p>
-<p><a href="https://leetcode.cn/problems/path-sum/description/" target="_blank" rel="noopener noreferrer">112. 路径总和</a></p>
+
+<h3 class="relative group"><a href="https://leetcode.cn/problems/path-sum/description/" target="_blank" rel="noopener noreferrer">112. 路径总和</a>
+    <div id="112-路径总和" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#112-%e8%b7%af%e5%be%84%e6%80%bb%e5%92%8c" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p>向下传递 <code>targetSum - node-&gt;val</code>。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="nf">hasPathSum</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">targetSum</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
@@ -1395,8 +1676,18 @@
 </span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">res2</span> <span class="o">=</span> <span class="n">hasPathSum</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">targetSum</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">res1</span> <span class="o">||</span> <span class="n">res2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span></code></pre></div><p><a href="https://leetcode.cn/problems/sum-root-to-leaf-numbers/description/" target="_blank" rel="noopener noreferrer">129. 求根节点到叶节点数字之和</a></p>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href="https://leetcode.cn/problems/sum-root-to-leaf-numbers/description/" target="_blank" rel="noopener noreferrer">129. 求根节点到叶节点数字之和</a>
+    <div id="129-求根节点到叶节点数字之和" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#129-%e6%b1%82%e6%a0%b9%e8%8a%82%e7%82%b9%e5%88%b0%e5%8f%b6%e8%8a%82%e7%82%b9%e6%95%b0%e5%ad%97%e4%b9%8b%e5%92%8c" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p>向下传递 <code>currentSum \* 10 + node-&gt;val</code>。</p>
+<p>辅助函数并没有返回值，而是把值存在了常量里面。因为返回的不是结果，所以不用只是子问题的答案，可以是最终结果 totalsum。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">totalsum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -1417,7 +1708,16 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">totalsum</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p><a href="https://leetcode.cn/problems/binary-tree-paths/description/" target="_blank" rel="noopener noreferrer">257. 二叉树的所有路径 </a></p>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href="https://leetcode.cn/problems/binary-tree-paths/description/" target="_blank" rel="noopener noreferrer">257. 二叉树的所有路径 </a>
+    <div id="257-二叉树的所有路径" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#257-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e6%89%80%e6%9c%89%e8%b7%af%e5%be%84" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p>向下传递当前路径的字符串 <code>currentPath + &quot;-&gt;&quot; + node-&gt;val</code>。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -1441,7 +1741,52 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/path-sum-ii/description/" target="_blank" rel="noopener noreferrer">113. 路径总和 II (路径总和的升级版) </a></p>
+</span></span></code></pre></div><p>优化方案：<strong>使用回溯（Backtracking）避免浪费</strong> 还不太会，放放吧⏳<br>
+路径用 string&amp; path 传引用，递归中添加/移除（pop_back），结果直接 push 到共享 res</p>
+<ul>
+<li>无临时向量创建/合并;</li>
+<li>字符串修改就地（O(1) 添加/移除）;</li>
+<li>空间：O(log n) 递归栈 + O(n _ L) 最终 res;</li>
+<li>时间：O(n _ L) 但常数小，无拷贝。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">getpath</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">node</span><span class="p">,</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">path</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 添加当前值（记录长度以便回溯）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">prev_len</span> <span class="o">=</span> <span class="n">path</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span> <span class="o">+=</span> <span class="n">to_string</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>  <span class="c1">// 直接 push 当前路径
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">path</span> <span class="o">+=</span> <span class="s">&#34;-&gt;&#34;</span><span class="p">;</span>  <span class="c1">// 添加箭头
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">getpath</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">getpath</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">path</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span>  <span class="c1">// 移除 &#34;-&gt;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">prev_len</span><span class="p">);</span>  <span class="c1">// 移除当前值（回溯）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">binaryTreePaths</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">string</span> <span class="n">path</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">getpath</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/path-sum-ii/description/" target="_blank" rel="noopener noreferrer">113. 路径总和 II (路径总和的升级版) </a>
+    <div id="113-路径总和-ii-路径总和的升级版" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#113-%e8%b7%af%e5%be%84%e6%80%bb%e5%92%8c-ii-%e8%b7%af%e5%be%84%e6%80%bb%e5%92%8c%e7%9a%84%e5%8d%87%e7%ba%a7%e7%89%88" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p>向下传递当前路径的节点列表<code> vector&lt;int&gt; currentPath</code>。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -1478,20 +1823,59 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div>
-<h2 class="relative group">4. 结构比较与修改 (Structural Comparison &amp; Modification) 
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/binary-tree-maximum-path-sum/?envType=study-plan-v2&envId=top-100-liked" target="_blank" rel="noopener noreferrer">124. 二叉树中的最大路径和</a>
+    <div id="124-二叉树中的最大路径和" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#124-%e4%ba%8c%e5%8f%89%e6%a0%91%e4%b8%ad%e7%9a%84%e6%9c%80%e5%a4%a7%e8%b7%af%e5%be%84%e5%92%8c" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>辅助函数的主要功能是求解单边最大，这样计算左右两边最大就可以得到想要的最大值。
+不要拘泥于辅助函数必须返回目标值，这种直接得到目标值行不通的，可以考虑分解目标，但是将目标值存储在变量中。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">globalmax</span> <span class="o">=</span> <span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">min</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">cacule2</span><span class="p">(</span><span class="n">TreeNode</span> <span class="err">\</span><span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">lmax</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">cacule2</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">rmax</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">cacule2</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">currentnum</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">+</span> <span class="n">lmax</span> <span class="o">+</span> <span class="n">rmax</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">globalmax</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">currentnum</span><span class="p">,</span> <span class="n">globalmax</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">+</span><span class="n">max</span><span class="p">(</span><span class="n">lmax</span><span class="p">,</span><span class="n">rmax</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">maxPathSum</span><span class="p">(</span><span class="n">TreeNode</span> <span class="err">\</span><span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">globalmax</span> <span class="o">=</span> <span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">min</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cacule2</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">globalmax</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+<h2 class="relative group">4. 结构比较与修改 (Structural Comparison &amp; Modification)
     <div id="4-结构比较与修改-structural-comparison--modification" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#4-%e7%bb%93%e6%9e%84%e6%af%94%e8%be%83%e4%b8%8e%e4%bf%ae%e6%94%b9-structural-comparison--modification" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#4-%e7%bb%93%e6%9e%84%e6%af%94%e8%be%83%e4%b8%8e%e4%bf%ae%e6%94%b9-structural-comparison--modification" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>这类问题通常涉及两棵树，或者需要翻转、修改树的结构。</p>
 <p><strong>核心思路：</strong></p>
 <p>递归函数通常同时作用于两棵树的对应节点，或者在修改完当前节点的结构后，再对子节点进行递归调用。</p>
 <p><strong>经典题目:</strong></p>
-<p><a href=" https://leetcode.cn/problems/same-tree/" target="_blank" rel="noopener noreferrer">100. 相同的树 </a></p>
+
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/same-tree/" target="_blank" rel="noopener noreferrer">100. 相同的树 </a>
+    <div id="100-相同的树" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#100-%e7%9b%b8%e5%90%8c%e7%9a%84%e6%a0%91" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p><code>isSameTree(p, q)</code> 依赖于 <code>isSameTree(p-&gt;left, q-&gt;left) </code>和 <code>isSameTree(p-&gt;right, q-&gt;right) </code>的结果。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -1509,7 +1893,16 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">isLeftSame</span><span class="o">&amp;&amp;</span><span class="n">isRightSame</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/symmetric-tree/" target="_blank" rel="noopener noreferrer">101. 对称二叉树 </a></p>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/symmetric-tree/" target="_blank" rel="noopener noreferrer">101. 对称二叉树 </a>
+    <div id="101-对称二叉树" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#101-%e5%af%b9%e7%a7%b0%e4%ba%8c%e5%8f%89%e6%a0%91" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p>这是判断两棵树是否镜像对称的变体。递归函数 <code>isMirror(p, q) </code>依赖于 <code>isMirror(p-&gt;left, q-&gt;right) </code>和<code> isMirror(p-&gt;right, q-&gt;left)</code>。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -1531,7 +1924,16 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span></code></pre></div><p><a href=" https://leetcode.cn/problems/invert-binary-tree/" target="_blank" rel="noopener noreferrer">226. 翻转二叉树 </a></p>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/invert-binary-tree/" target="_blank" rel="noopener noreferrer">226. 翻转二叉树 </a>
+    <div id="226-翻转二叉树" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#226-%e7%bf%bb%e8%bd%ac%e4%ba%8c%e5%8f%89%e6%a0%91" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p>在当前节点交换左右子节点，然后递归调用<code> invertTree(root-&gt;left)</code> 和 <code>invertTree(root-&gt;right)</code>。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -1546,13 +1948,13 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div>
-<h2 class="relative group">总结与练习建议 
+<h2 class="relative group">总结与练习建议
     <div id="总结与练习建议" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e6%80%bb%e7%bb%93%e4%b8%8e%e7%bb%83%e4%b9%a0%e5%bb%ba%e8%ae%ae" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%bb%e7%bb%93%e4%b8%8e%e7%bb%83%e4%b9%a0%e5%bb%ba%e8%ae%ae" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <table>
@@ -1652,18 +2054,37 @@
 <p>最后解决结构类问题，它们通常是前面几种思想的结合或变体。</p>
 <p>几乎所有二叉树问题都能被归入这几类。当你遇到一个新问题时，先思考一下：“解决这个问题，我需要从子树获得什么信息，还是需要向子树传递什么信息？” 这能帮助你快速确定递归的结构。</p>
 
-<h2 class="relative group">更多练习题目：** 
+<h2 class="relative group">是否需要返回值问题
+    <div id="是否需要返回值问题" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%98%af%e5%90%a6%e9%9c%80%e8%a6%81%e8%bf%94%e5%9b%9e%e5%80%bc%e9%97%ae%e9%a2%98" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>如果叶节点或中间节点需要“向上报告”信息（如子树结果），用返回值
+如果只是“遍历 + 收集到外部容器”，用 void + 共享状态</p>
+
+<h2 class="relative group">更多练习题目：**
     <div id="更多练习题目" class="anchor"></div>
     
     <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e6%9b%b4%e5%a4%9a%e7%bb%83%e4%b9%a0%e9%a2%98%e7%9b%ae" aria-label="Anchor">#</a>
-    </span>        
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%9b%b4%e5%a4%9a%e7%bb%83%e4%b9%a0%e9%a2%98%e7%9b%ae" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
-<ol start="108">
-<li>将有序数组转换为二叉搜索树https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/</li>
-</ol>
+
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/" target="_blank" rel="noopener noreferrer">108. 将有序数组转换为二叉搜索树 </a>
+    <div id="108-将有序数组转换为二叉搜索树" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#108-%e5%b0%86%e6%9c%89%e5%ba%8f%e6%95%b0%e7%bb%84%e8%bd%ac%e6%8d%a2%e4%b8%ba%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TreeNode</span><span class="o">*</span> <span class="n">sortedArrayToBST</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nf">help</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="p">}</span>
@@ -1678,12 +2099,16 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><ol start="98">
-<li>验证二叉搜索树 <a
-  href="https://leetcode.cn/problems/validate-binary-search-tree/"
-    target="_blank"
-  >https://leetcode.cn/problems/validate-binary-search-tree/</a></li>
-</ol>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/validate-binary-search-tree/" target="_blank" rel="noopener noreferrer">98. 验证二叉搜索树 </a>
+    <div id="98-验证二叉搜索树" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#98-%e9%aa%8c%e8%af%81%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p>方案 1：中序遍历（推荐的简洁方法）
 <strong>核心原理：</strong>
 对一个二叉搜索树（BST）进行中序遍历（左 → 根 → 右），得到的节点值序列一定是严格递增的。</p>
@@ -1732,9 +2157,16 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">left</span> <span class="o">&amp;&amp;</span> <span class="n">right</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><ol start="230">
-<li>二叉搜索树中第 K 小的元素https://leetcode.cn/problems/kth-smallest-element-in-a-bst/</li>
-</ol>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/kth-smallest-element-in-a-bst/" target="_blank" rel="noopener noreferrer">230. 二叉搜索树中第 K 小的元素 </a>
+    <div id="230-二叉搜索树中第-k-小的元素" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#230-%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91%e4%b8%ad%e7%ac%ac-k-%e5%b0%8f%e7%9a%84%e5%85%83%e7%b4%a0" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">kthSmallest</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
@@ -1776,9 +2208,16 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><ol start="114">
-<li>二叉树展开为链表https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/</li>
-</ol>
+</span></span></code></pre></div>
+<h3 class="relative group"><a href=" https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/" target="_blank" rel="noopener noreferrer">114. 二叉树展开为链表 </a>
+    <div id="114-二叉树展开为链表" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#114-%e4%ba%8c%e5%8f%89%e6%a0%91%e5%b1%95%e5%bc%80%e4%b8%ba%e9%93%be%e8%a1%a8" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p>方法一：普通方法（递归）</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -1903,31 +2342,23 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/notes/morris_traversal/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >Morris Traversal</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2025-09-03T19:24:33&#43;08:00">3 September 2025</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/notes/morris_traversal/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Morris Traversal
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2025-09-03T19:24:33&#43;08:00">3 September 2025</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
         </span>
       </div>
@@ -1939,10 +2370,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="Scroll to top"
     title="Scroll to top">
     &uarr;

@@ -398,6 +398,8 @@ public:
 
 向下传递 `targetSum - node->val`。
 
+注意代码中的`targetSum`是值传递，也就是说并不影响函数内部操作中对其值的修改，同一层执行完`res1`再`res2`,里面传入的`targetSum`是相同的。
+
 ```cpp
   bool hasPathSum(TreeNode *root, int targetSum) {
     if (root == nullptr)
@@ -414,7 +416,7 @@ public:
 
 ### <a href="https://leetcode.cn/problems/sum-root-to-leaf-numbers/description/" target="_blank" rel="noopener noreferrer">129. 求根节点到叶节点数字之和</a>
 
-向下传递 `currentSum \* 10 + node->val`。
+向下传递 `currentSum * 10 + node->val`。
 
 辅助函数并没有返回值，而是把值存在了常量里面。因为返回的不是结果，所以不用只是子问题的答案，可以是最终结果 totalsum。
 
@@ -690,7 +692,7 @@ public:
 如果叶节点或中间节点需要“向上报告”信息（如子树结果），用返回值
 如果只是“遍历 + 收集到外部容器”，用 void + 共享状态
 
-## 更多练习题目：\*\*
+## 更多练习题目：
 
 ### <a href=" https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/" target="_blank" rel="noopener noreferrer">108. 将有序数组转换为二叉搜索树 </a>
 
