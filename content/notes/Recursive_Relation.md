@@ -416,6 +416,8 @@ public:
 
 向下传递 `currentSum \* 10 + node->val`。
 
+辅助函数并没有返回值，而是把值存在了常量里面。因为返回的不是结果，所以不用只是子问题的答案，可以是最终结果 totalsum。
+
 ```cpp
 class Solution {
 public:
@@ -468,6 +470,46 @@ public:
 };
 ```
 
+优化方案：**使用回溯（Backtracking）避免浪费** 还不太会，放放吧&#x23f3;  
+路径用 string& path 传引用，递归中添加/移除（pop_back），结果直接 push 到共享 res
+
+- 无临时向量创建/合并;
+- 字符串修改就地（O(1) 添加/移除）;
+- 空间：O(log n) 递归栈 + O(n \_ L) 最终 res;
+- 时间：O(n \_ L) 但常数小，无拷贝。
+
+```cpp
+class Solution {
+public:
+    void getpath(TreeNode* node, string& path, vector<string>& res) {
+        if (node == nullptr) return;
+
+        // 添加当前值（记录长度以便回溯）
+        int prev_len = path.size();
+        path += to_string(node->val);
+
+        if (node->left == nullptr && node->right == nullptr) {
+            res.push_back(path);  // 直接 push 当前路径
+        } else {
+            path += "->";  // 添加箭头
+            getpath(node->left, path, res);
+            getpath(node->right, path, res);
+            path.resize(path.size() - 2);  // 移除 "->"
+        }
+
+        path.resize(prev_len);  // 移除当前值（回溯）
+    }
+
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> res;
+        string path = "";
+        getpath(root, path, res);
+        return res;
+    }
+};
+
+```
+
 ### <a href=" https://leetcode.cn/problems/path-sum-ii/description/" target="_blank" rel="noopener noreferrer">113. 路径总和 II (路径总和的升级版) </a>
 
 向下传递当前路径的节点列表` vector<int> currentPath`。
@@ -507,6 +549,32 @@ public:
         return ans;
     }
 };
+```
+
+### <a href=" https://leetcode.cn/problems/binary-tree-maximum-path-sum/?envType=study-plan-v2&envId=top-100-liked" target="_blank" rel="noopener noreferrer">124. 二叉树中的最大路径和</a>
+
+辅助函数的主要功能是求解单边最大，这样计算左右两边最大就可以得到想要的最大值。
+不要拘泥于辅助函数必须返回目标值，这种直接得到目标值行不通的，可以考虑分解目标，但是将目标值存储在变量中。
+
+```cpp
+    int globalmax = numeric_limits<int>::min();
+    int cacule2(TreeNode \*root) {
+        if (root == nullptr)
+            return 0;
+
+        int lmax = max(0,cacule2(root->left));
+        int rmax = max(0,cacule2(root->right));
+        int currentnum = root->val + lmax + rmax;
+        globalmax = max(currentnum, globalmax);
+        return root->val+max(lmax,rmax);
+
+}
+
+    int maxPathSum(TreeNode \*root) {
+        globalmax = numeric_limits<int>::min();
+        cacule2(root);
+        return globalmax;
+}
 ```
 
 ## 4. 结构比较与修改 (Structural Comparison & Modification)
@@ -616,6 +684,11 @@ public:
 最后解决结构类问题，它们通常是前面几种思想的结合或变体。
 
 几乎所有二叉树问题都能被归入这几类。当你遇到一个新问题时，先思考一下：“解决这个问题，我需要从子树获得什么信息，还是需要向子树传递什么信息？” 这能帮助你快速确定递归的结构。
+
+## 是否需要返回值问题
+
+如果叶节点或中间节点需要“向上报告”信息（如子树结果），用返回值
+如果只是“遍历 + 收集到外部容器”，用 void + 共享状态
 
 ## 更多练习题目：\*\*
 
