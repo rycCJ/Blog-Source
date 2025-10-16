@@ -9,7 +9,7 @@ autoSwitchAppearance = true
 disableImageOptimization = true # 全局禁用图片优化，如果您自己处理图片的话
 disableTextInHeader = false
 # 版权信息，使用 {year} 占位符
-copyright = "© 2024-{year} Can. All rights reserved."
+copyright = "© 2025-{year} Can. All rights reserved."
 
 # --- 特色图片 ---
 defaultBackgroundImage = "/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"

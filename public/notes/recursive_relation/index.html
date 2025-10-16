@@ -118,8 +118,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.f9007fde796f10881b03672be6ea50c329839eb5f8ca8d5d018c160118c941fcbb64e7592c77f4c8e128c36be61dfcfc72083b3e5d6a99d4755f3d376ca11ab7.css"
-    integrity="sha512-&#43;QB/3nlvEIgbA2cr5upQwymDnrX4yo1dAYwWARjJQfy7ZOdZLHf0yOEow2vmHfz8cgg7Pl1qmdR1Xz03bKEatw==">
+    href="/css/main.bundle.min.2389b55202b329915f26c212dc302c75ec029d16d8fb8ed26744eada72574a226c4d2e2c7578da30ddf244bd79a076ff8b4984a33021597fd3ad5398b2ae1f04.css"
+    integrity="sha512-I4m1UgKzKZFfJsIS3DAsdewCnRbY&#43;47SZ0Tq2nJXSiJsTS4sdXjaMN3yRL15oHb/i0mEozAhWX/TrVOYsq4fBA==">
 
   
   
@@ -241,7 +241,7 @@
     "keywords": ["Algorithm","Recursion","C++"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1951"
+    "wordCount": "1952"
   }]
   </script>
 
@@ -727,7 +727,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2025-09-15T18:25:38&#43;08:00">15 September 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1951 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">10 mins</span><span class="px-2 text-primary-500">&middot;</span><span>
+      <time datetime="2025-09-15T18:25:38&#43;08:00">15 September 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1952 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">10 mins</span><span class="px-2 text-primary-500">&middot;</span><span>
   
   
     
@@ -988,7 +988,7 @@
     </li>
     <li><a href="#总结与练习建议">总结与练习建议</a></li>
     <li><a href="#是否需要返回值问题">是否需要返回值问题</a></li>
-    <li><a href="#更多练习题目">更多练习题目：**</a>
+    <li><a href="#更多练习题目">更多练习题目：</a>
       <ul>
         <li><a href="#108-将有序数组转换为二叉搜索树"><a href=" https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/" target="_blank" rel="noopener noreferrer">108. 将有序数组转换为二叉搜索树 </a></a></li>
         <li><a href="#98-验证二叉搜索树"><a href=" https://leetcode.cn/problems/validate-binary-search-tree/" target="_blank" rel="noopener noreferrer">98. 验证二叉搜索树 </a></a></li>
@@ -1047,7 +1047,7 @@
     </li>
     <li><a href="#总结与练习建议">总结与练习建议</a></li>
     <li><a href="#是否需要返回值问题">是否需要返回值问题</a></li>
-    <li><a href="#更多练习题目">更多练习题目：**</a>
+    <li><a href="#更多练习题目">更多练习题目：</a>
       <ul>
         <li><a href="#108-将有序数组转换为二叉搜索树"><a href=" https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/" target="_blank" rel="noopener noreferrer">108. 将有序数组转换为二叉搜索树 </a></a></li>
         <li><a href="#98-验证二叉搜索树"><a href=" https://leetcode.cn/problems/validate-binary-search-tree/" target="_blank" rel="noopener noreferrer">98. 验证二叉搜索树 </a></a></li>
@@ -1665,6 +1665,7 @@
     
 </h3>
 <p>向下传递 <code>targetSum - node-&gt;val</code>。</p>
+<p>注意代码中的<code>targetSum</code>是值传递，也就是说并不影响函数内部操作中对其值的修改，同一层执行完<code>res1</code>再<code>res2</code>,里面传入的<code>targetSum</code>是相同的。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="nf">hasPathSum</span><span class="p">(</span><span class="n">TreeNode</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">targetSum</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -1686,7 +1687,7 @@
     </span>
     
 </h3>
-<p>向下传递 <code>currentSum \* 10 + node-&gt;val</code>。</p>
+<p>向下传递 <code>currentSum * 10 + node-&gt;val</code>。</p>
 <p>辅助函数并没有返回值，而是把值存在了常量里面。因为返回的不是结果，所以不用只是子问题的答案，可以是最终结果 totalsum。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -2066,7 +2067,7 @@
 <p>如果叶节点或中间节点需要“向上报告”信息（如子树结果），用返回值
 如果只是“遍历 + 收集到外部容器”，用 void + 共享状态</p>
 
-<h2 class="relative group">更多练习题目：**
+<h2 class="relative group">更多练习题目：
     <div id="更多练习题目" class="anchor"></div>
     
     <span
@@ -2398,7 +2399,7 @@
     
     
     <p class="text-sm text-neutral-500 dark:text-neutral-400">
-      © 2024-2025 Can. All rights reserved.
+      © 2025-2025 Can. All rights reserved.
     </p>
     
     

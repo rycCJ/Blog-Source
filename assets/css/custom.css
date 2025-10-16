@@ -12,7 +12,7 @@
   --width-text: 100%; /* 让文本块也尽可能的宽 */
 
   /* 调整页面两侧的边距，减少空白 */
-  --spacing-page: 1rem; /* 减小默认的边距，例如 1rem (16px) */
+  --spacing-page: 0rem; /* 减小默认的边距，例如 1rem (16px) */
 }
 
 /* 强制覆盖 Blowfish 的主要布局容器 */
@@ -78,4 +78,12 @@ nav {
   line-height: 1.7 !important; /* 增加行高，让多行文本不那么拥挤 */
   white-space: normal !important; /* 确保文本可以在需要时正常换行 */
   word-break: break-word !important; /* 允许长单词在必要时断开换行 */
+}
+
+/* D:\Blog\assets\css\custom.css */
+
+/* 之前设置的全局宽度和边距变量，确保它们有效 */
+:root {
+  --width-page: 90%; /* 确保你的页面最大宽度设置合理 */
+  --spacing-page: 1rem;
 }
