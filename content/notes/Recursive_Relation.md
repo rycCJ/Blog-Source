@@ -189,7 +189,7 @@ void preOrderTraversal(TreeNode* root) {
 
 当你下次再遇到一个递归问题时，请抑制住你的大脑去模拟整个调用栈的冲动。强迫自己用上面的思维模式去思考，多练习几次，你会发现递归问题会变得异常清晰和简单。它是一种将复杂问题分解为简单、重复单元的强大思维工具。
 
-## 1. 基础遍历类 (Basic Traversal)
+## 1. 基础遍历类
 
 这类问题的核心是“访问”到每一个节点并执行简单操作，递归函数本身通常没有返回值（void）或者返回一个包含所有节点值的列表。
 
@@ -263,7 +263,7 @@ public:
 };
 ```
 
-## 2. 分治 / 自下而上信息汇总 (Divide and Conquer / Bottom-up)
+## 2. 分治 / 自下而上信息汇总
 
 这是最最常见的一类递归问题。你相信递归函数能帮你解决子问题，然后你只需要思考如何利用子问题的解来解决当前问题。
 
@@ -272,13 +272,17 @@ public:
 
 **经典题目**:
 
-### <a href="  https://leetcode.cn/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">104. 二叉树的最大深度</a> (我们之前讨论过的)
+### <a href="  https://leetcode.cn/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">104. 二叉树的最大深度</a>
+
+我们之前讨论过的
 
 左子树深度 = `solve(root->left)`, 右子树深度 = `solve(root->right)`
 
 当前树深度 = max(左子树深度, 右子树深度) + 1
 
-### <a href=" https://leetcode.cn/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">111. 二叉树的最小深度 </a> (最大深度的变体，注意处理只有单边子树的情况)
+### <a href=" https://leetcode.cn/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">111. 二叉树的最小深度 </a>
+
+最大深度的变体，注意处理只有单边子树的情况
 
 ```cpp
     int minDepth(TreeNode* root) {
@@ -318,6 +322,33 @@ int landrDepth(TreeNode* root,int& maxdepth) {
 
         return maxdepth;
     }
+```
+
+### <a href=" https://leetcode.cn/problems/binary-tree-maximum-path-sum/?envType=study-plan-v2&envId=top-100-liked" target="_blank" rel="noopener noreferrer">124. 二叉树中的最大路径和</a>
+
+(其他路径问题在第三部分)
+辅助函数的主要功能是求解单边最大，这样计算左右两边最大就可以得到想要的最大值。
+不要拘泥于辅助函数必须返回目标值，这种直接得到目标值行不通的，可以考虑分解目标，但是将目标值存储在变量中。
+
+```cpp
+    int globalmax = numeric_limits<int>::min();
+    int cacule2(TreeNode \*root) {
+        if (root == nullptr)
+            return 0;
+
+        int lmax = max(0,cacule2(root->left));
+        int rmax = max(0,cacule2(root->right));
+        int currentnum = root->val + lmax + rmax;
+        globalmax = max(currentnum, globalmax);
+        return root->val+max(lmax,rmax);
+
+}
+
+    int maxPathSum(TreeNode \*root) {
+        globalmax = numeric_limits<int>::min();
+        cacule2(root);
+        return globalmax;
+}
 ```
 
 ### <a href=" https://leetcode.cn/problems/balanced-binary-tree/" target="_blank" rel="noopener noreferrer">110. 平衡二叉树</a>
@@ -385,7 +416,7 @@ public:
     }
 ```
 
-## 3. 路径问题 / 自上而下信息传递 (Path Problems / Top-down)
+## 3. 路径问题 / 自上而下信息传递
 
 这类问题与上一类相反，子问题的解决需要依赖其父节点的信息。因此，你需要通过递归函数的参数将信息自上而下地传递下去。
 
@@ -512,8 +543,9 @@ public:
 
 ```
 
-### <a href=" https://leetcode.cn/problems/path-sum-ii/description/" target="_blank" rel="noopener noreferrer">113. 路径总和 II (路径总和的升级版) </a>
+### <a href=" https://leetcode.cn/problems/path-sum-ii/description/" target="_blank" rel="noopener noreferrer">113. 路径总和 II </a>
 
+路径总和的升级版
 向下传递当前路径的节点列表` vector<int> currentPath`。
 
 ```cpp
@@ -553,33 +585,7 @@ public:
 };
 ```
 
-### <a href=" https://leetcode.cn/problems/binary-tree-maximum-path-sum/?envType=study-plan-v2&envId=top-100-liked" target="_blank" rel="noopener noreferrer">124. 二叉树中的最大路径和</a>
-
-辅助函数的主要功能是求解单边最大，这样计算左右两边最大就可以得到想要的最大值。
-不要拘泥于辅助函数必须返回目标值，这种直接得到目标值行不通的，可以考虑分解目标，但是将目标值存储在变量中。
-
-```cpp
-    int globalmax = numeric_limits<int>::min();
-    int cacule2(TreeNode \*root) {
-        if (root == nullptr)
-            return 0;
-
-        int lmax = max(0,cacule2(root->left));
-        int rmax = max(0,cacule2(root->right));
-        int currentnum = root->val + lmax + rmax;
-        globalmax = max(currentnum, globalmax);
-        return root->val+max(lmax,rmax);
-
-}
-
-    int maxPathSum(TreeNode \*root) {
-        globalmax = numeric_limits<int>::min();
-        cacule2(root);
-        return globalmax;
-}
-```
-
-## 4. 结构比较与修改 (Structural Comparison & Modification)
+## 4. 结构比较与修改
 
 这类问题通常涉及两棵树，或者需要翻转、修改树的结构。
 
@@ -617,8 +623,7 @@ public:
 这是判断两棵树是否镜像对称的变体。递归函数 `isMirror(p, q) `依赖于 `isMirror(p->left, q->right) `和` isMirror(p->right, q->left)`。
 
 ```cpp
-class Solution {
-public:
+
     bool isMirror(TreeNode* p, TreeNode* q) {
         if (p == nullptr && q == nullptr) {
             return true;
