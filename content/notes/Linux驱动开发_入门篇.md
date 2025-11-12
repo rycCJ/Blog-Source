@@ -1,6 +1,6 @@
 ---
 title: "Linux驱动开发 入门篇" # <--- 修改这一行
-date: { { .Date } }
+date: "2025-11-11T19:17:40+08:00"
 draft: false
 tags: ["Linux", "驱动开发"]
 location: ""

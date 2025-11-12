@@ -1,6 +1,6 @@
 ---
 title: "Linux系统编程" # <--- 修改这一行
-date: 2025-11-06T22:22:40+08:00
+date: "2025-11-06T22:22:40+08:00"
 draft: false
 tags: [Linux", "系统编程"]
 location: "广州"

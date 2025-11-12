@@ -1,7 +1,7 @@
 ---
 date: "2025-11-04T19:05:57+08:00"
 draft: false
-tags: ["Linux", "系统编程"]
+tags: ["Linux", "系统编程", "驱动开发"]
 title: "Linux问题总结" # <--- 修改这一行
 summary: "Linux学习时遇到的问题总结"
 ---
@@ -102,3 +102,5 @@ aarch64-linux-gnu-gcc -o demo66_uart demo66_uart.c
 最后将交叉编译生成的 demo66_uart 文件拷贝到/home/nfs 共享目录下即可
 
 ## 共享目录生效
+
+**......未完待续**
