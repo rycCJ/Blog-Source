@@ -6,10 +6,6 @@ tags: ["Linux", "驱动开发"]
 location: ""
 ---
 
-这是一个非常经典且核心的概念！如果说**字符设备驱动**是教你如何造一辆“车”，那么**平台总线（Platform Bus）**就是教你如何建立“交通规则”，让各种各样的车（驱动）能跑在不同的路（硬件）上。
-
-在 RK3568 这种嵌入式 Linux 开发中，**99% 的外设驱动（LED、按键、I2C、SPI、UART、网卡等）都是挂在平台总线上的**。
-
 ---
 
 ## 关于平台总线
@@ -261,7 +257,7 @@ dts->dtb 的命令：
 
 ---
 
-### 第三阶段：在驱动里读取设备树数据（OF 操作函数）
+## 在驱动里读取设备树数据（OF 操作函数）
 
 **对应视频章节**：
 
@@ -310,7 +306,7 @@ static int my_probe(struct platform_device *pdev)
 
 ---
 
-### 第四阶段：控制硬件（GPIO 与 Pinctrl）
+## 控制硬件（GPIO 与 Pinctrl）
 
 **对应视频章节**：
 
@@ -381,7 +377,7 @@ static int my_remove(struct platform_device *pdev)
 
 ---
 
-### 说明
+## 说明
 
 1. 关于官方文档上在**平台总线章节**里面所说的**注册 platform 设备实验**，个人认为完全没必要，因为只要会写 `dts`，完全没必要自己写 `platform_device` 实验，AI 说：几乎不用 (除非做纯软件实验)。毕竟**Linux is a fucking pain in the ass！**
 2. DTS 的编译原理：不用管 `dtc` 编译器怎么把文本变成二进制的，会用命令 `make dtbs` （`/home/topeet/Linux/linux_sdk/kernel/scripts/dtc/dtc -I dts -O dtb -o test.dtb test.dts`）就行。
@@ -389,7 +385,7 @@ static int my_remove(struct platform_device *pdev)
 4. 复杂的总线定义：不用管 CPU 节点、总线控制器节点是怎么写的，那些都是原厂写好的，你只需要在它们下面挂设备。
 5. DTS 语法细节：比如 `#address-cells`, `#size-cells, ranges`。这些通常只有在写总线桥接或者内存映射时才用，普通的设备驱动开发几乎不用动。
 
-### 学习建议与避坑
+## 学习建议与避坑
 
 1.  **不要死磕 DTS 全部语法**：DTS 里有很多复杂的属性（如 `ranges`, `clock-names`），初学看不懂很正常。你只需要关注 `compatible`（匹配用）、`reg`（地址用）、自定义属性、以及 `gpios`（引脚用）。
 2.  **编译是难点**：修改 DTS 后，需要重新编译设备树（`make dtbs`），然后将新的 `.img` 或 `.dtb` 烧录到板子上。如果烧录后板子起不来，通常是 DTS 语法写错了。
