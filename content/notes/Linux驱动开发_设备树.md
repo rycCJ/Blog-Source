@@ -6,7 +6,7 @@ tags: ["Linux", "驱动开发"]
 location: ""
 ---
 
----
+本篇融合了**【北京迅为】itop-3568 开发板驱动开发指南（重制版）1.8.pdf** 官方文档中平台总线和设备树两章内容，并且带有完整且详尽实例分析，可以先看说明部分理清文章主要所讲内容与侧重点
 
 ## 关于平台总线
 
@@ -251,7 +251,7 @@ dts->dtb 的命令：
 
 上面两节，书写了.dts 文件和 driver 驱动，接下来进行实操
 
-1.  在目录`/Linux/linux_sdk/kernel/arch/arm64/boot/dts/rockchip/rk3568-evb1-ddr4-v10-linux.dts`下编译内核（./build.sh kernel）并烧写带 `my_test` 的内核（生成的`boot.img`在目录`/home/topeet/Linux/linux_sdk/kernel/boot.img`）。
+1.  在目录`/Linux/linux_sdk`下编译内核（./build.sh kernel）并烧写带 `my_test` 的内核（生成的`boot.img`在目录`/home/topeet/Linux/linux_sdk/kernel/boot.img`,烧写时记得接 usb 线）。
 2.  编译加载(insmod)这个 `.ko` 模块。
 3.  使用 `dmesg` 查看，如果你看到“**匹配成功！发现设备树节点！**”，说明你已经打通了设备树到驱动的任督二脉！
 
@@ -259,60 +259,189 @@ dts->dtb 的命令：
 
 ## 在驱动里读取设备树数据（OF 操作函数）
 
-**对应视频章节**：
+### 1. 理论讲解
 
-- of 操作函数实验：获取设备树节点
-- of 操作函数实验：获取属性
+目标：在驱动里读取 DTS 里写的参数。如果不掌握这些函数，你的驱动虽然能匹配上（进入 `probe`），但就像**“进了餐厅却看不懂菜单”**，不知道具体的配置参数（比如阈值是多少、ID 是多少、名字叫什么）。这些以 **`of_`** 开头的函数（**O**pen **F**irmware），就是用来翻译菜单的工具。
+原理：设备树节点中可以包含属性（如 `reg`, `my-value`）。驱动匹配成功后，内核会将节点信息保存在 `pdev->dev.of_node` 中。我们需要使用 `of_property_read_u32` 等函数提取这些数据。
 
-#### 1. 通俗理解
+---
 
-匹配成功了，现在我要在 C 代码里获取 DTS 里写的 `test-prop-int = <12345>;`。
-内核提供了一组以 `of_` 开头的函数（Open Firmware），专门用来读设备树。
+### 2. 核心概念：节点指针 (`device_node`)
 
-#### 2. 代码实战
-
-修改上面的 `my_probe` 函数：
+在 `probe` 函数里，你的第一步永远是**先拿到“菜单”**。这个“菜单”就是 `struct device_node` 指针。
 
 ```c
-#include <linux/of.h> // 操作函数头文件
-
 static int my_probe(struct platform_device *pdev)
 {
-    struct device_node *np = pdev->dev.of_node; // 获取当前设备的节点指针
-    u32 val = 0;
-    const char *str = NULL;
-    int ret;
+    // 1. 获取当前设备对应的设备树节点指针
+    struct device_node *np = pdev->dev.of_node;
 
-    printk("匹配成功，开始读取属性...\n");
-
-    // 读取整数
-    // 参数：节点，属性名，存放地址
-    ret = of_property_read_u32(np, "test-prop-int", &val);
-    if (ret == 0) {
-        printk("读到整数: %d\n", val); // 应该输出 12345
+    if (!np) {
+        printk("没有设备树节点！\n");
+        return -1;
     }
-
-    // 读取字符串
-    ret = of_property_read_string(np, "test-prop-str", &str);
-    if (ret == 0) {
-        printk("读到字符串: %s\n", str); // 应该输出 hello_dts
-    }
-
-    return 0;
+    // ... 后面所有的 of_ 函数都要用到这个 np
 }
 ```
+
+---
+
+### 3. 最常用的 3 招（覆盖 90% 场景）
+
+假设我们在设备树里写了这样一个节点：
+
+```c
+/* DTS 文件 */
+my_sensor {
+    compatible = "rk3568,sensor";
+    /* 1. 整数属性 */
+    sensor-id = <0xA5>;
+    max-speed = <1000>;
+
+    /* 2. 字符串属性 */
+    chip-name = "ICm-20608";
+
+    /* 3. 数组属性 (很少用，但得知道) */
+    default-levels = <0 10 20 30>;
+};
+```
+
+我们看看如何在驱动代码里把它们读出来。
+
+#### 1. 读取整数 (`of_property_read_u32`)
+
+这是最常用的，用来读 ID、配置参数、波特率等。
+
+**函数原型**：
+`int of_property_read_u32(const struct device_node *np, const char *propname, u32 *out_value)`
+
+**代码实战**：
+
+```c
+u32 id = 0;
+u32 speed = 0;
+int ret;
+
+/* 读 sensor-id */
+ret = of_property_read_u32(np, "sensor-id", &id);
+if (ret == 0) {
+    // 成功！注意 DTS 里是 0xA5，读出来就是十进制 165
+    printk("读到 ID: %#x\n", id);
+} else {
+    printk("读取 sensor-id 失败\n");
+}
+
+/* 读 max-speed */
+of_property_read_u32(np, "max-speed", &speed); // 简写，假设一定成功
+```
+
+#### 2. 读取字符串 (`of_property_read_string`)
+
+用来读取名字、模式配置等。
+
+**函数原型**：
+`int of_property_read_string(const struct device_node *np, const char *propname, const char **out_string)`
+
+**代码实战**：
+
+```c
+const char *name_str = NULL; // 这是一个指针，指向内核内存
+
+ret = of_property_read_string(np, "chip-name", &name_str);
+if (ret == 0) {
+    printk("芯片名字是: %s\n", name_str);
+}
+```
+
+#### 3. 读取数组 (`of_property_read_u32_array`)
+
+用来读取一组数据，比如一些校准参数。
+
+**代码实战**：
+
+```c
+u32 levels[4]; // 准备一个数组来接数据
+
+/* 参数：节点，属性名，数组指针，读取数量 */
+ret = of_property_read_u32_array(np, "default-levels", levels, 4);
+if (ret == 0) {
+    printk("Level 1: %d\n", levels[1]); // 输出 10
+}
+```
+
+---
+
+### 4. 特殊属性的读取（不要硬用 OF 函数）
+
+虽然 `reg`（地址）、`interrupts`（中断）、`gpios`（引脚）本质上也是属性，**但内核提供了更高级的封装**，我们通常**不**直接用上面的 `of_property_read_xxx` 来读它们。
+
+#### 1. 读取 GPIO（关键！）
+
+不要去读什么 `xxx-gpios = <...>` 里的数字。
+**使用 GPIO 子系统接口**，内核会自动处理设备树解析。
+
+- **DTS**: `led-gpios = <&gpio0 15 0>;`
+- **Code**:
+
+  ```c
+  #include <linux/gpio/consumer.h>
+
+  struct gpio_desc *my_gpio;
+  /* 内核会自动去DTS找 "led" + "-gpios" 这个属性 */
+  my_gpio = devm_gpiod_get(&pdev->dev, "led", GPIOD_OUT_LOW);
+  ```
+
+#### 2. 读取资源（reg 和 interrupts）
+
+- **DTS**: `reg = <0xFE000000 0x100>;`
+- **Code**:
+
+  ```c
+  struct resource *res;
+  /* IORESOURCE_MEM 表示获取 reg 属性 */
+  res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+  // 拿到 resource 后，通常接着用 devm_ioremap_resource 映射内存
+  ```
+
+- **DTS**: `interrupts = <...>;`
+- **Code**:
+  ```c
+  int irq;
+  irq = platform_get_irq(pdev, 0); // 获取第0个中断号
+  ```
+
+---
+
+### 5. 避坑指南（新手必看）
+
+1.  **返回值检查**：
+    所有 OF 函数，**返回 `0` 表示成功**，返回负数（如 `-EINVAL`）表示失败。不要以为返回 1 是成功！
+
+2.  **u8 / u16 / u32 的区别**：
+    设备树里的数字默认都是 **32 位（u32）** 的。除非你显式使用了 `/bits/ 8 <...>` 语法，否则一律用 `of_property_read_u32`。不要为了省内存用 `read_u8`，读不出来的。
+
+3.  **const 指针**：
+    `of_property_read_string` 返回的字符串指针指向的是设备树在内存中的原始数据，是 **Read Only** 的。千万不要试图去 `strcpy` 修改它，否则系统会崩。
+
+---
+
+### 6. 总结表
+
+| 你想读什么？     | DTS 写法示例          | C 代码函数 (推荐)                |
+| :--------------- | :-------------------- | :------------------------------- |
+| **自定义整数**   | `my-val = <100>;`     | `of_property_read_u32`           |
+| **自定义字符串** | `my-name = "abc";`    | `of_property_read_string`        |
+| **GPIO 引脚**    | `xxx-gpios = <...>;`  | `devm_gpiod_get` (不要直接用 OF) |
+| **寄存器地址**   | `reg = <...>;`        | `platform_get_resource`          |
+| **中断号**       | `interrupts = <...>;` | `platform_get_irq`               |
+
+掌握了这张表，你在驱动里“读菜单”的能力就完全够用了！
 
 **意义**：以后你想修改参数，只需要改 DTS（不用重新编译驱动代码），这就是**配置与代码分离**。
 
 ---
 
 ## 控制硬件（GPIO 与 Pinctrl）
-
-**对应视频章节**：
-
-- 实例分析：GPIO
-- 实例分析：pinctrl
-- 实例分析：中断（可选，作为进阶）
 
 #### 1. 通俗理解
 
@@ -324,62 +453,129 @@ static int my_probe(struct platform_device *pdev)
 #### 2. 代码实战（点灯）
 
 **Step 1: 修改设备树（DTS）**
-你需要查看原理图找到 LED 对应的 GPIO 号（假设是 GPIO0_B7，具体看迅为原理图）。
-在 DTS 中引用 Pinctrl 配置（迅为的 DTS 通常已经预定义好了 Pinctrl 节点，引用即可）。
+你需要查看原理图找到 LED 对应的 GPIO 号 GPIO0_B7, 在 DTS 中引用 Pinctrl 配置（迅为的 DTS 通常已经预定义好了 Pinctrl 节点，引用即可）。
 
-```dts
+```c dts /Linux/linux_sdk/kernel/arch/arm64/boot/dts/rockchip/rk3568-evb1-ddr4-v10-linux.dts
 / {
-    my_led {
-        compatible = "my,gpio-led";
-        // 引用GPIO控制器，参数：控制器节点, 引脚号, 标志位
-        // RK平台写法可能略有不同，需参考视频中关于 GPIO 宏定义的讲解
-        led-gpios = <&gpio0 15 0>;  // 假设 15 是 B7 的索引，0是高电平有效
+    my_led{
+        compatible = "rk3568,my_led";
         status = "okay";
+        led-gpios = <&gpio0 RK_PB7 GPIO_ACTIVE_HIGH>;
     };
 };
+```
+
+**注意** 编写完所有代码之后发现 led 没有反应
+排查原因：查看在 dts 中写的 gpio 引脚是否被占用？
+`cat /sys/kernel/debug/gpio`
+发现：
+`gpio-15  (                    |work                ) out hi`
+gpio-15：这就是我们要操作的 GPIO0_B7 (032 + 18 + 7 = 15)。|work：这表示这个引脚当前正在被一个名叫 "work" 的驱动占用着。out hi：它已经被配置为输出高电平了。也就是说：内核自带的 leds-gpio 驱动（或者类似的系统指示灯驱动）已经根据原厂的设备树，先把这个脚给占用了。
+寻找&gpio0 RK_PB7，在：/home/topeet/Linux/linux_sdk/kernel/scripts/dtc/include-prefixes/arm64/rockchip/rk3568-evb.dtsi 中发现 work 驱动
+
+```c
+   leds: leds {
+        compatible = "gpio-leds";
+        work_led: work {
+            status = "disabled";              // --->添加这一行,使其失效
+            lable = "user1";
+            gpios = <&gpio0 RK_PB7 GPIO_ACTIVE_HIGH>;
+            linux,default-trigger = "heartbeat";
+            default-state = "on";
+        };
+   }
 ```
 
 **Step 2: 编写驱动（使用新版 GPIO API）**
 
 ```c
-#include <linux/gpio/consumer.h> // 新版GPIO接口 gpiod_
+#include <linux/module.h>
+#include <linux/init.h>
+#include <linux/of.h>
+#include <linux/platform_device.h>
+#include <linux/gpio/consumer.h>
 
-struct gpio_desc *my_led_gpio; // GPIO描述符
-
-static int my_probe(struct platform_device *pdev)
+/* 定义一个指针，指向我们要操作的那个 GPIO */
+struct gpio_desc *my_led_gpio;
+/*
+ * 1. Probe 函数
+ * 只有当 DTS 的 compatible 和 驱动的 compatible 一样时，
+ * 这个函数才会被内核调用！
+ */
+static int my_prob(struct platform_device *pdev)
 {
-    // 1. 获取GPIO
-    // 第二个参数 "led" 会对应到 DTS 里的 "led-gpios" (系统自动匹配 -gpios 后缀)
+    printk(KERN_INFO "==========匹配成功！==========\n");
+    printk(KERN_INFO "我是驱动，我找到了我的设备！\n");
+    if (pdev->dev.of_node)
+    {
+        printk(KERN_INFO "设备树节点名: %s\n", pdev->dev.of_node->name);
+    }
+    /*
+     * 【核心步骤：获取 GPIO】
+     * 参数1: 设备指针
+     * 参数2: 属性名前缀 "led"。
+     *        内核会自动在 DTS 里找 "led" + "-gpios" = "led-gpios" 属性。
+     * 参数3: 初始化标志。GPIOD_OUT_LOW 表示获取后立即设置为输出模式，且输出低电平（灭）。
+     */
     my_led_gpio = devm_gpiod_get(&pdev->dev, "led", GPIOD_OUT_LOW);
-
-    if (IS_ERR(my_led_gpio)) {
-        printk("获取GPIO失败\n");
+    if (IS_ERR(my_led_gpio))
+    {
+        printk(KERN_ERR "【LED驱动】获取 GPIO 失败！\n");
         return PTR_ERR(my_led_gpio);
     }
 
-    // 2. 设置高电平（点灯）
+    /* 点亮 LED！(设置为高电平 1) */
     gpiod_set_value(my_led_gpio, 1);
-    printk("LED 已点亮\n");
+    printk(KERN_INFO "【LED驱动】灯已点亮！(GPIO0_B7 set High)\n");
 
     return 0;
 }
 
 static int my_remove(struct platform_device *pdev)
 {
-    // 3. 关灯
     gpiod_set_value(my_led_gpio, 0);
-    // devm_ 开头的函数会自动释放资源，不需要手动 free gpio
+    /* 注意：使用了 devm_gpiod_get，内核会自动释放 GPIO，不需要手动 free */
+    printk(KERN_INFO "============= 驱动卸载 ============\n");
     return 0;
 }
-
-// ... 匹配表和 module_platform_driver 同上，compatible 改为 "my,gpio-led" ...
+/*
+ * 2. 匹配表
+ * 这是整个匹配过程的核心！
+ */
+static const struct of_device_id my_match_table[] = {
+    {.compatible = "rk3568,my_led"},
+    {}};
+/* 将匹配表注册到模块信息中 */
+MODULE_DEVICE_TABLE(of, my_match_table);
+/*
+ * 3. 驱动结构体
+ */
+static struct platform_driver my_driver = {
+    .probe = my_prob,
+    .remove = my_remove,
+    .driver = {
+        .name = "my_led_driver", /* 驱动名字，也就是 /sys/bus/platform/drivers/ 下的名字 */
+        .owner = THIS_MODULE,
+        .of_match_table = my_match_table, /* 关联匹配表 */
+    },
+};
+/* 4. 注册平台驱动 */
+module_platform_driver(my_driver);
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Can"); // 作者信息
 ```
+
+#### 实操
+
+1.  在目录`/Linux/linux_sdk`下编译内核（./build.sh kernel）并烧写带 `my_led` 的内核（生成的`boot.img`在目录`/home/topeet/Linux/linux_sdk/kernel/boot.img`,烧写时记得接 usb 线）。
+2.  编译加载(insmod)这个 `.ko` 模块。
+3.  使用 `dmesg` 查看，是否与驱动程序中匹配
 
 ---
 
 ## 说明
 
-1. 关于官方文档上在**平台总线章节**里面所说的**注册 platform 设备实验**，个人认为完全没必要，因为只要会写 `dts`，完全没必要自己写 `platform_device` 实验，AI 说：几乎不用 (除非做纯软件实验)。毕竟**Linux is a fucking pain in the ass！**
+1. 关于官方文档上在**平台总线章节**里面所说的**注册 platform 设备实验**，个人认为完全没必要，因为只要会写 `dts`，完全没必要自己写 `platform_device` 实验，AI 说：几乎不用 (除非做纯软件实验)。毕竟**Linux is a fucking pain in the ass！**，笑死...
 2. DTS 的编译原理：不用管 `dtc` 编译器怎么把文本变成二进制的，会用命令 `make dtbs` （`/home/topeet/Linux/linux_sdk/kernel/scripts/dtc/dtc -I dts -O dtb -o test.dtb test.dts`）就行。
 3. DTS 的展开过程：不用管内核启动时怎么把二进制变成结构体的（Unflatten），知道 `probe` 的时候已经变好了就行。
 4. 复杂的总线定义：不用管 CPU 节点、总线控制器节点是怎么写的，那些都是原厂写好的，你只需要在它们下面挂设备。
@@ -397,3 +593,5 @@ static int my_remove(struct platform_device *pdev)
     - _至于“设备树展开流程”、“DTB 格式”，那是内核原理，可以等以后有空当故事听，不影响写代码。_
 
 按照这个“四步走”路线，每一节都有代码反馈，你会学得很有成就感！加油！
+
+**-------------设备树篇完结--------------**
