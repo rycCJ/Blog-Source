@@ -567,7 +567,8 @@ MODULE_AUTHOR("Can"); // 作者信息
 
 #### 实操
 
-1.  在目录`/Linux/linux_sdk`下编译内核（./build.sh kernel）并烧写带 `my_led` 的内核（生成的`boot.img`在目录`/home/topeet/Linux/linux_sdk/kernel/boot.img`,烧写时记得接 usb 线）。
+1.  在目录`/Linux/linux_sdk`下编译内核（./build.sh kernel）并烧写带 `my_led` 的内核（生成的`boot.img`在目录`/home/topeet/Linux/linux_sdk/kernel/boot.img`,可以确定一下时间（ls -l /home/topeet/Linux/linux_sdk/kernel/arch/arm64/boot/dts/rockchip/rk3568-evb1-ddr4-v10-linux.dtb
+    ）烧写时记得接 usb 线）。
 2.  编译加载(insmod)这个 `.ko` 模块。
 3.  使用 `dmesg` 查看，是否与驱动程序中匹配
 

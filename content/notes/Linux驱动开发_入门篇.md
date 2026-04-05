@@ -56,7 +56,7 @@ make -C $(KDIR) M=$(PWD) clean
    内核模块是以 ko 为后缀名，因此编译成功得到的 helloworld.ko 文件即内核模块，也就是编译好的驱动程序
    make clean 命令可以清除编译文件
 3. 模块加载与卸载
-   将 helloworld.ko 内核模块拷贝到 iTOP-RK3568 开发板上,使用：
+   将 helloworld.ko 内核模块拷贝到 iTOP-RK3568 开发板上,使用：(拷贝方法：sudo cp /home/topeet/Code/14_LVDS_I2C/LVDS_I2C.ko /nfs)
 
 ```Bash
   insmod helloworld.ko

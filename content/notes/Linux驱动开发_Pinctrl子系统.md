@@ -2,7 +2,7 @@
 title: "Linux驱动开发 Pinctrl子系统" # <--- 修改这一行
 date: "2025-12-05T19:24:02+08:00"
 draft: false
-tags: ["", ""]
+tags: ["Linux", "驱动开发"]
 location: ""
 ---
 
@@ -46,9 +46,7 @@ location: ""
 
 ---
 
-## ⚙️ 第三部分：概念与源码对应（硬核知识通俗化）
-
-对应你的目录第 123-126 章，这里有很多结构体，我们用通俗语言对应代码。
+## ⚙️ 第二部分：概念与源码对应（硬核知识通俗化）
 
 ### 1. Pin, Group 和 Function
 
@@ -233,6 +231,7 @@ location: ""
     ```
 
 2.  **Rockchip 驱动预处理 (`rockchip_pinctrl_parse_groups`)**:
+    drivers/pinctrl/pinctrl-rockchip.c，入口函数：rockchip_pinctrl_probe
 
     - 生成 `struct rockchip_pin_group grp`:
       - `name` = "i2c0-xfer"
@@ -252,7 +251,33 @@ location: ""
         - Pin: "GPIO0_B2"
         - Config: NoPull
 
-#### 3. 分析建议
+现在我们把所有知识串起来：
+
+1.  **系统启动 (Probe 阶段)**：
+
+    - 执行 `rockchip_pinctrl_parse_groups`。
+    - 它把 DTS 里的 `<0 RK_PB1 1 &pcfg_pull_none>` **读** 出来。
+    - **存** 到了 `info->groups` 这个链表里。
+    - _注意：此时还没有生成 pinctrl_map，只是把数据从 DTS 搬到了内存里备用。_
+
+2.  **I2C 驱动加载 (Bind 阶段)**：
+
+    - I2C 驱动说：“我要用 `i2c0-xfer`”。
+    - 内核核心层调用 `rockchip_dt_node_to_map`。
+
+3.  **生成映射 (转换阶段 - 上一个问题的内容)**：
+    - `rockchip_dt_node_to_map` 调用 `pinctrl_name_to_group`。
+    - **去哪里找？** 就去 **第 1 步** 生成的那个 `info->groups` 链表里找！
+    - 找到后，把这些内部数据，填入 Linux 标准的 `map` 结构体返回。
+
+#### 3.💡 形象比喻
+
+**Pinctrl 节点解析流程 = 搬运工 + 翻译官**
+
+1.  **搬运工 (Probe 时)**：`rockchip_pinctrl_parse_groups` 负责把 DTS 里那串难懂的数字（`rockchip,pins`），一个个抠出来，整理好，放在家里的仓库（`rockchip_pin_group` 结构体）里。
+2.  **翻译官 (被调用时)**：`rockchip_dt_node_to_map` 负责当有人来要数据时，去仓库里把数据拿出来，翻译成普通话（Linux 标准 `pinctrl_map`），填到表格里交出去。
+
+#### 4. 分析建议
 
 下次如果你想自己分析这种函数，抓住这两个重点：
 
@@ -286,15 +311,27 @@ my_device {
 /* 在 pinctrl 节点里 (通常在 rk3568-pinctrl.dtsi 或你的 dts 底部) */
 &pinctrl {
     my_pins {
+        /*
+        my_pin_config (冒号前)：这是给编译器看的标签（类似于 C 语言里的变量名）。这个名字你可以随便起，叫 abc、led_cfg 都行。
+        my-pin-config(冒号后)：这是最终生成在 /proc/device-tree 里的节点名。
+        */
         my_pin_config: my-pin-config {
             /*
              * 格式：<控制器号 引脚号 复用功能 配置>
-             * 0: GPIO0
-             * 23: 索引号 (对应 PB7)
-             * RK_FUNC_GPIO: 复用为GPIO
-             * &pcfg_pull_up: 启用内部上拉
+            第一个数：0（GPIO控制器编号）
+            第二个数：RK_PB7（引脚编号）
+            第三个数：RK_FUNC_GPIO/0（GPIO功能） 查数据手册（7：属于高位，0123属于低位）
+            第四个数：&pcfg_pull_up（电气配置）
+            这些名字不是随便写的，它们定义在 arch/arm64/boot/dts/rockchip/rk3568-pinctrl.dtsi 文件底部。
+            常用的有这几个（死记硬背即可）：
+            &pcfg_pull_up：开启内部上拉电阻（默认高电平）。
+            &pcfg_pull_down：开启内部下拉电阻（默认低电平）。
+            &pcfg_pull_none：无上下拉（浮空，通常用于输出模式或外部已有上拉）。
+            &pcfg_output_high：设为输出且默认高。
+            &pcfg_output_low：设为输出且默认低。
              */
             rockchip,pins = <0 RK_PB7 RK_FUNC_GPIO &pcfg_pull_up>;
+
         };
     };
 };
@@ -353,7 +390,7 @@ my_pinctrl_drv {
     pinctrl-names = "default", "my_sleep";
 
     /* 对应上面的方案 */
-    pinctrl-0 = <&my_pin_active>; /* 对应 default */
+    pinctrl-0 = <&my_pin_active>; /* 使用标签名，而非节点名。对应 default */
     pinctrl-1 = <&my_pin_sleep>;  /* 对应 my_sleep */
 
     status = "okay";
