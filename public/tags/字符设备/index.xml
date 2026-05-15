@@ -4,18 +4,22 @@
     <title>字符设备 on Can&#39;s Blog</title>
     <link>https://rycCJ.github.io/tags/%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87/</link>
     <description>Recent content in 字符设备 on Can&#39;s Blog</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>ryc1819009649@163.com (Can)</managingEditor>
     <webMaster>ryc1819009649@163.com (Can)</webMaster>
-    <lastBuildDate>Mon, 24 Nov 2025 20:50:51 +0800</lastBuildDate>
-    <atom:link href="https://rycCJ.github.io/tags/%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2025-{year} Can. All rights reserved.</copyright>
+    <lastBuildDate>Mon, 24 Nov 2025 20:50:51 +0800</lastBuildDate><atom:link href="https://rycCJ.github.io/tags/%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>字符设备驱动 LED</title>
       <link>https://rycCJ.github.io/notes/%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8_led/</link>
-      <pubDate>Mon, 24 Nov 2025 20:50:51 +0800</pubDate><author>ryc1819009649@163.com (Can)</author>
+      <pubDate>Mon, 24 Nov 2025 20:50:51 +0800</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
       <guid>https://rycCJ.github.io/notes/%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8_led/</guid>
       <description></description>
+      
     </item>
+    
   </channel>
 </rss>

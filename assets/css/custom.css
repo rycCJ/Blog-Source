@@ -1,89 +1,135 @@
-/* D:\Blog\assets\css\custom.css */
+/* Site polish: keep the blog quiet, readable, and content-first. */
 
 :root {
-  /* 调整整个页面的最大宽度，让内容更宽敞 */
-  --width-page: 90%; /* 推荐使用百分比，100% 可能太宽，让内容没有留白 */
-  /* 如果你坚持 100%，则继续使用 100% */
-
-  /* 调整文章内容的宽度，让它尽可能宽 */
-  --width-content: 100%; /* 让内容在 --width-page 范围内占满 */
-
-  /* 调整文本区块的宽度，通常会比内容宽度略小，或和内容宽度一样 */
-  --width-text: 100%; /* 让文本块也尽可能的宽 */
-
-  /* 调整页面两侧的边距，减少空白 */
-  --spacing-page: 0rem; /* 减小默认的边距，例如 1rem (16px) */
+  --site-bg: #f7f4ee;
+  --site-panel: rgba(255, 255, 255, 0.78);
+  --site-border: rgba(41, 37, 36, 0.12);
+  --site-text: #2b2926;
+  --site-muted: #6f6861;
+  --site-accent: #256d85;
 }
 
-/* 强制覆盖 Blowfish 的主要布局容器 */
-/* 使用 !important 确保这些规则生效 */
-
-/* 1. 主要页面内容容器 (例如 main, .main-wrapper, .article-wrapper) */
-/* 检查你的页面 HTML 结构，找出包裹文章内容的那个大容器的类名或 ID */
-main,
-.main-wrapper, /* Blowfish 通常使用这个 */
-.article-wrapper {
-  max-width: var(--width-page) !important;
-  width: var(--width-page) !important; /* 有时需要同时设置 width */
-  margin-left: auto !important; /* 保持居中 */
-  margin-right: auto !important; /* 保持居中 */
-  padding-left: var(--spacing-page) !important;
-  padding-right: var(--spacing-page) !important;
+html {
+  scroll-behavior: smooth;
 }
 
-/* 2. 文章内容的实际文本块容器 (通常是 .prose 或 .post-content) */
-/* 这是 Markdown 内容渲染的区域，让它能充分利用 --width-content */
-.prose, /* Blowfish 通常使用这个 */
-.post-content {
-  max-width: var(--width-content) !important;
-  width: var(--width-content) !important; /* 有时需要同时设置 width */
-  /* 如果它内部还有 margin 导致窄，可能需要调整 */
-  margin-left: unset !important; /* 取消居中或默认边距 */
-  margin-right: unset !important; /* 取消居中或默认边距 */
+body {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 244, 238, 0.94)),
+    var(--site-bg);
+  color: var(--site-text);
+  letter-spacing: 0;
 }
 
-/* 3. 顶部导航栏，让它也占满页面宽度 */
-/* 通常 nav 元素也会有一个 max-width */
-nav {
-  max-width: var(--width-page) !important;
-  width: var(--width-page) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--spacing-page) !important;
-  padding-right: var(--spacing-page) !important;
+.dark body {
+  --site-bg: #111315;
+  --site-panel: rgba(28, 31, 34, 0.82);
+  --site-border: rgba(255, 255, 255, 0.12);
+  --site-text: #ece7df;
+  --site-muted: #bbb2a8;
+  --site-accent: #7fb7c9;
+  background:
+    linear-gradient(180deg, rgba(24, 27, 30, 0.88), rgba(17, 19, 21, 0.98)),
+    var(--site-bg);
 }
 
-/* 如果有侧边栏，可能也需要调整其宽度或使其不占用空间 */
-/* Blowfish 通常是响应式侧边栏，可能不需要特别处理，除非你想要固定它 */
+main {
+  max-width: 1120px;
+}
 
-/* === 针对侧边导航栏 (Table of Contents / TOC) 的调整 === */
+#single_header,
+.article-content,
+article > footer {
+  max-width: 760px;
+}
 
-/* 1. 调整 TOC 容器本身的宽度 */
+.article-content {
+  font-size: 1.02rem;
+  line-height: 1.82;
+}
+
+.article-content p,
+.article-content li {
+  color: var(--site-text);
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  letter-spacing: 0;
+}
+
+.article-content h2 {
+  margin-top: 2.2rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--site-border);
+}
+
+.article-content a {
+  color: var(--site-accent);
+  text-underline-offset: 0.18em;
+}
+
+.article-content blockquote {
+  border-left-color: var(--site-accent);
+  background: var(--site-panel);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.article-content :not(pre) > code {
+  border: 1px solid var(--site-border);
+  border-radius: 6px;
+  padding: 0.12rem 0.35rem;
+  background: rgba(127, 183, 201, 0.12);
+  font-size: 0.92em;
+}
+
+.article-content pre {
+  border: 1px solid var(--site-border);
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.article-content img {
+  border-radius: 8px;
+  border: 1px solid var(--site-border);
+}
+
+#TableOfContents,
 .toc {
-  /* 假设这是 TOC 容器的类名，请通过 F12 确认 */
-  width: 300px !important; /* 增加固定宽度，例如 280px 或 300px */
-  min-width: 280px !important; /* 确保它至少有这个宽度 */
-  /* background-color: var(--code-bg); Blowfish 默认 TOC 有背景色，一般无需设置 */
-  /* border: 1px solid var(--border); 默认 TOC 有边框，一般无需设置 */
-  padding: 1rem !important; /* 给 TOC 容器内部一个整体的内边距，看起来更舒适 */
+  color: var(--site-muted);
 }
 
-/* 2. 调整 TOC 内部列表项的内边距 */
-/* 这是最关键的一步，增加左右内边距，给文本留出呼吸空间 */
-.toc ul,
-
-/* 3. 调整 TOC 列表项的行高 (如果需要) */
-.toc li a {
-  /* 针对链接文本 */
-  line-height: 1.7 !important; /* 增加行高，让多行文本不那么拥挤 */
-  white-space: normal !important; /* 确保文本可以在需要时正常换行 */
-  word-break: break-word !important; /* 允许长单词在必要时断开换行 */
+#TableOfContents a,
+.toc a {
+  text-decoration: none;
+  line-height: 1.6;
 }
 
-/* D:\Blog\assets\css\custom.css */
+article[class*="border"],
+.thumbnail_card,
+.min-w-0 article {
+  border-color: var(--site-border);
+  border-radius: 8px;
+}
 
-/* 之前设置的全局宽度和边距变量，确保它们有效 */
-:root {
-  --width-page: 90%; /* 确保你的页面最大宽度设置合理 */
-  --spacing-page: 1rem;
+@media (max-width: 1024px) {
+  #single_header,
+  .article-content,
+  article > footer {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .article-content {
+    font-size: 1rem;
+    line-height: 1.76;
+  }
+
+  .article-content pre {
+    border-radius: 6px;
+  }
 }

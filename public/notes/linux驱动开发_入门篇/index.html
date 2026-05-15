@@ -1,0 +1,1718 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="en">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  
+    <title>Linux驱动开发 入门篇 &middot; Can&#39;s Blog</title>
+    <meta name="title" content="Linux驱动开发 入门篇 &middot; Can&#39;s Blog">
+  
+
+  
+  
+    <meta name="description" content="在这里写下您的文章摘要...">
+  
+  
+    <meta name="keywords" content="Linux,驱动开发,">
+  
+  
+  
+  <link rel="canonical" href="https://rycCJ.github.io/notes/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_%E5%85%A5%E9%97%A8%E7%AF%87/">
+  
+
+  
+  
+    <meta name="author" content="Can">
+  
+  
+    
+      
+        
+          <link href="https://github.com/rycCJ" rel="me">
+        
+      
+    
+  
+
+  
+  <meta property="og:url" content="https://rycCJ.github.io/notes/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_%E5%85%A5%E9%97%A8%E7%AF%87/">
+  <meta property="og:site_name" content="Can&#39;s Blog">
+  <meta property="og:title" content="Linux驱动开发 入门篇">
+  <meta property="og:description" content="在这里写下您的文章摘要…">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2025-11-11T19:17:40+08:00">
+    <meta property="article:modified_time" content="2025-11-11T19:17:40+08:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="驱动开发">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Linux驱动开发 入门篇">
+  <meta name="twitter:description" content="在这里写下您的文章摘要…">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+  
+    
+      
+      
+        
+      
+      
+        <meta name="twitter:image" content="https://rycCJ.github.io/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
+        <meta property="og:image" content="https://rycCJ.github.io/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.80392c696498783b213c32422209a6e6d488c4223ad87175f4ee465fb691052895ba0e028ec31a51547697de0225643939c393c55f7741f12c05270f539c8916.css"
+    integrity="sha512-gDksaWSYeDshPDJCIgmm5tSIxCI62HF19O5GX7aRBSiVug4CjsMaUVR2l94CJWQ5OcOTxV93QfEsBScPU5yJFg==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.b4b722fcb5d42f34f52b30a92f3521b69f403ca9d96d0d6179eb537cb870f5d83fdf1fe836688d95d5c99fefbda4170487711006e56051fa67ea00da10521721.js" integrity="sha512-tLci/LXULzT1KzCpLzUhtp9APKnZbQ1heetTfLhw9dg/3x/oNmiNldXJn&#43;&#43;9pBcEh3EQBuVgUfpn6gDaEFIXIQ=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.f16cf48651044bc66625c8008eb5605cc702530530daa081ce7e495e50adf778bef6cd0747382983caf5e5cc745c819dd7a969e17e545119dff14346f4fcb977.js"
+      integrity="sha512-8Wz0hlEES8ZmJcgAjrVgXMcCUwUw2qCBzn5JXlCt93i&#43;9s0HRzgpg8r15cx0XIGd16lp4X5UURnf8UNG9Py5dw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
+  
+
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.03cb160e3cfdb2667a2e2c80d283bebcf63ff8bbc4b629c9ab2babf6fae1d0c07ad470edae783efa4fabda2ac01c58d60e63b98b3c336be8208460f08f4354f5.js" integrity="sha512-A8sWDjz9smZ6LiyA0oO&#43;vPY/&#43;LvEtinJqyur9vrh0MB61HDtrng&#43;&#43;k&#43;r2irAHFjWDmO5izwza&#43;gghGDwj0NU9Q=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Notes",
+    "name": "Linux驱动开发 入门篇",
+    "headline": "Linux驱动开发 入门篇",
+    
+    "abstract": "在这里写下您的文章摘要\u0026hellip;",
+    "inLanguage": "en",
+    "url" : "https:\/\/rycCJ.github.io\/notes\/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_%E5%85%A5%E9%97%A8%E7%AF%87\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Can"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-11-11T19:17:40\u002b08:00",
+    "datePublished": "2025-11-11T19:17:40\u002b08:00",
+    
+    "dateModified": "2025-11-11T19:17:40\u002b08:00",
+    
+    "keywords": ["Linux","驱动开发"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "665"
+  }]
+  </script>
+
+
+
+  
+  
+    
+
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        Skip to main content
+      </a>
+    </div>
+    
+    
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
+  
+  
+
+  <div class="flex flex-1 items-center justify-between">
+    <nav class="flex space-x-3">
+      
+        <a href="/" class="text-base font-medium">
+          Can&rsquo;s Blog
+        </a>
+      
+    </nav>
+    
+  <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+    
+      
+        
+  <a
+  href="/notes/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="Notes"
+  title="Notes">
+  
+  
+    <p class="text-base font-medium">
+      Notes
+    </p>
+  
+</a>
+
+
+
+      
+        
+  <a
+  href="/posts/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="Posts"
+  title="Posts">
+  
+  
+    <p class="text-base font-medium">
+      Posts
+    </p>
+  
+</a>
+
+
+
+      
+        
+  <a
+  href="https://github.com/rycCJ"
+  target="_blank"
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="GitHub"
+  title="">
+  
+    <span class="mr-1">
+      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+    </span>
+  
+  
+    <p class="text-base font-medium">
+      GitHub
+    </p>
+  
+</a>
+
+
+
+      
+    
+
+    
+
+    
+
+    
+      <button
+        id="search-button"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <div class=" flex items-center">
+        <button
+          id="appearance-switcher"
+          aria-label="Dark mode switcher"
+          type="button"
+          class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+          <div class="flex items-center justify-center dark:hidden">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+          </div>
+          <div class="items-center justify-center hidden dark:flex">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+          </div>
+        </button>
+      </div>
+    
+  </nav>
+
+    
+  <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+    <span></span>
+
+    
+
+    
+
+    
+      <button
+        id="search-button-mobile"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <button
+        id="appearance-switcher-mobile"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400 me-1">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    
+  </div>
+
+  </div>
+  
+  <div class="-my-2 md:hidden">
+    <div id="menu-button" class="block">
+      
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 pt-[5px]">
+          <ul
+            class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none text-end max-w-7xl">
+            <li id="menu-close-button">
+              <span
+                class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+                <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+              </span>
+            </li>
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/notes/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="Notes"
+    title="Notes">
+    
+    
+      <p class="text-bg font-bg">
+        Notes
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/posts/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="Posts"
+    title="Posts">
+    
+    
+      <p class="text-bg font-bg">
+        Posts
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="https://github.com/rycCJ"
+    
+      target="_blank"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="GitHub"
+    title="">
+    
+      <div class="mr-2">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+      </div>
+    
+    
+      <p class="text-bg font-bg">
+        GitHub
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+
+          </ul>
+          
+        </div>
+      
+    </div>
+  </div>
+
+</div>
+
+
+
+
+  <script>
+    (function () {
+      var $mainmenu = $(".main-menu");
+      var path = window.location.pathname;
+      $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+        $(e).children("p").addClass("active");
+      });
+    })();
+  </script>
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+      
+      
+      
+      
+        
+
+
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+  
+  
+    
+    
+  
+
+
+
+
+  
+    
+    
+  
+
+
+
+
+
+    <div id="hero" class="h-[150px] md:h-[200px]"></div>
+  
+  <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
+    
+    
+    
+    <img
+      id="background-image"
+      src="/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"
+      alt="Linux驱动开发 入门篇"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
+    <div
+      class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal"></div>
+  </div>
+
+  
+    <div
+      id="background-blur"
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
+      integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
+      data-blur-id="background-blur"
+      data-image-id="background-image"
+      data-image-url="/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"></script>
+  
+      
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Linux驱动开发 入门篇
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2025-11-11T19:17:40&#43;08:00">11 November 2025</time><span class="px-2 text-primary-500">&middot;</span><span>665 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span
+    id="views_notes\Linux驱动开发_入门篇.md"
+    class="animate-pulse inline-block text-transparent max-h-3 rounded-full -mt-[2px] align-middle bg-neutral-300 dark:bg-neutral-400"
+    title="views"
+    >loading</span
+  >
+  <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></span>
+</span>
+<span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span
+    id="likes_notes\Linux驱动开发_入门篇.md"
+    class="animate-pulse inline-block text-transparent max-h-3 rounded-full -mt-[2px] align-middle bg-neutral-300 dark:bg-neutral-400"
+    title="likes"
+    >loading</span
+  >
+  <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg></span></span>
+</span>
+<span class="px-2 text-primary-500">&middot;</span><span>
+  <button
+    id="button_likes"
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    <span id="button_likes_heart" class="inline-block align-text-bottom hidden"
+      ><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg></span>
+    </span>
+    <span id="button_likes_emtpty_heart" class="inline-block align-text-bottom"
+      ><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z"/></svg></span></span
+    >
+    <span id="button_likes_text">&nbsp;Like</span>
+  </button>
+</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/linux/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Linux
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    驱动开发
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
+  
+
+  
+  
+
+
+
+      </div>
+      
+        
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="Can"
+        src="/img/Can.jpg"
+        data-zoom-src="/img/Can.jpg">
+    
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        Can
+      </div>
+    
+    
+      <div class="text-sm text-neutral-700 dark:text-neutral-400">A little bit about you</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/rycCJ"
+          target="_blank"
+          aria-label="Github"
+          title="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-5"></div>
+  
+
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+          <div class="toc ps-5 print:hidden lg:sticky lg:top-10">
+            
+              <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#linux-驱动的分类">Linux 驱动的分类</a></li>
+        <li><a href="#驱动四个部分">驱动四个部分</a></li>
+      </ul>
+    </li>
+    <li><a href="#编译驱动">编译驱动</a>
+      <ul>
+        <li><a href="#编译驱动的两种方法">编译驱动的两种方法</a></li>
+        <li><a href="#把驱动编译成内核模">把驱动编译成内核模</a></li>
+        <li><a href="#linux-下编译驱动实践-usb-转串口">Linux 下编译驱动实践 USB 转串口</a></li>
+        <li><a href="#make-menuconfig-图形化配置">make menuconfig 图形化配置</a></li>
+        <li><a href="#与图形化相关的文件">与图形化相关的文件</a></li>
+        <li><a href="#kconfig-语法">Kconfig 语法</a></li>
+        <li><a href="#把驱动编译进内核">把驱动编译进内核</a></li>
+      </ul>
+    </li>
+    <li><a href="#杂项设备">杂项设备</a>
+      <ul>
+        <li><a href="#驱动层传参">驱动层传参</a></li>
+        <li><a href="#内核符号表">内核符号表</a></li>
+        <li><a href="#应用层和内核层数据传输">应用层和内核层数据传输</a></li>
+        <li><a href="#编译进内核的驱动如何运行">编译进内核的驱动如何运行</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg -ms-5 ps-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#linux-驱动的分类">Linux 驱动的分类</a></li>
+        <li><a href="#驱动四个部分">驱动四个部分</a></li>
+      </ul>
+    </li>
+    <li><a href="#编译驱动">编译驱动</a>
+      <ul>
+        <li><a href="#编译驱动的两种方法">编译驱动的两种方法</a></li>
+        <li><a href="#把驱动编译成内核模">把驱动编译成内核模</a></li>
+        <li><a href="#linux-下编译驱动实践-usb-转串口">Linux 下编译驱动实践 USB 转串口</a></li>
+        <li><a href="#make-menuconfig-图形化配置">make menuconfig 图形化配置</a></li>
+        <li><a href="#与图形化相关的文件">与图形化相关的文件</a></li>
+        <li><a href="#kconfig-语法">Kconfig 语法</a></li>
+        <li><a href="#把驱动编译进内核">把驱动编译进内核</a></li>
+      </ul>
+    </li>
+    <li><a href="#杂项设备">杂项设备</a>
+      <ul>
+        <li><a href="#驱动层传参">驱动层传参</a></li>
+        <li><a href="#内核符号表">内核符号表</a></li>
+        <li><a href="#应用层和内核层数据传输">应用层和内核层数据传输</a></li>
+        <li><a href="#编译进内核的驱动如何运行">编译进内核的驱动如何运行</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+
+<script>
+  (function () {
+    'use strict'
+
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
+
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) {
+          return anchors[i].id
+        }
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = true
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
+      const config = {
+        toc,
+        anchors,
+        links,
+        scrollOffset: SCROLL_OFFSET_RATIO,
+        collapseInactive
+      }
+
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', initTOC)
+      : initTOC()
+  })()
+</script>
+
+
+            
+          </div>
+        </div>
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          
+<h3 class="relative group">Linux 驱动的分类
+    <div id="linux-驱动的分类" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#linux-%e9%a9%b1%e5%8a%a8%e7%9a%84%e5%88%86%e7%b1%bb" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<ol>
+<li>字符设备驱动（重要 ）：IO 的传输过程是以字符为单位的，没有缓冲。比如 I2C,SPI 都是字符设备</li>
+<li>块设备驱动：IO 的传输过程是以块为的单位的。与存储相关，如：tf 卡</li>
+<li>网络设备驱动：与前两个不同，都是以 socket 套接字节来访问的</li>
+</ol>
+
+<h3 class="relative group">驱动四个部分
+    <div id="驱动四个部分" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%a9%b1%e5%8a%a8%e5%9b%9b%e4%b8%aa%e9%83%a8%e5%88%86" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<ol>
+<li>头文件</li>
+<li>驱动模块的入口和出口</li>
+<li>声明信息</li>
+<li>功能实现</li>
+</ol>
+
+<h2 class="relative group">编译驱动
+    <div id="编译驱动" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%bc%96%e8%af%91%e9%a9%b1%e5%8a%a8" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+
+<h3 class="relative group">编译驱动的两种方法
+    <div id="编译驱动的两种方法" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%bc%96%e8%af%91%e9%a9%b1%e5%8a%a8%e7%9a%84%e4%b8%a4%e7%a7%8d%e6%96%b9%e6%b3%95" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<ol>
+<li>将驱动编译成内核模块</li>
+<li>将驱动编译进内核</li>
+</ol>
+
+<h3 class="relative group">把驱动编译成内核模
+    <div id="把驱动编译成内核模" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%8a%8a%e9%a9%b1%e5%8a%a8%e7%bc%96%e8%af%91%e6%88%90%e5%86%85%e6%a0%b8%e6%a8%a1" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>参考文章：D:\Wechatfile\WeChat Files\wxid_jdbkf3gcd0e422\FileStorage\File\2025-11\【北京迅为】itop-3568 开发板驱动开发指南（重制版）1.8.pdf 第三章 内核模块实验</p>
+<ol>
+<li>写.c 文件和 Makefile 文件在同于一个文件夹下面</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="k">export </span><span class="nv">ARCH</span><span class="o">=</span>arm64
+</span></span><span class="line"><span class="cl"><span class="c">#设置交叉编译器前缀，依据具体开发板对应的交叉编译器前缀选择。
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="k">export </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>aarch64-linux-gnu-
+</span></span><span class="line"><span class="cl"><span class="c">#生成 helloworld.o 文件。helloworld.o 名称要与 helloworld.c 驱动名称保持一致。
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">obj-m</span> <span class="o">+=</span> helloworld.o
+</span></span><span class="line"><span class="cl"><span class="c">#内核源码所在虚拟机 ubuntu 的实际路径，并且保证该路径下的内核源码已经编译通过，否则编译驱动会出现报错。具体编译方法请参考对应开发板使用手册，如 iTOP-RK3568
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="err">开发板编译手册。</span>
+</span></span><span class="line"><span class="cl"><span class="nv">KDIR</span> <span class="o">:=</span>/home/kernels/linux_sdk/kernel
+</span></span><span class="line"><span class="cl"><span class="nv">PWD</span> <span class="o">?=</span> <span class="k">$(</span>shell <span class="nb">pwd</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">all</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="err">make</span> <span class="err">-C</span> <span class="k">$(</span><span class="nv">KDIR</span><span class="k">)</span> <span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span> modules
+</span></span><span class="line"><span class="cl"><span class="c">#make 操作
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">clean</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="err">make</span> <span class="err">-C</span> <span class="k">$(</span><span class="nv">KDIR</span><span class="k">)</span> <span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span> clean
+</span></span><span class="line"><span class="cl"><span class="c">#make clean 操作
+</span></span></span></code></pre></div><ol start="2">
+<li>编译为内核模块
+输入 make 命令即可把 helloworld 驱动编译成内核模块
+内核模块是以 ko 为后缀名，因此编译成功得到的 helloworld.ko 文件即内核模块，也就是编译好的驱动程序
+make clean 命令可以清除编译文件</li>
+<li>模块加载与卸载
+将 helloworld.ko 内核模块拷贝到 iTOP-RK3568 开发板上,使用：(拷贝方法：sudo cp /home/topeet/Code/14_LVDS_I2C/LVDS_I2C.ko /nfs)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">  insmod helloworld.ko
+</span></span></code></pre></div><p>查看加载的模块</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">lsmod
+</span></span></code></pre></div><p>命令加载 helloworld 内核模块，会执行驱动入口函数；</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="n">rmmod</span> <span class="n">helloworld</span><span class="p">.</span><span class="n">ko</span>
+</span></span></code></pre></div><p>执行 rmmod helloworld 命令会希望在内核模块，在卸载内核模块的时候会执行驱动出口函数</p>
+<ol start="4">
+<li>验证设备节点是否创建成功
+在终端里输入以下命令：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">ls -l /dev/hello_misc
+</span></span><span class="line"><span class="cl"><span class="c1"># 这里的hello_misc是结构体里面的名字</span>
+</span></span></code></pre></div><p>如果成功，你会看到类似 crw-rw-rw- 1 root root 10, 58 Nov 13 10:00 /dev/hello_misc 的输出。
+开头的 c 代表它是一个字符设备 (Character Device)。
+10, 58 是它的主设备号 (Major Number) 和次设备号 (Minor Number)。所有 misc 设备的主设备号都是 10。
+如果失败，提示“No such file or directory”，说明你的驱动加载可能有问题。这时应该用 dmesg 命令查看内核日志。</p>
+<ol start="5">
+<li>与设备进行交互 (有的话才操作 触发你的驱动代码)</li>
+</ol>
+<p>假设你的 misc_fops 结构体里定义了 read 和 write 函数：</p>
+<ul>
+<li>测试 write 函数：
+使用 echo 命令向设备文件“写入”数据。这个操作会触发你驱动里的 write 函数。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="c1"># 需要root权限才能写入</span>
+</span></span><span class="line"><span class="cl">sudo <span class="nb">echo</span> <span class="s2">&#34;some test data&#34;</span> &gt; /dev/hello_misc
+</span></span></code></pre></div><ul>
+<li>测试 read 函数：
+使用 cat 命令从设备文件“读取”数据。这个操作会触发你驱动里的 read 函数。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">cat /dev/hello_misc
+</span></span></code></pre></div><ol start="6">
+<li>查看内核打印信息 (最重要的调试手段)</li>
+</ol>
+<p>你的 read 和 write 函数里，一定有 printk 语句吧？printk 的信息不会显示在你的当前终端里，而是被放到了内核的环形缓冲区中。你需要用 dmesg 命令来查看它们。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 执行完 echo 或 cat 操作后，立刻执行 dmesg</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">dmesg
+</span></span></code></pre></div><p>你应该能在 dmesg 输出的末尾，看到你在 write 或 read 函数中用 printk 打印出来的信息，例如：</p>
+<pre tabindex="0"><code>[12345.67890] hello_misc_write called! Received 15 bytes.
+[12345.98765] hello_misc_read called!
+</code></pre><p>看到这些打印，就证明你的驱动代码确实被成功调用了！</p>
+<ol start="7">
+<li>卸载驱动：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"> sudo rmmod 1_misc
+</span></span><span class="line"><span class="cl"><span class="c1">#  (注意，卸载时用模块名，不带.ko)</span>
+</span></span></code></pre></div>
+<h3 class="relative group">Linux 下编译驱动实践 USB 转串口
+    <div id="linux-下编译驱动实践-usb-转串口" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#linux-%e4%b8%8b%e7%bc%96%e8%af%91%e9%a9%b1%e5%8a%a8%e5%ae%9e%e8%b7%b5-usb-%e8%bd%ac%e4%b8%b2%e5%8f%a3" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h3 class="relative group">make menuconfig 图形化配置
+    <div id="make-menuconfig-图形化配置" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#make-menuconfig-%e5%9b%be%e5%bd%a2%e5%8c%96%e9%85%8d%e7%bd%ae" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<ol>
+<li>
+<p>在<strong>内核源码</strong>路径下输入：make menuconfig 即可打开图形化界面（内核源码：/home/kernels/linux_sdk/kernel）</p>
+</li>
+<li>
+<p>make menuconfig 图形化配置的操作
+输入&quot;/&ldquo;即可弹出搜索界面，然后输入想搜索的内容</p>
+</li>
+<li>
+<p>配置驱动状态
+(1) 将驱动编译成内核模块 M
+(2) 将驱动编译进内核 *
+(3) 不编译
+使用空格按键配置这三种状态</p>
+</li>
+<li>
+<p>make menuconfig <strong>有关文件</strong>
+Makefile：编译规则，告诉我们在 make 的时候要怎么编译 菜的做法
+Kconfig:内核配置选项 菜单
+.confiig: 配置完内核以后生成的配置选项 点完菜</p>
+</li>
+<li>
+<p>make menuconfig 会读取目录下的 Kconfig 文件
+Arch/&amp;ARCH/目录下的 Kconfig</p>
+<p>内核源码/arch/arm/configs 下面有很多配置文件，相当于特色菜</p>
+</li>
+<li>
+<p>为何将/arch/arm/configs 下的文件复制为.config 到 内核源码/.config 而不复制成其他文件
+内核默认读取.config 作为默认配置选项</p>
+</li>
+<li>
+<p>复制的默认配置不符合要求怎么办？
+我们就要点菜，菜单是 Kconfig，通过 make menuconfig 来调出这个菜单，配置完以后自动更新到.config</p>
+</li>
+<li>
+<p>如何与 Makefile 文件建立联系？
+当 make menufig 保存退出之后，Linux 会将所有的配置选项以宏定义的形式保存在 include/generated/下面的 autocon.h 里面</p>
+</li>
+</ol>
+
+<h3 class="relative group">与图形化相关的文件
+    <div id="与图形化相关的文件" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%8e%e5%9b%be%e5%bd%a2%e5%8c%96%e7%9b%b8%e5%85%b3%e7%9a%84%e6%96%87%e4%bb%b6" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<ol>
+<li>Kconfig:内核配置选项 菜单
+Kconfig 文件是图形化配置界面的的源文件，图形化配置界面中的选项由 Kconfig 文件决定。当我们执行命令 make menuconfig 命令的时候，内核的配置工具会读取内核源码目录下的 arch/xxx/Kconfig。xxx 是命令 export ARCH=arm 中的 ARCH 的值。然后生成对应的配置界面供开发者使用。</li>
+<li>config 文件和.config 文件
+config 文件和.config 文件都是 Linux 内核的配置文件
+config 文件位于 Linux 内核源码的 arch/S(ARCH)/configs （arch/arm64/configs）目录下，是 Linux 系统<strong>默认</strong>的配置文件，要使用默认，操作：make config_ 具体名字,这样就会生成.config
+.config 文件位于 Linux 内核源码的顶层目录下，编译 linux 内核时会使用.config 文件里面的配置来编译内核镜像。
+若.config 存在，make menuconfig 界面的默认配置即当前.config 文件的配置，若修改了图形化配置界面的设置并保存，则.config 文件会被更新若.config 文件不存在，make menuconfig 界面的默认配置则为 Kconfig
+文件中的默认配置使用命令 make xxx defconfig 命令会根据 arch/$(ARCH)/configs 日录下默认文件生成.config 文件。</li>
+<li>Makefile 文件
+Makefile 文件里面包含了编译规则，告诉我们要如何编译 Linux。</li>
+</ol>
+
+<h3 class="relative group">Kconfig 语法
+    <div id="kconfig-语法" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#kconfig-%e8%af%ad%e6%b3%95" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>详细请见：D:\study file\PDF\16_开发板学习教程（重要）\【北京迅为】itop-3568 开发板驱动开发指南 v1.8.pdf 第七章 7.3</p>
+<ol>
+<li>主菜单</li>
+<li>配置选项</li>
+<li>依赖关系</li>
+<li>可选择项</li>
+<li>source</li>
+</ol>
+
+<h3 class="relative group">把驱动编译进内核
+    <div id="把驱动编译进内核" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%8a%8a%e9%a9%b1%e5%8a%a8%e7%bc%96%e8%af%91%e8%bf%9b%e5%86%85%e6%a0%b8" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>以 helloworld 为例</p>
+<ol>
+<li>进入 drivers，这里面存放的是驱动。进入 char 目录下，这里存放的是字符设备。可以将 helloworld 存放到此。在这里面创建一个 hello 文件夹，里面创建一个 Kconfig
+想要在图形化界面里面添加 helloworld 选项</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"></code></pre></div><ol start="2">
+<li>在 char 目录下的 Kcongfig 要将 hello 里面的 Kconfig 包含进去</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="n">source</span> <span class="s">&#34;drivers/char/hello/Kconfig&#34;</span>
+</span></span></code></pre></div><ol start="3">
+<li>将写好的 helloworld.c 文件放入 hello 文件夹</li>
+<li>编译之前创建 Makefile，要让 Makefile 与图形化界面产生联系。进入内核源码目录查看.config 文件，复制（）CONFIG_helloworld.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="n">obj</span><span class="o">-</span><span class="err">$</span><span class="p">(</span><span class="n">CONFIG_helloworld</span><span class="p">)</span>       <span class="o">+=</span> <span class="n">helloworld</span><span class="p">.</span><span class="n">o</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="n">obj</span><span class="o">-</span><span class="n">y</span>           <span class="o">+=</span> <span class="n">hello</span><span class="o">/</span>
+</span></span></code></pre></div><ol start="5">
+<li>验证
+在内核源码目录下有.config 文件，而默认的.config 在内核源码下的 arch/arm64/configs 下的 rockchip_linux_deconfig，要是使用 make，生成新的.config 会覆盖 hello 下的.config 而无法编译。故需要将默认的.config 用 hello 的.config 替换掉</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="n">cp</span> <span class="p">.</span><span class="n">config</span> <span class="n">arch</span><span class="o">/</span><span class="n">arm64</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span><span class="n">rockchip_linux_deconfig</span>
+</span></span></code></pre></div><ol start="6">
+<li>编译内核镜像</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="p">.</span><span class="o">/</span><span class="n">build</span><span class="p">.</span><span class="n">sh</span> <span class="n">kernel</span>
+</span></span></code></pre></div><p>hello 文件下生成了中间文件</p>
+<p>烧写内核源码下的 boot.img 文件到开发板</p>
+<pre tabindex="0"><code>dmesg | grep &#34;hello&#34;
+</code></pre><p>查看是否找到</p>
+<p>视频没看懂思密达&hellip;&hellip;等学上几节再回来看</p>
+
+<h2 class="relative group">杂项设备
+    <div id="杂项设备" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%9d%82%e9%a1%b9%e8%ae%be%e5%a4%87" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<ol>
+<li>
+<p>是字符设备的一种。可以自动生成设备节点；可以通过 cat /proc/misc 命令来查看</p>
+</li>
+<li>
+<p>杂项设备除了比字符设备代码简单，是否还有别的区别？
+杂项设备的主设备号是相同的，均为 10，次设备号是不同的。主设设备号相同就可以节
+省内核的资源。</p>
+</li>
+<li>
+<p>主设备号和次设备号是什么？
+设备号包含主设备号和次设备号，主设备号在 Linux 系统里面是唯一的，次设备号不一定唯一。
+设备号是计算机识别设备的一种方式，主设备相同的就被视为同一类设备。
+主设备号可以比做成电话号码的区号。比如北京的区号是 010 ，次设备号可以比作成电话号码。
+主设备号可以通过命令 cat /proc/devices</p>
+</li>
+<li>
+<p>杂项设备的描述
+定义在内核源码路径下的：include/linux/miscdevice.h</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">miscdevice</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">minor</span><span class="p">;</span>  <span class="c1">//次设备号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>  <span class="c1">//设备的节点的名字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">const</span> <span class="k">struct</span> <span class="n">file_operations</span> <span class="o">*</span><span class="n">fops</span><span class="p">;</span>  <span class="c1">//文件操作集
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">struct</span> <span class="n">list_head</span> <span class="n">list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">struct</span> <span class="n">device</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">struct</span> <span class="n">device</span> <span class="o">*</span><span class="n">this_device</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">const</span> <span class="k">struct</span> <span class="n">attribute_group</span> <span class="o">**</span><span class="n">groups</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">nodename</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">umode_t</span> <span class="n">mode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">int</span> <span class="nf">misc_register</span><span class="p">(</span><span class="k">struct</span> <span class="n">miscdevice</span> <span class="o">*</span><span class="n">misc</span><span class="p">);</span>  <span class="c1">//注册杂项设备
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">extern</span> <span class="kt">void</span> <span class="nf">misc_deregister</span><span class="p">(</span><span class="k">struct</span> <span class="n">miscdevice</span> <span class="o">*</span><span class="n">misc</span><span class="p">);</span>  <span class="c1">//注销杂项设备
+</span></span></span></code></pre></div><pre><code>file_operation 文件操作集在定义在 include/linux/fs.h 下面，里面的的一个结构体成员对应一个调用
+</code></pre>
+<ol start="5">
+<li>
+<p>注册杂项设备流程</p>
+<ol>
+<li>填充 miscdevice 结构体</li>
+<li>填充 file_operation 这个结构体</li>
+<li>注册杂项设备并生成设备节点</li>
+</ol>
+</li>
+</ol>
+
+<h3 class="relative group">驱动层传参
+    <div id="驱动层传参" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%a9%b1%e5%8a%a8%e5%b1%82%e4%bc%a0%e5%8f%82" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>传参类型：</p>
+<ol>
+<li>基本类型：module_param</li>
+<li>数组：module_param_array</li>
+<li>字符串：module_param_string
+位置：/home/kernels/linux_sdk/kernel/include</li>
+</ol>
+
+<h3 class="relative group">内核符号表
+    <div id="内核符号表" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%86%85%e6%a0%b8%e7%ac%a6%e5%8f%b7%e8%a1%a8" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>B 模块使用 A 模块中的函数
+A:里面要有 EXPORT_SYMBOL(函数)，这个函数是你 B 文件中要使用的函数/变量。EXPORT_SYMBOL(add);
+B:声明你要是用的 A 里面的函数/变量。extern int add(int a, int b);
+因为 B 里面用了 A 函数，所以要先编译 A
+如果两个.c 在同一个目录下面：Makefile 中记得两个文件都要添加 obj-m
+如果两个.c 不在同一个目录下面：编译完 A 之后生成的 Module.sumvers（符号表）要复制到与 B 同目录下</p>
+
+<h3 class="relative group">应用层和内核层数据传输
+    <div id="应用层和内核层数据传输" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%ba%94%e7%94%a8%e5%b1%82%e5%92%8c%e5%86%85%e6%a0%b8%e5%b1%82%e6%95%b0%e6%8d%ae%e4%bc%a0%e8%be%93" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h3 class="relative group">编译进内核的驱动如何运行
+    <div id="编译进内核的驱动如何运行" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%bc%96%e8%af%91%e8%bf%9b%e5%86%85%e6%a0%b8%e7%9a%84%e9%a9%b1%e5%8a%a8%e5%a6%82%e4%bd%95%e8%bf%90%e8%a1%8c" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>一路跳转</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#define module_init(x)	__initcall(x);
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define __initcall(fn) device_initcall(fn)
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define device_initcall(fn)		__define_initcall(fn, 6)
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define __define_initcall(fn, id) ___define_initcall(fn, id, .initcall##id)
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#else
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="cp">#define ___define_initcall(fn, id, __sec) \
+</span></span></span><span class="line"><span class="cl"><span class="cp">	static initcall_t __initcall_##fn##id __used \
+</span></span></span><span class="line"><span class="cl"><span class="cp">		__attribute__((__section__(#__sec &#34;.init&#34;))) = fn;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 例如，当 fn=hello_world、id=6、__sec=subsys 时，展开后为：
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">initcall_t</span> <span class="n">__initcall_hello_world6</span> <span class="n">__used</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__attribute__</span><span class="p">((</span><span class="nf">__section__</span><span class="p">(</span><span class="s">&#34;subsys.init&#34;</span><span class="p">)))</span> <span class="o">=</span> <span class="n">hello_world</span><span class="p">;</span>
+</span></span></code></pre></div><p>作用：是将函数注册为内核初始化过程的一部分，在系统启动时按特定优先级执行</p>
+<p>Linux 内核启动过程需要执行大量初始化函数（如驱动初始化、子系统初始化等），这些函数通过不同的 initcall 宏注册，并按优先级分阶段执行：</p>
+<ul>
+<li>内核定义了一系列封装好的宏（如 module_init、core_initcall、late_initcall 等），最终都会调用 **_define_initcall，并传入不同的 id 和 **sec 来控制执行顺序（id 越小，优先级越高，越早执行）。</li>
+<li>链接器会将所有 xxx.init 段的函数指针按顺序排列，内核启动时遍历这些指针并调用对应的函数，实现有序初始化。</li>
+</ul>
+<p>___define_initcall 是内核初始化机制的 “注册器”，通过函数指针和自定义链接段的结合，让内核能在启动时自动、按序执行所有注册的初始化函数。这也是驱动代码中 module_init(my_init) 能生效的底层原理（module_init 是对该宏的高层封装）。</p>
+<p><em>后半段没听懂</em> 对应文件：D:\Wechatfile\WeChat Files\wxid_jdbkf3gcd0e422\FileStorage\File\2025-11\【北京迅为】itop-3568 开发板驱动开发指南（重制版）1.8.pdf</p>
+<p><strong>&hellip;&hellip;未完待续</strong></p>
+
+          
+          
+          
+            <strong class="block mt-8">
+              <a
+                target="_blank"
+                class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+                href="mailto:ryc1819009649@163.com?subject=Reply%20to%20Linux%e9%a9%b1%e5%8a%a8%e5%bc%80%e5%8f%91%20%e5%85%a5%e9%97%a8%e7%af%87">
+                Reply by Email
+              </a>
+            </strong>
+          
+        </div>
+        
+        
+
+        
+
+        
+
+      </div>
+
+      
+      
+        
+        
+          
+          
+        
+        
+        
+        <script
+          type="text/javascript"
+          src="/js/page.min.54b6f4371722649edbe871e431d8670d670878c22be8f36e229fe53cc9b786fe25a834def5e6de621f7a3e37b72bc8cd73839aa5ed907ed6cbd45cd3e1b0fa20.js"
+          integrity="sha512-VLb0NxciZJ7b6HHkMdhnDWcIeMIr6PNuIp/lPMm3hv4lqDTe9ebeYh96Pje3K8jNc4Oape2QftbL1FzT4bD6IA=="
+          data-oid="views_notes\Linux驱动开发_入门篇.md"
+          data-oid-likes="likes_notes\Linux驱动开发_入门篇.md"></script>
+      
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/notes/linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Linux系统编程
+              </span>
+            </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2025-11-06T22:22:40&#43;08:00">6 November 2025</time>
+              </span>
+            
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/notes/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87/">
+              <span class="leading-6">
+                Linux驱动开发 字符设备&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+              </span>
+            </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2025-11-17T15:53:29&#43;08:00">17 November 2025</time>
+              </span>
+            
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
+  <a
+    href="#the-top"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+  
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      © 2025-2026 Can. All rights reserved.
+    </p>
+    
+    
+
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+  </div>
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="https://rycCJ.github.io/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>

@@ -4,25 +4,32 @@
     <title>Recursion on Can&#39;s Blog</title>
     <link>https://rycCJ.github.io/tags/recursion/</link>
     <description>Recent content in Recursion on Can&#39;s Blog</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>ryc1819009649@163.com (Can)</managingEditor>
     <webMaster>ryc1819009649@163.com (Can)</webMaster>
-    <lastBuildDate>Sat, 18 Oct 2025 22:10:24 +0800</lastBuildDate>
-    <atom:link href="https://rycCJ.github.io/tags/recursion/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2025-{year} Can. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 18 Oct 2025 22:10:24 +0800</lastBuildDate><atom:link href="https://rycCJ.github.io/tags/recursion/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>二叉树题目汇总</title>
       <link>https://rycCJ.github.io/notes/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/</link>
-      <pubDate>Sat, 18 Oct 2025 22:10:24 +0800</pubDate><author>ryc1819009649@163.com (Can)</author>
+      <pubDate>Sat, 18 Oct 2025 22:10:24 +0800</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
       <guid>https://rycCJ.github.io/notes/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/</guid>
       <description></description>
+      
     </item>
+    
     <item>
       <title>递归基础及题目（Recursive Relation）</title>
       <link>https://rycCJ.github.io/notes/recursive_relation/</link>
-      <pubDate>Mon, 15 Sep 2025 18:25:38 +0800</pubDate><author>ryc1819009649@163.com (Can)</author>
+      <pubDate>Mon, 15 Sep 2025 18:25:38 +0800</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
       <guid>https://rycCJ.github.io/notes/recursive_relation/</guid>
       <description></description>
+      
     </item>
+    
   </channel>
 </rss>

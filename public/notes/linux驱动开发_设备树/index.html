@@ -1,0 +1,2286 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="en">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  
+    <title>Linux驱动开发 平台总线&设备树 &middot; Can&#39;s Blog</title>
+    <meta name="title" content="Linux驱动开发 平台总线&设备树 &middot; Can&#39;s Blog">
+  
+
+  
+  
+    <meta name="description" content="Thoughts and conclusions about learning">
+  
+  
+    <meta name="keywords" content="Linux,驱动开发,">
+  
+  
+  
+  <link rel="canonical" href="https://rycCJ.github.io/notes/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_%E8%AE%BE%E5%A4%87%E6%A0%91/">
+  
+
+  
+  
+    <meta name="author" content="Can">
+  
+  
+    
+      
+        
+          <link href="https://github.com/rycCJ" rel="me">
+        
+      
+    
+  
+
+  
+  <meta property="og:url" content="https://rycCJ.github.io/notes/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_%E8%AE%BE%E5%A4%87%E6%A0%91/">
+  <meta property="og:site_name" content="Can&#39;s Blog">
+  <meta property="og:title" content="Linux驱动开发 平台总线&设备树">
+  <meta property="og:description" content="Thoughts and conclusions about learning">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2025-11-25T11:57:34+08:00">
+    <meta property="article:modified_time" content="2025-11-25T11:57:34+08:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="驱动开发">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Linux驱动开发 平台总线&设备树">
+  <meta name="twitter:description" content="Thoughts and conclusions about learning">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+  
+    
+      
+      
+        
+      
+      
+        <meta name="twitter:image" content="https://rycCJ.github.io/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
+        <meta property="og:image" content="https://rycCJ.github.io/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.80392c696498783b213c32422209a6e6d488c4223ad87175f4ee465fb691052895ba0e028ec31a51547697de0225643939c393c55f7741f12c05270f539c8916.css"
+    integrity="sha512-gDksaWSYeDshPDJCIgmm5tSIxCI62HF19O5GX7aRBSiVug4CjsMaUVR2l94CJWQ5OcOTxV93QfEsBScPU5yJFg==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.b4b722fcb5d42f34f52b30a92f3521b69f403ca9d96d0d6179eb537cb870f5d83fdf1fe836688d95d5c99fefbda4170487711006e56051fa67ea00da10521721.js" integrity="sha512-tLci/LXULzT1KzCpLzUhtp9APKnZbQ1heetTfLhw9dg/3x/oNmiNldXJn&#43;&#43;9pBcEh3EQBuVgUfpn6gDaEFIXIQ=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.f16cf48651044bc66625c8008eb5605cc702530530daa081ce7e495e50adf778bef6cd0747382983caf5e5cc745c819dd7a969e17e545119dff14346f4fcb977.js"
+      integrity="sha512-8Wz0hlEES8ZmJcgAjrVgXMcCUwUw2qCBzn5JXlCt93i&#43;9s0HRzgpg8r15cx0XIGd16lp4X5UURnf8UNG9Py5dw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
+  
+
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.03cb160e3cfdb2667a2e2c80d283bebcf63ff8bbc4b629c9ab2babf6fae1d0c07ad470edae783efa4fabda2ac01c58d60e63b98b3c336be8208460f08f4354f5.js" integrity="sha512-A8sWDjz9smZ6LiyA0oO&#43;vPY/&#43;LvEtinJqyur9vrh0MB61HDtrng&#43;&#43;k&#43;r2irAHFjWDmO5izwza&#43;gghGDwj0NU9Q=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Notes",
+    "name": "Linux驱动开发 平台总线\u0026设备树",
+    "headline": "Linux驱动开发 平台总线\u0026设备树",
+    
+    
+    "inLanguage": "en",
+    "url" : "https:\/\/rycCJ.github.io\/notes\/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_%E8%AE%BE%E5%A4%87%E6%A0%91\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Can"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-11-25T11:57:34\u002b08:00",
+    "datePublished": "2025-11-25T11:57:34\u002b08:00",
+    
+    "dateModified": "2025-11-25T11:57:34\u002b08:00",
+    
+    "keywords": ["Linux","驱动开发"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1350"
+  }]
+  </script>
+
+
+
+  
+  
+    
+
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        Skip to main content
+      </a>
+    </div>
+    
+    
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
+  
+  
+
+  <div class="flex flex-1 items-center justify-between">
+    <nav class="flex space-x-3">
+      
+        <a href="/" class="text-base font-medium">
+          Can&rsquo;s Blog
+        </a>
+      
+    </nav>
+    
+  <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+    
+      
+        
+  <a
+  href="/notes/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="Notes"
+  title="Notes">
+  
+  
+    <p class="text-base font-medium">
+      Notes
+    </p>
+  
+</a>
+
+
+
+      
+        
+  <a
+  href="/posts/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="Posts"
+  title="Posts">
+  
+  
+    <p class="text-base font-medium">
+      Posts
+    </p>
+  
+</a>
+
+
+
+      
+        
+  <a
+  href="https://github.com/rycCJ"
+  target="_blank"
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="GitHub"
+  title="">
+  
+    <span class="mr-1">
+      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+    </span>
+  
+  
+    <p class="text-base font-medium">
+      GitHub
+    </p>
+  
+</a>
+
+
+
+      
+    
+
+    
+
+    
+
+    
+      <button
+        id="search-button"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <div class=" flex items-center">
+        <button
+          id="appearance-switcher"
+          aria-label="Dark mode switcher"
+          type="button"
+          class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+          <div class="flex items-center justify-center dark:hidden">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+          </div>
+          <div class="items-center justify-center hidden dark:flex">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+          </div>
+        </button>
+      </div>
+    
+  </nav>
+
+    
+  <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+    <span></span>
+
+    
+
+    
+
+    
+      <button
+        id="search-button-mobile"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <button
+        id="appearance-switcher-mobile"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400 me-1">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    
+  </div>
+
+  </div>
+  
+  <div class="-my-2 md:hidden">
+    <div id="menu-button" class="block">
+      
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 pt-[5px]">
+          <ul
+            class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none text-end max-w-7xl">
+            <li id="menu-close-button">
+              <span
+                class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+                <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+              </span>
+            </li>
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/notes/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="Notes"
+    title="Notes">
+    
+    
+      <p class="text-bg font-bg">
+        Notes
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/posts/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="Posts"
+    title="Posts">
+    
+    
+      <p class="text-bg font-bg">
+        Posts
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="https://github.com/rycCJ"
+    
+      target="_blank"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="GitHub"
+    title="">
+    
+      <div class="mr-2">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+      </div>
+    
+    
+      <p class="text-bg font-bg">
+        GitHub
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+
+          </ul>
+          
+        </div>
+      
+    </div>
+  </div>
+
+</div>
+
+
+
+
+  <script>
+    (function () {
+      var $mainmenu = $(".main-menu");
+      var path = window.location.pathname;
+      $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+        $(e).children("p").addClass("active");
+      });
+    })();
+  </script>
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+      
+      
+      
+      
+        
+
+
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+  
+  
+    
+    
+  
+
+
+
+
+  
+    
+    
+  
+
+
+
+
+
+    <div id="hero" class="h-[150px] md:h-[200px]"></div>
+  
+  <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
+    
+    
+    
+    <img
+      id="background-image"
+      src="/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"
+      alt="Linux驱动开发 平台总线&amp;设备树"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
+    <div
+      class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal"></div>
+  </div>
+
+  
+    <div
+      id="background-blur"
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
+      integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
+      data-blur-id="background-blur"
+      data-image-id="background-image"
+      data-image-url="/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"></script>
+  
+      
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Linux驱动开发 平台总线&设备树
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2025-11-25T11:57:34&#43;08:00">25 November 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1350 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span
+    id="views_notes\Linux驱动开发_设备树.md"
+    class="animate-pulse inline-block text-transparent max-h-3 rounded-full -mt-[2px] align-middle bg-neutral-300 dark:bg-neutral-400"
+    title="views"
+    >loading</span
+  >
+  <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></span>
+</span>
+<span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span
+    id="likes_notes\Linux驱动开发_设备树.md"
+    class="animate-pulse inline-block text-transparent max-h-3 rounded-full -mt-[2px] align-middle bg-neutral-300 dark:bg-neutral-400"
+    title="likes"
+    >loading</span
+  >
+  <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg></span></span>
+</span>
+<span class="px-2 text-primary-500">&middot;</span><span>
+  <button
+    id="button_likes"
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    <span id="button_likes_heart" class="inline-block align-text-bottom hidden"
+      ><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg></span>
+    </span>
+    <span id="button_likes_emtpty_heart" class="inline-block align-text-bottom"
+      ><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z"/></svg></span></span
+    >
+    <span id="button_likes_text">&nbsp;Like</span>
+  </button>
+</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/linux/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Linux
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    驱动开发
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
+  
+
+  
+  
+
+
+
+      </div>
+      
+        
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="Can"
+        src="/img/Can.jpg"
+        data-zoom-src="/img/Can.jpg">
+    
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        Can
+      </div>
+    
+    
+      <div class="text-sm text-neutral-700 dark:text-neutral-400">A little bit about you</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/rycCJ"
+          target="_blank"
+          aria-label="Github"
+          title="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-5"></div>
+  
+
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+          <div class="toc ps-5 print:hidden lg:sticky lg:top-10">
+            
+              <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#关于平台总线">关于平台总线</a>
+      <ul>
+        <li><a href="#一-为什么需要平台总线">一、 为什么需要“平台总线”？</a>
+          <ul>
+            <li><a href="#1-没有平台总线时的痛苦">1. 没有平台总线时的痛苦</a></li>
+            <li><a href="#2-平台总线的思想">2. 平台总线的思想</a></li>
+            <li><a href="#理解">理解</a></li>
+            <li><a href="#总结">总结</a></li>
+          </ul>
+        </li>
+        <li><a href="#二-平台总线的铁三角">二、 平台总线的“铁三角”</a>
+          <ul>
+            <li><a href="#1-平台设备-struct-platform_device--我是谁我在哪">1. 平台设备 (<code>struct platform_device</code>) —— “我是谁，我在哪”</a></li>
+            <li><a href="#2-平台驱动-struct-platform_driver--我会干什么">2. 平台驱动 (<code>struct platform_driver</code>) —— “我会干什么”</a></li>
+            <li><a href="#3-平台总线-platform_bus_type--金牌中介">3. 平台总线 (<code>platform_bus_type</code>) —— “金牌中介”</a></li>
+          </ul>
+        </li>
+        <li><a href="#三-它是怎么自动匹配的">三、 它是怎么“自动匹配”的？</a>
+          <ul>
+            <li><a href="#流程讲解">流程讲解</a></li>
+          </ul>
+        </li>
+        <li><a href="#五-代码模板">五、 代码模板</a></li>
+        <li><a href="#总结-1">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#设备树细节">设备树细节</a>
+      <ul>
+        <li><a href="#第一阶段什么是设备树怎么写它">第一阶段：什么是设备树？怎么写它？</a>
+          <ul>
+            <li><a href="#1-通俗理解">1. 通俗理解</a></li>
+            <li><a href="#2-基本语法代码实战">2. 基本语法（代码实战）</a></li>
+            <li><a href="#设备树展开流程">设备树展开流程</a></li>
+            <li><a href="#device_node-转换为-platform_device-的条件规则">device_node 转换为 platform_device 的条件/规则</a></li>
+          </ul>
+        </li>
+        <li><a href="#第二阶段驱动如何自动加载设备树下-platform_device-和-platform_driver-匹配">第二阶段：驱动如何“自动”加载？（设备树下 platform_device 和 platform_driver 匹配）</a></li>
+      </ul>
+    </li>
+    <li><a href="#在驱动里读取设备树数据of-操作函数">在驱动里读取设备树数据（OF 操作函数）</a>
+      <ul>
+        <li><a href="#1-理论讲解">1. 理论讲解</a></li>
+        <li><a href="#2-核心概念节点指针-device_node">2. 核心概念：节点指针 (<code>device_node</code>)</a></li>
+        <li><a href="#3-最常用的-3-招覆盖-90-场景">3. 最常用的 3 招（覆盖 90% 场景）</a>
+          <ul>
+            <li><a href="#1-读取整数-of_property_read_u32">1. 读取整数 (<code>of_property_read_u32</code>)</a></li>
+            <li><a href="#2-读取字符串-of_property_read_string">2. 读取字符串 (<code>of_property_read_string</code>)</a></li>
+            <li><a href="#3-读取数组-of_property_read_u32_array">3. 读取数组 (<code>of_property_read_u32_array</code>)</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-特殊属性的读取不要硬用-of-函数">4. 特殊属性的读取（不要硬用 OF 函数）</a>
+          <ul>
+            <li><a href="#1-读取-gpio关键">1. 读取 GPIO（关键！）</a></li>
+            <li><a href="#2-读取资源reg-和-interrupts">2. 读取资源（reg 和 interrupts）</a></li>
+          </ul>
+        </li>
+        <li><a href="#5-避坑指南新手必看">5. 避坑指南（新手必看）</a></li>
+        <li><a href="#6-总结表">6. 总结表</a></li>
+      </ul>
+    </li>
+    <li><a href="#控制硬件gpio-与-pinctrl">控制硬件（GPIO 与 Pinctrl）</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1-通俗理解-1">1. 通俗理解</a></li>
+            <li><a href="#2-代码实战点灯">2. 代码实战（点灯）</a></li>
+            <li><a href="#实操">实操</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#说明">说明</a></li>
+    <li><a href="#学习建议与避坑">学习建议与避坑</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg -ms-5 ps-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#关于平台总线">关于平台总线</a>
+      <ul>
+        <li><a href="#一-为什么需要平台总线">一、 为什么需要“平台总线”？</a>
+          <ul>
+            <li><a href="#1-没有平台总线时的痛苦">1. 没有平台总线时的痛苦</a></li>
+            <li><a href="#2-平台总线的思想">2. 平台总线的思想</a></li>
+            <li><a href="#理解">理解</a></li>
+            <li><a href="#总结">总结</a></li>
+          </ul>
+        </li>
+        <li><a href="#二-平台总线的铁三角">二、 平台总线的“铁三角”</a>
+          <ul>
+            <li><a href="#1-平台设备-struct-platform_device--我是谁我在哪">1. 平台设备 (<code>struct platform_device</code>) —— “我是谁，我在哪”</a></li>
+            <li><a href="#2-平台驱动-struct-platform_driver--我会干什么">2. 平台驱动 (<code>struct platform_driver</code>) —— “我会干什么”</a></li>
+            <li><a href="#3-平台总线-platform_bus_type--金牌中介">3. 平台总线 (<code>platform_bus_type</code>) —— “金牌中介”</a></li>
+          </ul>
+        </li>
+        <li><a href="#三-它是怎么自动匹配的">三、 它是怎么“自动匹配”的？</a>
+          <ul>
+            <li><a href="#流程讲解">流程讲解</a></li>
+          </ul>
+        </li>
+        <li><a href="#五-代码模板">五、 代码模板</a></li>
+        <li><a href="#总结-1">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#设备树细节">设备树细节</a>
+      <ul>
+        <li><a href="#第一阶段什么是设备树怎么写它">第一阶段：什么是设备树？怎么写它？</a>
+          <ul>
+            <li><a href="#1-通俗理解">1. 通俗理解</a></li>
+            <li><a href="#2-基本语法代码实战">2. 基本语法（代码实战）</a></li>
+            <li><a href="#设备树展开流程">设备树展开流程</a></li>
+            <li><a href="#device_node-转换为-platform_device-的条件规则">device_node 转换为 platform_device 的条件/规则</a></li>
+          </ul>
+        </li>
+        <li><a href="#第二阶段驱动如何自动加载设备树下-platform_device-和-platform_driver-匹配">第二阶段：驱动如何“自动”加载？（设备树下 platform_device 和 platform_driver 匹配）</a></li>
+      </ul>
+    </li>
+    <li><a href="#在驱动里读取设备树数据of-操作函数">在驱动里读取设备树数据（OF 操作函数）</a>
+      <ul>
+        <li><a href="#1-理论讲解">1. 理论讲解</a></li>
+        <li><a href="#2-核心概念节点指针-device_node">2. 核心概念：节点指针 (<code>device_node</code>)</a></li>
+        <li><a href="#3-最常用的-3-招覆盖-90-场景">3. 最常用的 3 招（覆盖 90% 场景）</a>
+          <ul>
+            <li><a href="#1-读取整数-of_property_read_u32">1. 读取整数 (<code>of_property_read_u32</code>)</a></li>
+            <li><a href="#2-读取字符串-of_property_read_string">2. 读取字符串 (<code>of_property_read_string</code>)</a></li>
+            <li><a href="#3-读取数组-of_property_read_u32_array">3. 读取数组 (<code>of_property_read_u32_array</code>)</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-特殊属性的读取不要硬用-of-函数">4. 特殊属性的读取（不要硬用 OF 函数）</a>
+          <ul>
+            <li><a href="#1-读取-gpio关键">1. 读取 GPIO（关键！）</a></li>
+            <li><a href="#2-读取资源reg-和-interrupts">2. 读取资源（reg 和 interrupts）</a></li>
+          </ul>
+        </li>
+        <li><a href="#5-避坑指南新手必看">5. 避坑指南（新手必看）</a></li>
+        <li><a href="#6-总结表">6. 总结表</a></li>
+      </ul>
+    </li>
+    <li><a href="#控制硬件gpio-与-pinctrl">控制硬件（GPIO 与 Pinctrl）</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1-通俗理解-1">1. 通俗理解</a></li>
+            <li><a href="#2-代码实战点灯">2. 代码实战（点灯）</a></li>
+            <li><a href="#实操">实操</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#说明">说明</a></li>
+    <li><a href="#学习建议与避坑">学习建议与避坑</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+
+<script>
+  (function () {
+    'use strict'
+
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
+
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) {
+          return anchors[i].id
+        }
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = true
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
+      const config = {
+        toc,
+        anchors,
+        links,
+        scrollOffset: SCROLL_OFFSET_RATIO,
+        collapseInactive
+      }
+
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', initTOC)
+      : initTOC()
+  })()
+</script>
+
+
+            
+          </div>
+        </div>
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          <p>本篇融合了**【北京迅为】itop-3568 开发板驱动开发指南（重制版）1.8.pdf** 官方文档中平台总线和设备树两章内容，并且带有完整且详尽实例分析，可以先看说明部分理清文章主要所讲内容与侧重点</p>
+
+<h2 class="relative group">关于平台总线
+    <div id="关于平台总线" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%85%b3%e4%ba%8e%e5%b9%b3%e5%8f%b0%e6%80%bb%e7%ba%bf" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+
+<h3 class="relative group">一、 为什么需要“平台总线”？
+    <div id="一-为什么需要平台总线" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%80-%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e5%b9%b3%e5%8f%b0%e6%80%bb%e7%ba%bf" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h4 class="relative group">1. 没有平台总线时的痛苦
+    <div id="1-没有平台总线时的痛苦" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e6%b2%a1%e6%9c%89%e5%b9%b3%e5%8f%b0%e6%80%bb%e7%ba%bf%e6%97%b6%e7%9a%84%e7%97%9b%e8%8b%a6" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>假设你写了一个 LED 驱动。</p>
+<ul>
+<li><strong>代码里写死</strong>：<code>寄存器地址 = 0xFE001000</code>。</li>
+<li><strong>问题</strong>：
+<ul>
+<li>RK3568 的地址是这个，换成 RK3588 地址变了，你得改 C 代码重新编译。</li>
+<li>板子上接在 GPIO1，换到 GPIO2，你得改 C 代码重新编译。</li>
+</ul>
+</li>
+<li><strong>结论</strong>：驱动代码和硬件参数（地址、中断号）<strong>强耦合</strong>。移植性极差。</li>
+</ul>
+
+<h4 class="relative group">2. 平台总线的思想
+    <div id="2-平台总线的思想" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e5%b9%b3%e5%8f%b0%e6%80%bb%e7%ba%bf%e7%9a%84%e6%80%9d%e6%83%b3" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>Linux 引入了 <strong>“总线 - 设备 - 驱动”</strong> 模型。</p>
+<ul>
+<li><strong>驱动（Driver）</strong>：只负责逻辑（怎么亮、怎么灭），<strong>不包含</strong>具体的硬件地址。</li>
+<li><strong>设备（Device）</strong>：只包含硬件资源（地址是 0xFE&hellip;，中断是 5 号），<strong>不包含</strong>控制逻辑。</li>
+<li><strong>总线（Bus）</strong>：红娘。负责把“驱动”和“设备”撮合在一起。</li>
+</ul>
+
+<h4 class="relative group">理解
+    <div id="理解" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%90%86%e8%a7%a3" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>想象一下，现在你有 5 款不同的板子，用的都是同一个 LED 驱动逻辑，但 LED 接的引脚不同。</p>
+<ul>
+<li><strong>以前</strong>：你需要写 5 个 <code>.c</code> 文件，每个文件里引脚宏定义不同。</li>
+<li><strong>现在（平台总线）</strong>：
+<ul>
+<li>你只需要写 <strong>1 个</strong> 通用的 <code>.c</code> 驱动文件（不包含任何具体地址）。</li>
+<li>你需要写 <strong>5 个</strong> 不同的 <code>.dts</code> 文件（只包含地址和引脚信息）。</li>
+<li><strong>结果</strong>：驱动代码实现了“一次编写，到处运行”。这就是 Linux 所谓“机制与策略分离”的体现。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">总结
+    <div id="总结" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%bb%e7%bb%93" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>没有平台总线概念的时候，驱动和硬件紧密连接，一个硬件参数变了的话，就得改 C 代码重新编译，麻烦；
+平台总线：设立了驱动和设备两套代码，驱动负责逻辑（一般般不改变），设备负责硬件参数。以后硬件资源变换了之后，就只需要修改设备代码（简单），不需要改动驱动。平台总线就是把两个东西联合起来。</p>
+<hr>
+
+<h3 class="relative group">二、 平台总线的“铁三角”
+    <div id="二-平台总线的铁三角" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%ba%8c-%e5%b9%b3%e5%8f%b0%e6%80%bb%e7%ba%bf%e7%9a%84%e9%93%81%e4%b8%89%e8%a7%92" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>以上所说的驱动，设备，平台总线，对应下面三个结构体。要理解平台总线，必须看懂这三个结构体：</p>
+
+<h4 class="relative group">1. 平台设备 (<code>struct platform_device</code>) —— “我是谁，我在哪”
+    <div id="1-平台设备-struct-platform_device--我是谁我在哪" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e5%b9%b3%e5%8f%b0%e8%ae%be%e5%a4%87-struct-platform_device--%e6%88%91%e6%98%af%e8%b0%81%e6%88%91%e5%9c%a8%e5%93%aa" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li><strong>代表</strong>：硬件设备。</li>
+<li><strong>来源</strong>：<strong>通常不需要手写 C 代码定义它</strong>，而是由 <strong>设备树 (Device Tree)</strong> 解析后自动生成的，就是由写的 dts 自动生成<code>platform_device</code> 。</li>
+<li><strong>核心内容</strong>：
+<ul>
+<li><code>name</code>: 设备名字。</li>
+<li><code>resource</code>: 资源（寄存器物理地址、中断号）。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">2. 平台驱动 (<code>struct platform_driver</code>) —— “我会干什么”
+    <div id="2-平台驱动-struct-platform_driver--我会干什么" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e5%b9%b3%e5%8f%b0%e9%a9%b1%e5%8a%a8-struct-platform_driver--%e6%88%91%e4%bc%9a%e5%b9%b2%e4%bb%80%e4%b9%88" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li><strong>代表</strong>：软件驱动程序。</li>
+<li><strong>来源</strong>：<strong>这是你需要手写的 C 代码</strong>。</li>
+<li><strong>核心内容</strong>：
+<ul>
+<li><code>probe()</code>: <strong>探测函数</strong>。当匹配成功时执行（相当于驱动的入口）。</li>
+<li><code>remove()</code>: 移除函数。</li>
+<li><code>driver.of_match_table</code>: <strong>匹配表</strong>（用来和设备树里的 <code>compatible</code> 对暗号）。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">3. 平台总线 (<code>platform_bus_type</code>) —— “金牌中介”
+    <div id="3-平台总线-platform_bus_type--金牌中介" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#3-%e5%b9%b3%e5%8f%b0%e6%80%bb%e7%ba%bf-platform_bus_type--%e9%87%91%e7%89%8c%e4%b8%ad%e4%bb%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li><strong>代表</strong>：内核里的匹配机制（已经写好了，不用你写）。</li>
+<li><strong>工作机制</strong>：
+<ul>
+<li>每当有一个新驱动注册，总线就会遍历所有设备，问：“你俩匹配吗？”</li>
+<li>每当有一个新设备注册，总线就会遍历所有驱动，问：“你俩匹配吗？”</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+<h3 class="relative group">三、 它是怎么“自动匹配”的？
+    <div id="三-它是怎么自动匹配的" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%89-%e5%ae%83%e6%98%af%e6%80%8e%e4%b9%88%e8%87%aa%e5%8a%a8%e5%8c%b9%e9%85%8d%e7%9a%84" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>系统里有了 platform_device。你加载了 platform_driver。内核发现两者的 .compatible 名字一样（比如都叫 &ldquo;rk3568,led&rdquo;）。
+“相亲成功” -&gt; 调用 probe()。</p>
+<p><strong>匹配凭证</strong>：主要看 <strong><code>compatible</code></strong> 属性（兼容性字符串）。</p>
+
+<h4 class="relative group">流程讲解
+    <div id="流程讲解" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%b5%81%e7%a8%8b%e8%ae%b2%e8%a7%a3" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ol>
+<li>
+<p><strong>左边（设备树/设备）</strong>：
+你在 DTS 里写了一个节点：</p>
+<pre tabindex="0"><code class="language-dts" data-lang="dts">my_led {
+    compatible = &#34;rk3568,my-led&#34;;  // &lt;--- 暗号
+    reg = &lt;0xFE001000 0x4&gt;;
+};
+</code></pre><p>内核启动时，自动转换成了一个 <code>platform_device</code>，挂在总线左边的链表上。</p>
+</li>
+<li>
+<p><strong>右边（驱动代码）</strong>：
+你写了一个 <code>platform_driver</code>，注册到内核：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">of_device_id</span> <span class="n">my_ids</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="p">.</span><span class="n">compatible</span> <span class="o">=</span> <span class="s">&#34;rk3568,my-led&#34;</span> <span class="p">},</span> <span class="c1">// &lt;--- 暗号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* ... 注册驱动 ... */</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>中间（总线匹配）</strong>：</p>
+<ul>
+<li>平台总线发现新驱动来了，立刻启动 <code>platform_match</code> 函数。</li>
+<li>它拿着驱动里的 <code>&quot;rk3568,my-led&quot;</code> 去跟设备链表里的每一个设备比对。</li>
+<li><strong>比对成功！</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>触发 Probe</strong>：</p>
+<ul>
+<li>总线会自动调用你驱动里的 <code>probe(struct platform_device *pdev)</code> 函数。</li>
+<li>并将那个匹配上的设备结构体指针 <code>pdev</code> 传给你。</li>
+<li>你在 <code>probe</code> 里，从 <code>pdev</code> 里取出资源（0xFE001000），申请 GPIO，点亮 LED。</li>
+</ul>
+</li>
+</ol>
+<hr>
+
+<h3 class="relative group">五、 代码模板
+    <div id="五-代码模板" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%ba%94-%e4%bb%a3%e7%a0%81%e6%a8%a1%e6%9d%bf" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>这是你接下来写所有驱动的基础骨架，请务必熟悉：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/module.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/platform_device.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/of.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 3. 真正的初始化逻辑在这里（当且仅当匹配成功时执行）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">my_probe</span><span class="p">(</span><span class="k">struct</span> <span class="n">platform_device</span> <span class="o">*</span><span class="n">pdev</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;【平台总线】匹配成功！设备树节点是: %pOF</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">.</span><span class="n">of_node</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 在这里获取资源、注册字符设备、生成类和节点...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 之前学的 register_chrdev 写在这里面
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 4. 清理逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">my_remove</span><span class="p">(</span><span class="k">struct</span> <span class="n">platform_device</span> <span class="o">*</span><span class="n">pdev</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;【平台总线】驱动移除</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 注销字符设备...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 2. 匹配表（身份证验证）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">of_device_id</span> <span class="n">my_match_table</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{.</span><span class="n">compatible</span> <span class="o">=</span> <span class="s">&#34;my_rk3568&#34;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_DEVICE_TABLE</span><span class="p">(</span><span class="n">of</span><span class="p">,</span> <span class="n">my_match_table</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 1. 定义驱动结构体
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="k">struct</span> <span class="n">platform_driver</span> <span class="n">my_driver</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">probe</span> <span class="o">=</span> <span class="n">my_probe</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">remove</span> <span class="o">=</span> <span class="n">my_remove</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">driver</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;my_driver_v1&#34;</span><span class="p">,</span> <span class="c1">// 在 /sys/bus/platform/drivers/ 下的名字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">.</span><span class="n">of_match_table</span> <span class="o">=</span> <span class="n">my_match_table</span><span class="p">,</span> <span class="c1">// 挂载匹配表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 0. 向内核注册这个平台驱动
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">module_platform_driver</span><span class="p">(</span><span class="n">my_driver</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
+</span></span></code></pre></div>
+<h3 class="relative group">总结
+    <div id="总结-1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%bb%e7%bb%93-1" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<ol>
+<li><strong>平台总线</strong>是 Linux 用来管理 SoC 内部外设的虚拟总线。</li>
+<li>它的核心目的是<strong>把“驱动代码”和“硬件地址”拆开</strong>。</li>
+<li><strong>设备树（DTS）</strong> 负责生成 <code>platform_device</code>（提供硬件信息）。</li>
+<li><strong>你写的 C 代码</strong> 负责注册 <code>platform_driver</code>（提供软件逻辑）。</li>
+<li><strong>Probe 函数</strong> 是它们“相亲成功”后的约会地点，所有的初始化代码都要从 <code>module_init</code> 搬到 <code>probe</code> 里来。</li>
+</ol>
+
+<h2 class="relative group">设备树细节
+    <div id="设备树细节" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%ae%be%e5%a4%87%e6%a0%91%e7%bb%86%e8%8a%82" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+
+<h3 class="relative group">第一阶段：什么是设备树？怎么写它？
+    <div id="第一阶段什么是设备树怎么写它" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%ac%ac%e4%b8%80%e9%98%b6%e6%ae%b5%e4%bb%80%e4%b9%88%e6%98%af%e8%ae%be%e5%a4%87%e6%a0%91%e6%80%8e%e4%b9%88%e5%86%99%e5%ae%83" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h4 class="relative group">1. 通俗理解
+    <div id="1-通俗理解" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e9%80%9a%e4%bf%97%e7%90%86%e8%a7%a3" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>在没有设备树之前，驱动代码里到处都是硬件信息，比如 <code>Base Address = 0xFE001000</code>, <code>IRQ = 5</code>。如果板子改了个电阻，引脚变了，你就得去改 C 代码，重新编译内核。</p>
+<p><strong>设备树（DTS）</strong> 就像是一个**“硬件菜单”<strong>或</strong>“配置文件”**。</p>
+<ul>
+<li><strong>DTS 文件</strong>（<code>.dts</code>）：给程序员看的文本文件，描述板子上有哪些硬件（CPU、内存、LED、I2C 控制器）。</li>
+<li><strong>DTB 文件</strong>（<code>.dtb</code>）：给内核看的二进制文件。DTS 编译后生成 DTB。</li>
+<li><strong>驱动代码</strong>（<code>.c</code>）：厨师。厨师不记菜单，而是读菜单做菜。</li>
+</ul>
+<p><strong>核心思想</strong>：把硬件信息（DTS）和驱动逻辑（C 代码）彻底分开。</p>
+
+<h4 class="relative group">2. 基本语法（代码实战）
+    <div id="2-基本语法代码实战" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e5%9f%ba%e6%9c%ac%e8%af%ad%e6%b3%95%e4%bb%a3%e7%a0%81%e5%ae%9e%e6%88%98" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>设备树是树状结构，只有一个根节点 <code>/</code>。</p>
+<p><strong>代码任务</strong>：
+我们需要在 RK3568 的设备树文件中，添加一个我们自己的虚拟节点。打开 RK3568 的设备树文件（在内核源码 <code>/Linux/linux_sdk/kernel/arch/arm64/boot/dts/rockchip/rk3568-evb1-ddr4-v10-linux.dts</code> ）在根节点 <code>/ { ... };</code> 内部，添加以下内容：</p>
+<pre tabindex="0"><code class="language-dts" data-lang="dts">rk3568-evb1-ddr4-v10-linux.dts
+/{
+    my_test{
+        #address-cells = &lt;1&gt;;
+        #size-cells = &lt;1&gt;;
+        compatible = &#34;simple-bus&#34;;
+        myLed{
+            compatible = &#34;my_rk3568&#34;;
+            reg = &lt;0xFDD60000 0x00000004&gt;;
+        };
+    };
+};
+</code></pre><ul>
+<li><strong><code>compatible</code></strong>：这是最重要的属性！它是<strong>驱动程序和设备树节点“相亲”的凭证</strong>。驱动代码里也会写一个一模一样的字符串，匹配上了，驱动的 <code>probe</code> 函数才会执行。</li>
+</ul>
+
+<h4 class="relative group">设备树展开流程
+    <div id="设备树展开流程" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%ae%be%e5%a4%87%e6%a0%91%e5%b1%95%e5%bc%80%e6%b5%81%e7%a8%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>dts -&gt; dtb -&gt; device_node -&gt; platform_device (device_node 扁平化结构有点像链表)
+dts-&gt;dtb 的命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">topeet</span><span class="o">/</span><span class="n">Linux</span><span class="o">/</span><span class="n">linux_sdk</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">dtc</span><span class="o">/</span><span class="n">dtc</span> <span class="o">-</span><span class="n">I</span> <span class="n">dts</span> <span class="o">-</span><span class="n">O</span> <span class="n">dtb</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span><span class="p">.</span><span class="n">dtb</span> <span class="n">test</span><span class="p">.</span><span class="n">dts</span>
+</span></span></code></pre></div><p>反编译 dtb -&gt; dts</p>
+<pre tabindex="0"><code>/home/topeet/Linux/linux_sdk/kernel/scripts/dtc/dtc -I dtb -O dts -o 1.dts test.dtb
+</code></pre><p>(DTC 源代码和相关工具放在：/home/topeet/Linux/linux_sdk/kernel/scripts/dtc/dtc)</p>
+<p>在内核启动时会执行 <code>of_platform_default_populate_init()</code>函数，该函数就是将设备树节点（device_node）转换成平台设备（platform_device）的入口函数。
+该函数会遍历设备树中的设备节点，并为每个符合条件的设备节点创建一个对应的 <code>platform_device</code> 结构，然后将其注册到内核中，使得设备驱动程序能够识别和操作这些设备。
+<code>platform_device</code> 的节点可以在**<code>/sys/bus/platform/devices</code>** 下查看</p>
+
+<h4 class="relative group">device_node 转换为 platform_device 的条件/规则
+    <div id="device_node-转换为-platform_device-的条件规则" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#device_node-%e8%bd%ac%e6%8d%a2%e4%b8%ba-platform_device-%e7%9a%84%e6%9d%a1%e4%bb%b6%e8%a7%84%e5%88%99" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>规则 1：根节点下有 compatible 属性的子节点。
+规则 2：节点中 compatible 属性值是 <code>simple-bus</code>、<code>simple-mfd</code> 和<code> isa</code> 其中之一，并且该节点下的子节点有 <code>compatible</code> 属性。该节点下的子节点会被转换成 <code>platform_device</code>。
+规则 3：节点中<code>compatible</code>属性有<code>arm</code>或 <code>primecell</code>，则对应的节点不会被转换成 <code>platform_device</code>。</p>
+
+<h3 class="relative group">第二阶段：驱动如何“自动”加载？（设备树下 platform_device 和 platform_driver 匹配）
+    <div id="第二阶段驱动如何自动加载设备树下-platform_device-和-platform_driver-匹配" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%ac%ac%e4%ba%8c%e9%98%b6%e6%ae%b5%e9%a9%b1%e5%8a%a8%e5%a6%82%e4%bd%95%e8%87%aa%e5%8a%a8%e5%8a%a0%e8%bd%bd%e8%ae%be%e5%a4%87%e6%a0%91%e4%b8%8b-platform_device-%e5%92%8c-platform_driver-%e5%8c%b9%e9%85%8d" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>上面两节，书写了.dts 文件和 driver 驱动，接下来进行实操</p>
+<ol>
+<li>在目录<code>/Linux/linux_sdk</code>下编译内核（./build.sh kernel）并烧写带 <code>my_test</code> 的内核（生成的<code>boot.img</code>在目录<code>/home/topeet/Linux/linux_sdk/kernel/boot.img</code>,烧写时记得接 usb 线）。</li>
+<li>编译加载(insmod)这个 <code>.ko</code> 模块。</li>
+<li>使用 <code>dmesg</code> 查看，如果你看到“<strong>匹配成功！发现设备树节点！</strong>”，说明你已经打通了设备树到驱动的任督二脉！</li>
+</ol>
+<hr>
+
+<h2 class="relative group">在驱动里读取设备树数据（OF 操作函数）
+    <div id="在驱动里读取设备树数据of-操作函数" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%9c%a8%e9%a9%b1%e5%8a%a8%e9%87%8c%e8%af%bb%e5%8f%96%e8%ae%be%e5%a4%87%e6%a0%91%e6%95%b0%e6%8d%aeof-%e6%93%8d%e4%bd%9c%e5%87%bd%e6%95%b0" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+
+<h3 class="relative group">1. 理论讲解
+    <div id="1-理论讲解" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e7%90%86%e8%ae%ba%e8%ae%b2%e8%a7%a3" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>目标：在驱动里读取 DTS 里写的参数。如果不掌握这些函数，你的驱动虽然能匹配上（进入 <code>probe</code>），但就像**“进了餐厅却看不懂菜单”**，不知道具体的配置参数（比如阈值是多少、ID 是多少、名字叫什么）。这些以 <strong><code>of_</code></strong> 开头的函数（<strong>O</strong>pen <strong>F</strong>irmware），就是用来翻译菜单的工具。
+原理：设备树节点中可以包含属性（如 <code>reg</code>, <code>my-value</code>）。驱动匹配成功后，内核会将节点信息保存在 <code>pdev-&gt;dev.of_node</code> 中。我们需要使用 <code>of_property_read_u32</code> 等函数提取这些数据。</p>
+<hr>
+
+<h3 class="relative group">2. 核心概念：节点指针 (<code>device_node</code>)
+    <div id="2-核心概念节点指针-device_node" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%8a%82%e7%82%b9%e6%8c%87%e9%92%88-device_node" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>在 <code>probe</code> 函数里，你的第一步永远是<strong>先拿到“菜单”</strong>。这个“菜单”就是 <code>struct device_node</code> 指针。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="nf">my_probe</span><span class="p">(</span><span class="k">struct</span> <span class="n">platform_device</span> <span class="o">*</span><span class="n">pdev</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 1. 获取当前设备对应的设备树节点指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">device_node</span> <span class="o">*</span><span class="n">np</span> <span class="o">=</span> <span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">.</span><span class="n">of_node</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">np</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;没有设备树节点！</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ... 后面所有的 of_ 函数都要用到这个 np
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><hr>
+
+<h3 class="relative group">3. 最常用的 3 招（覆盖 90% 场景）
+    <div id="3-最常用的-3-招覆盖-90-场景" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#3-%e6%9c%80%e5%b8%b8%e7%94%a8%e7%9a%84-3-%e6%8b%9b%e8%a6%86%e7%9b%96-90-%e5%9c%ba%e6%99%af" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>假设我们在设备树里写了这样一个节点：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/* DTS 文件 */</span>
+</span></span><span class="line"><span class="cl"><span class="n">my_sensor</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">compatible</span> <span class="o">=</span> <span class="s">&#34;rk3568,sensor&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 1. 整数属性 */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sensor</span><span class="o">-</span><span class="n">id</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0xA5</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">max</span><span class="o">-</span><span class="n">speed</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1000</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 2. 字符串属性 */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chip</span><span class="o">-</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;ICm-20608&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 3. 数组属性 (很少用，但得知道) */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="o">-</span><span class="n">levels</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">0</span> <span class="mi">10</span> <span class="mi">20</span> <span class="mi">30</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>我们看看如何在驱动代码里把它们读出来。</p>
+
+<h4 class="relative group">1. 读取整数 (<code>of_property_read_u32</code>)
+    <div id="1-读取整数-of_property_read_u32" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e8%af%bb%e5%8f%96%e6%95%b4%e6%95%b0-of_property_read_u32" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>这是最常用的，用来读 ID、配置参数、波特率等。</p>
+<p><strong>函数原型</strong>：
+<code>int of_property_read_u32(const struct device_node *np, const char *propname, u32 *out_value)</code></p>
+<p><strong>代码实战</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">u32</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">u32</span> <span class="n">speed</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* 读 sensor-id */</span>
+</span></span><span class="line"><span class="cl"><span class="n">ret</span> <span class="o">=</span> <span class="nf">of_property_read_u32</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="s">&#34;sensor-id&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 成功！注意 DTS 里是 0xA5，读出来就是十进制 165
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;读到 ID: %#x</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;读取 sensor-id 失败</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* 读 max-speed */</span>
+</span></span><span class="line"><span class="cl"><span class="nf">of_property_read_u32</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="s">&#34;max-speed&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">speed</span><span class="p">);</span> <span class="c1">// 简写，假设一定成功
+</span></span></span></code></pre></div>
+<h4 class="relative group">2. 读取字符串 (<code>of_property_read_string</code>)
+    <div id="2-读取字符串-of_property_read_string" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e8%af%bb%e5%8f%96%e5%ad%97%e7%ac%a6%e4%b8%b2-of_property_read_string" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>用来读取名字、模式配置等。</p>
+<p><strong>函数原型</strong>：
+<code>int of_property_read_string(const struct device_node *np, const char *propname, const char **out_string)</code></p>
+<p><strong>代码实战</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name_str</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="c1">// 这是一个指针，指向内核内存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">ret</span> <span class="o">=</span> <span class="nf">of_property_read_string</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="s">&#34;chip-name&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">name_str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;芯片名字是: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">name_str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+<h4 class="relative group">3. 读取数组 (<code>of_property_read_u32_array</code>)
+    <div id="3-读取数组-of_property_read_u32_array" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#3-%e8%af%bb%e5%8f%96%e6%95%b0%e7%bb%84-of_property_read_u32_array" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>用来读取一组数据，比如一些校准参数。</p>
+<p><strong>代码实战</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">u32</span> <span class="n">levels</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span> <span class="c1">// 准备一个数组来接数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 参数：节点，属性名，数组指针，读取数量 */</span>
+</span></span><span class="line"><span class="cl"><span class="n">ret</span> <span class="o">=</span> <span class="nf">of_property_read_u32_array</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="s">&#34;default-levels&#34;</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;Level 1: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">levels</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="c1">// 输出 10
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><hr>
+
+<h3 class="relative group">4. 特殊属性的读取（不要硬用 OF 函数）
+    <div id="4-特殊属性的读取不要硬用-of-函数" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#4-%e7%89%b9%e6%ae%8a%e5%b1%9e%e6%80%a7%e7%9a%84%e8%af%bb%e5%8f%96%e4%b8%8d%e8%a6%81%e7%a1%ac%e7%94%a8-of-%e5%87%bd%e6%95%b0" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>虽然 <code>reg</code>（地址）、<code>interrupts</code>（中断）、<code>gpios</code>（引脚）本质上也是属性，<strong>但内核提供了更高级的封装</strong>，我们通常<strong>不</strong>直接用上面的 <code>of_property_read_xxx</code> 来读它们。</p>
+
+<h4 class="relative group">1. 读取 GPIO（关键！）
+    <div id="1-读取-gpio关键" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e8%af%bb%e5%8f%96-gpio%e5%85%b3%e9%94%ae" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>不要去读什么 <code>xxx-gpios = &lt;...&gt;</code> 里的数字。
+<strong>使用 GPIO 子系统接口</strong>，内核会自动处理设备树解析。</p>
+<ul>
+<li>
+<p><strong>DTS</strong>: <code>led-gpios = &lt;&amp;gpio0 15 0&gt;;</code></p>
+</li>
+<li>
+<p><strong>Code</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/gpio/consumer.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">gpio_desc</span> <span class="o">*</span><span class="n">my_gpio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 内核会自动去DTS找 &#34;led&#34; + &#34;-gpios&#34; 这个属性 */</span>
+</span></span><span class="line"><span class="cl"><span class="n">my_gpio</span> <span class="o">=</span> <span class="nf">devm_gpiod_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">&#34;led&#34;</span><span class="p">,</span> <span class="n">GPIOD_OUT_LOW</span><span class="p">);</span>
+</span></span></code></pre></div></li>
+</ul>
+
+<h4 class="relative group">2. 读取资源（reg 和 interrupts）
+    <div id="2-读取资源reg-和-interrupts" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e8%af%bb%e5%8f%96%e8%b5%84%e6%ba%90reg-%e5%92%8c-interrupts" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>
+<p><strong>DTS</strong>: <code>reg = &lt;0xFE000000 0x100&gt;;</code></p>
+</li>
+<li>
+<p><strong>Code</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">resource</span> <span class="o">*</span><span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* IORESOURCE_MEM 表示获取 reg 属性 */</span>
+</span></span><span class="line"><span class="cl"><span class="n">res</span> <span class="o">=</span> <span class="nf">platform_get_resource</span><span class="p">(</span><span class="n">pdev</span><span class="p">,</span> <span class="n">IORESOURCE_MEM</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 拿到 resource 后，通常接着用 devm_ioremap_resource 映射内存
+</span></span></span></code></pre></div></li>
+<li>
+<p><strong>DTS</strong>: <code>interrupts = &lt;...&gt;;</code></p>
+</li>
+<li>
+<p><strong>Code</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">irq</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">irq</span> <span class="o">=</span> <span class="nf">platform_get_irq</span><span class="p">(</span><span class="n">pdev</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// 获取第0个中断号
+</span></span></span></code></pre></div></li>
+</ul>
+<hr>
+
+<h3 class="relative group">5. 避坑指南（新手必看）
+    <div id="5-避坑指南新手必看" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#5-%e9%81%bf%e5%9d%91%e6%8c%87%e5%8d%97%e6%96%b0%e6%89%8b%e5%bf%85%e7%9c%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<ol>
+<li>
+<p><strong>返回值检查</strong>：
+所有 OF 函数，<strong>返回 <code>0</code> 表示成功</strong>，返回负数（如 <code>-EINVAL</code>）表示失败。不要以为返回 1 是成功！</p>
+</li>
+<li>
+<p><strong>u8 / u16 / u32 的区别</strong>：
+设备树里的数字默认都是 <strong>32 位（u32）</strong> 的。除非你显式使用了 <code>/bits/ 8 &lt;...&gt;</code> 语法，否则一律用 <code>of_property_read_u32</code>。不要为了省内存用 <code>read_u8</code>，读不出来的。</p>
+</li>
+<li>
+<p><strong>const 指针</strong>：
+<code>of_property_read_string</code> 返回的字符串指针指向的是设备树在内存中的原始数据，是 <strong>Read Only</strong> 的。千万不要试图去 <code>strcpy</code> 修改它，否则系统会崩。</p>
+</li>
+</ol>
+<hr>
+
+<h3 class="relative group">6. 总结表
+    <div id="6-总结表" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#6-%e6%80%bb%e7%bb%93%e8%a1%a8" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">你想读什么？</th>
+          <th style="text-align: left">DTS 写法示例</th>
+          <th style="text-align: left">C 代码函数 (推荐)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>自定义整数</strong></td>
+          <td style="text-align: left"><code>my-val = &lt;100&gt;;</code></td>
+          <td style="text-align: left"><code>of_property_read_u32</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>自定义字符串</strong></td>
+          <td style="text-align: left"><code>my-name = &quot;abc&quot;;</code></td>
+          <td style="text-align: left"><code>of_property_read_string</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>GPIO 引脚</strong></td>
+          <td style="text-align: left"><code>xxx-gpios = &lt;...&gt;;</code></td>
+          <td style="text-align: left"><code>devm_gpiod_get</code> (不要直接用 OF)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>寄存器地址</strong></td>
+          <td style="text-align: left"><code>reg = &lt;...&gt;;</code></td>
+          <td style="text-align: left"><code>platform_get_resource</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>中断号</strong></td>
+          <td style="text-align: left"><code>interrupts = &lt;...&gt;;</code></td>
+          <td style="text-align: left"><code>platform_get_irq</code></td>
+      </tr>
+  </tbody>
+</table>
+<p>掌握了这张表，你在驱动里“读菜单”的能力就完全够用了！</p>
+<p><strong>意义</strong>：以后你想修改参数，只需要改 DTS（不用重新编译驱动代码），这就是<strong>配置与代码分离</strong>。</p>
+<hr>
+
+<h2 class="relative group">控制硬件（GPIO 与 Pinctrl）
+    <div id="控制硬件gpio-与-pinctrl" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%8e%a7%e5%88%b6%e7%a1%ac%e4%bb%b6gpio-%e4%b8%8e-pinctrl" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+
+<h4 class="relative group">1. 通俗理解
+    <div id="1-通俗理解-1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e9%80%9a%e4%bf%97%e7%90%86%e8%a7%a3-1" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>这是最复杂的，也是最常用的。</p>
+<ul>
+<li><strong>Pinctrl</strong>：管脚控制器。RK3568 引脚多，你要在 DTS 里告诉内核：“我要把 GPIO0_A0 这个脚配置成 GPIO 模式，不要用作 PWM”。</li>
+<li><strong>GPIO 子系统</strong>：配置好模式后，在驱动里控制高低电平。</li>
+</ul>
+
+<h4 class="relative group">2. 代码实战（点灯）
+    <div id="2-代码实战点灯" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e4%bb%a3%e7%a0%81%e5%ae%9e%e6%88%98%e7%82%b9%e7%81%af" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p><strong>Step 1: 修改设备树（DTS）</strong>
+你需要查看原理图找到 LED 对应的 GPIO 号 GPIO0_B7, 在 DTS 中引用 Pinctrl 配置（迅为的 DTS 通常已经预定义好了 Pinctrl 节点，引用即可）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">my_led</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">compatible</span> <span class="o">=</span> <span class="s">&#34;rk3568,my_led&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">status</span> <span class="o">=</span> <span class="s">&#34;okay&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">led</span><span class="o">-</span><span class="n">gpios</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">gpio0</span> <span class="n">RK_PB7</span> <span class="n">GPIO_ACTIVE_HIGH</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><strong>注意</strong> 编写完所有代码之后发现 led 没有反应
+排查原因：查看在 dts 中写的 gpio 引脚是否被占用？
+<code>cat /sys/kernel/debug/gpio</code>
+发现：
+<code>gpio-15  (                    |work                ) out hi</code>
+gpio-15：这就是我们要操作的 GPIO0_B7 (032 + 18 + 7 = 15)。|work：这表示这个引脚当前正在被一个名叫 &ldquo;work&rdquo; 的驱动占用着。out hi：它已经被配置为输出高电平了。也就是说：内核自带的 leds-gpio 驱动（或者类似的系统指示灯驱动）已经根据原厂的设备树，先把这个脚给占用了。
+寻找&amp;gpio0 RK_PB7，在：/home/topeet/Linux/linux_sdk/kernel/scripts/dtc/include-prefixes/arm64/rockchip/rk3568-evb.dtsi 中发现 work 驱动</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">   <span class="nl">leds</span><span class="p">:</span> <span class="n">leds</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">compatible</span> <span class="o">=</span> <span class="s">&#34;gpio-leds&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">work_led</span><span class="p">:</span> <span class="n">work</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">status</span> <span class="o">=</span> <span class="s">&#34;disabled&#34;</span><span class="p">;</span>              <span class="c1">// ---&gt;添加这一行,使其失效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">lable</span> <span class="o">=</span> <span class="s">&#34;user1&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">gpios</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">gpio0</span> <span class="n">RK_PB7</span> <span class="n">GPIO_ACTIVE_HIGH</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">linux</span><span class="p">,</span><span class="k">default</span><span class="o">-</span><span class="n">trigger</span> <span class="o">=</span> <span class="s">&#34;heartbeat&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">default</span><span class="o">-</span><span class="n">state</span> <span class="o">=</span> <span class="s">&#34;on&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span></code></pre></div><p><strong>Step 2: 编写驱动（使用新版 GPIO API）</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/module.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/init.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/of.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/platform_device.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/gpio/consumer.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 定义一个指针，指向我们要操作的那个 GPIO */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">gpio_desc</span> <span class="o">*</span><span class="n">my_led_gpio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 1. Probe 函数
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 只有当 DTS 的 compatible 和 驱动的 compatible 一样时，
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 这个函数才会被内核调用！
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="nf">my_prob</span><span class="p">(</span><span class="k">struct</span> <span class="n">platform_device</span> <span class="o">*</span><span class="n">pdev</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;==========匹配成功！==========</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;我是驱动，我找到了我的设备！</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">.</span><span class="n">of_node</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;设备树节点名: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">.</span><span class="n">of_node</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 【核心步骤：获取 GPIO】
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 参数1: 设备指针
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 参数2: 属性名前缀 &#34;led&#34;。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *        内核会自动在 DTS 里找 &#34;led&#34; + &#34;-gpios&#34; = &#34;led-gpios&#34; 属性。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 参数3: 初始化标志。GPIOD_OUT_LOW 表示获取后立即设置为输出模式，且输出低电平（灭）。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">my_led_gpio</span> <span class="o">=</span> <span class="nf">devm_gpiod_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">&#34;led&#34;</span><span class="p">,</span> <span class="n">GPIOD_OUT_LOW</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">IS_ERR</span><span class="p">(</span><span class="n">my_led_gpio</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_ERR</span> <span class="s">&#34;【LED驱动】获取 GPIO 失败！</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">PTR_ERR</span><span class="p">(</span><span class="n">my_led_gpio</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 点亮 LED！(设置为高电平 1) */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">gpiod_set_value</span><span class="p">(</span><span class="n">my_led_gpio</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;【LED驱动】灯已点亮！(GPIO0_B7 set High)</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="nf">my_remove</span><span class="p">(</span><span class="k">struct</span> <span class="n">platform_device</span> <span class="o">*</span><span class="n">pdev</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">gpiod_set_value</span><span class="p">(</span><span class="n">my_led_gpio</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 注意：使用了 devm_gpiod_get，内核会自动释放 GPIO，不需要手动 free */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;============= 驱动卸载 ============</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 2. 匹配表
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 这是整个匹配过程的核心！
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">of_device_id</span> <span class="n">my_match_table</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{.</span><span class="n">compatible</span> <span class="o">=</span> <span class="s">&#34;rk3568,my_led&#34;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{}};</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 将匹配表注册到模块信息中 */</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_DEVICE_TABLE</span><span class="p">(</span><span class="n">of</span><span class="p">,</span> <span class="n">my_match_table</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 3. 驱动结构体
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">struct</span> <span class="n">platform_driver</span> <span class="n">my_driver</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">probe</span> <span class="o">=</span> <span class="n">my_prob</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">remove</span> <span class="o">=</span> <span class="n">my_remove</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">driver</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;my_led_driver&#34;</span><span class="p">,</span> <span class="cm">/* 驱动名字，也就是 /sys/bus/platform/drivers/ 下的名字 */</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">THIS_MODULE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">of_match_table</span> <span class="o">=</span> <span class="n">my_match_table</span><span class="p">,</span> <span class="cm">/* 关联匹配表 */</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 4. 注册平台驱动 */</span>
+</span></span><span class="line"><span class="cl"><span class="nf">module_platform_driver</span><span class="p">(</span><span class="n">my_driver</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&#34;Can&#34;</span><span class="p">);</span> <span class="c1">// 作者信息
+</span></span></span></code></pre></div>
+<h4 class="relative group">实操
+    <div id="实操" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%ae%9e%e6%93%8d" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ol>
+<li>在目录<code>/Linux/linux_sdk</code>下编译内核（./build.sh kernel）并烧写带 <code>my_led</code> 的内核（生成的<code>boot.img</code>在目录<code>/home/topeet/Linux/linux_sdk/kernel/boot.img</code>,可以确定一下时间（ls -l /home/topeet/Linux/linux_sdk/kernel/arch/arm64/boot/dts/rockchip/rk3568-evb1-ddr4-v10-linux.dtb
+）烧写时记得接 usb 线）。</li>
+<li>编译加载(insmod)这个 <code>.ko</code> 模块。</li>
+<li>使用 <code>dmesg</code> 查看，是否与驱动程序中匹配</li>
+</ol>
+<hr>
+
+<h2 class="relative group">说明
+    <div id="说明" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%af%b4%e6%98%8e" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<ol>
+<li>关于官方文档上在<strong>平台总线章节</strong>里面所说的<strong>注册 platform 设备实验</strong>，个人认为完全没必要，因为只要会写 <code>dts</code>，完全没必要自己写 <code>platform_device</code> 实验，AI 说：几乎不用 (除非做纯软件实验)。毕竟<strong>Linux is a fucking pain in the ass！</strong>，笑死&hellip;</li>
+<li>DTS 的编译原理：不用管 <code>dtc</code> 编译器怎么把文本变成二进制的，会用命令 <code>make dtbs</code> （<code>/home/topeet/Linux/linux_sdk/kernel/scripts/dtc/dtc -I dts -O dtb -o test.dtb test.dts</code>）就行。</li>
+<li>DTS 的展开过程：不用管内核启动时怎么把二进制变成结构体的（Unflatten），知道 <code>probe</code> 的时候已经变好了就行。</li>
+<li>复杂的总线定义：不用管 CPU 节点、总线控制器节点是怎么写的，那些都是原厂写好的，你只需要在它们下面挂设备。</li>
+<li>DTS 语法细节：比如 <code>#address-cells</code>, <code>#size-cells, ranges</code>。这些通常只有在写总线桥接或者内存映射时才用，普通的设备驱动开发几乎不用动。</li>
+</ol>
+
+<h2 class="relative group">学习建议与避坑
+    <div id="学习建议与避坑" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%ad%a6%e4%b9%a0%e5%bb%ba%e8%ae%ae%e4%b8%8e%e9%81%bf%e5%9d%91" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<ol>
+<li><strong>不要死磕 DTS 全部语法</strong>：DTS 里有很多复杂的属性（如 <code>ranges</code>, <code>clock-names</code>），初学看不懂很正常。你只需要关注 <code>compatible</code>（匹配用）、<code>reg</code>（地址用）、自定义属性、以及 <code>gpios</code>（引脚用）。</li>
+<li><strong>编译是难点</strong>：修改 DTS 后，需要重新编译设备树（<code>make dtbs</code>），然后将新的 <code>.img</code> 或 <code>.dtb</code> 烧录到板子上。如果烧录后板子起不来，通常是 DTS 语法写错了。</li>
+<li><strong>视频观看顺序</strong>：
+<ul>
+<li>先看 <strong>&ldquo;初识&rdquo;</strong> 和 <strong>&ldquo;语法&rdquo;</strong>。</li>
+<li>直接跳到 <strong>&ldquo;platform 匹配实验&rdquo;</strong>，把驱动框架搭起来。</li>
+<li>然后看 <strong>&ldquo;of 操作函数&rdquo;</strong>，学会读数据。</li>
+<li>最后看 <strong>&ldquo;GPIO&rdquo;</strong> 和 <strong>&ldquo;pinctrl&rdquo;</strong>，做点灯实验。</li>
+<li><em>至于“设备树展开流程”、“DTB 格式”，那是内核原理，可以等以后有空当故事听，不影响写代码。</em></li>
+</ul>
+</li>
+</ol>
+<p>按照这个“四步走”路线，每一节都有代码反馈，你会学得很有成就感！加油！</p>
+<p><strong>&mdash;&mdash;&mdash;&mdash;-设备树篇完结&mdash;&mdash;&mdash;&mdash;&ndash;</strong></p>
+
+          
+          
+          
+            <strong class="block mt-8">
+              <a
+                target="_blank"
+                class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+                href="mailto:ryc1819009649@163.com?subject=Reply%20to%20Linux%e9%a9%b1%e5%8a%a8%e5%bc%80%e5%8f%91%20%e5%b9%b3%e5%8f%b0%e6%80%bb%e7%ba%bf%26%e8%ae%be%e5%a4%87%e6%a0%91">
+                Reply by Email
+              </a>
+            </strong>
+          
+        </div>
+        
+        
+
+        
+
+        
+
+      </div>
+
+      
+      
+        
+        
+          
+          
+        
+        
+        
+        <script
+          type="text/javascript"
+          src="/js/page.min.54b6f4371722649edbe871e431d8670d670878c22be8f36e229fe53cc9b786fe25a834def5e6de621f7a3e37b72bc8cd73839aa5ed907ed6cbd45cd3e1b0fa20.js"
+          integrity="sha512-VLb0NxciZJ7b6HHkMdhnDWcIeMIr6PNuIp/lPMm3hv4lqDTe9ebeYh96Pje3K8jNc4Oape2QftbL1FzT4bD6IA=="
+          data-oid="views_notes\Linux驱动开发_设备树.md"
+          data-oid-likes="likes_notes\Linux驱动开发_设备树.md"></script>
+      
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/notes/%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8_led/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;字符设备驱动 LED
+              </span>
+            </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2025-11-24T20:50:51&#43;08:00">24 November 2025</time>
+              </span>
+            
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/notes/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_pinctrl%E5%AD%90%E7%B3%BB%E7%BB%9F/">
+              <span class="leading-6">
+                Linux驱动开发 Pinctrl子系统&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+              </span>
+            </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2025-12-05T19:24:02&#43;08:00">5 December 2025</time>
+              </span>
+            
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
+  <a
+    href="#the-top"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+  
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      © 2025-2026 Can. All rights reserved.
+    </p>
+    
+    
+
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+  </div>
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="https://rycCJ.github.io/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>

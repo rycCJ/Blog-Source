@@ -1,0 +1,1918 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="en">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  
+    <title>字符设备驱动 LED &middot; Can&#39;s Blog</title>
+    <meta name="title" content="字符设备驱动 LED &middot; Can&#39;s Blog">
+  
+
+  
+  
+    <meta name="description" content="Thoughts and conclusions about learning">
+  
+  
+    <meta name="keywords" content="Linux,驱动开发,字符设备,">
+  
+  
+  
+  <link rel="canonical" href="https://rycCJ.github.io/notes/%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8_led/">
+  
+
+  
+  
+    <meta name="author" content="Can">
+  
+  
+    
+      
+        
+          <link href="https://github.com/rycCJ" rel="me">
+        
+      
+    
+  
+
+  
+  <meta property="og:url" content="https://rycCJ.github.io/notes/%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8_led/">
+  <meta property="og:site_name" content="Can&#39;s Blog">
+  <meta property="og:title" content="字符设备驱动 LED">
+  <meta property="og:description" content="Thoughts and conclusions about learning">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2025-11-24T20:50:51+08:00">
+    <meta property="article:modified_time" content="2025-11-24T20:50:51+08:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="驱动开发">
+    <meta property="article:tag" content="字符设备">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="字符设备驱动 LED">
+  <meta name="twitter:description" content="Thoughts and conclusions about learning">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+  
+    
+      
+      
+        
+      
+      
+        <meta name="twitter:image" content="https://rycCJ.github.io/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
+        <meta property="og:image" content="https://rycCJ.github.io/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.80392c696498783b213c32422209a6e6d488c4223ad87175f4ee465fb691052895ba0e028ec31a51547697de0225643939c393c55f7741f12c05270f539c8916.css"
+    integrity="sha512-gDksaWSYeDshPDJCIgmm5tSIxCI62HF19O5GX7aRBSiVug4CjsMaUVR2l94CJWQ5OcOTxV93QfEsBScPU5yJFg==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.b4b722fcb5d42f34f52b30a92f3521b69f403ca9d96d0d6179eb537cb870f5d83fdf1fe836688d95d5c99fefbda4170487711006e56051fa67ea00da10521721.js" integrity="sha512-tLci/LXULzT1KzCpLzUhtp9APKnZbQ1heetTfLhw9dg/3x/oNmiNldXJn&#43;&#43;9pBcEh3EQBuVgUfpn6gDaEFIXIQ=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.f16cf48651044bc66625c8008eb5605cc702530530daa081ce7e495e50adf778bef6cd0747382983caf5e5cc745c819dd7a969e17e545119dff14346f4fcb977.js"
+      integrity="sha512-8Wz0hlEES8ZmJcgAjrVgXMcCUwUw2qCBzn5JXlCt93i&#43;9s0HRzgpg8r15cx0XIGd16lp4X5UURnf8UNG9Py5dw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
+  
+
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.03cb160e3cfdb2667a2e2c80d283bebcf63ff8bbc4b629c9ab2babf6fae1d0c07ad470edae783efa4fabda2ac01c58d60e63b98b3c336be8208460f08f4354f5.js" integrity="sha512-A8sWDjz9smZ6LiyA0oO&#43;vPY/&#43;LvEtinJqyur9vrh0MB61HDtrng&#43;&#43;k&#43;r2irAHFjWDmO5izwza&#43;gghGDwj0NU9Q=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Notes",
+    "name": "字符设备驱动 LED",
+    "headline": "字符设备驱动 LED",
+    
+    
+    "inLanguage": "en",
+    "url" : "https:\/\/rycCJ.github.io\/notes\/%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8_led\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Can"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-11-24T20:50:51\u002b08:00",
+    "datePublished": "2025-11-24T20:50:51\u002b08:00",
+    
+    "dateModified": "2025-11-24T20:50:51\u002b08:00",
+    
+    "keywords": ["Linux","驱动开发","字符设备"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1346"
+  }]
+  </script>
+
+
+
+  
+  
+    
+
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        Skip to main content
+      </a>
+    </div>
+    
+    
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
+  
+  
+
+  <div class="flex flex-1 items-center justify-between">
+    <nav class="flex space-x-3">
+      
+        <a href="/" class="text-base font-medium">
+          Can&rsquo;s Blog
+        </a>
+      
+    </nav>
+    
+  <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+    
+      
+        
+  <a
+  href="/notes/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="Notes"
+  title="Notes">
+  
+  
+    <p class="text-base font-medium">
+      Notes
+    </p>
+  
+</a>
+
+
+
+      
+        
+  <a
+  href="/posts/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="Posts"
+  title="Posts">
+  
+  
+    <p class="text-base font-medium">
+      Posts
+    </p>
+  
+</a>
+
+
+
+      
+        
+  <a
+  href="https://github.com/rycCJ"
+  target="_blank"
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="GitHub"
+  title="">
+  
+    <span class="mr-1">
+      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+    </span>
+  
+  
+    <p class="text-base font-medium">
+      GitHub
+    </p>
+  
+</a>
+
+
+
+      
+    
+
+    
+
+    
+
+    
+      <button
+        id="search-button"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <div class=" flex items-center">
+        <button
+          id="appearance-switcher"
+          aria-label="Dark mode switcher"
+          type="button"
+          class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+          <div class="flex items-center justify-center dark:hidden">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+          </div>
+          <div class="items-center justify-center hidden dark:flex">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+          </div>
+        </button>
+      </div>
+    
+  </nav>
+
+    
+  <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+    <span></span>
+
+    
+
+    
+
+    
+      <button
+        id="search-button-mobile"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <button
+        id="appearance-switcher-mobile"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400 me-1">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    
+  </div>
+
+  </div>
+  
+  <div class="-my-2 md:hidden">
+    <div id="menu-button" class="block">
+      
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 pt-[5px]">
+          <ul
+            class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none text-end max-w-7xl">
+            <li id="menu-close-button">
+              <span
+                class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+                <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+              </span>
+            </li>
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/notes/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="Notes"
+    title="Notes">
+    
+    
+      <p class="text-bg font-bg">
+        Notes
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/posts/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="Posts"
+    title="Posts">
+    
+    
+      <p class="text-bg font-bg">
+        Posts
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="https://github.com/rycCJ"
+    
+      target="_blank"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="GitHub"
+    title="">
+    
+      <div class="mr-2">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+      </div>
+    
+    
+      <p class="text-bg font-bg">
+        GitHub
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+
+          </ul>
+          
+        </div>
+      
+    </div>
+  </div>
+
+</div>
+
+
+
+
+  <script>
+    (function () {
+      var $mainmenu = $(".main-menu");
+      var path = window.location.pathname;
+      $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+        $(e).children("p").addClass("active");
+      });
+    })();
+  </script>
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+      
+      
+      
+      
+        
+
+
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+  
+  
+    
+    
+  
+
+
+
+
+  
+    
+    
+  
+
+
+
+
+
+    <div id="hero" class="h-[150px] md:h-[200px]"></div>
+  
+  <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
+    
+    
+    
+    <img
+      id="background-image"
+      src="/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"
+      alt="字符设备驱动 LED"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
+    <div
+      class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal"></div>
+  </div>
+
+  
+    <div
+      id="background-blur"
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
+      integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
+      data-blur-id="background-blur"
+      data-image-id="background-image"
+      data-image-url="/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"></script>
+  
+      
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        字符设备驱动 LED
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2025-11-24T20:50:51&#43;08:00">24 November 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1346 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span
+    id="views_notes\字符设备驱动_LED.md"
+    class="animate-pulse inline-block text-transparent max-h-3 rounded-full -mt-[2px] align-middle bg-neutral-300 dark:bg-neutral-400"
+    title="views"
+    >loading</span
+  >
+  <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></span>
+</span>
+<span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span
+    id="likes_notes\字符设备驱动_LED.md"
+    class="animate-pulse inline-block text-transparent max-h-3 rounded-full -mt-[2px] align-middle bg-neutral-300 dark:bg-neutral-400"
+    title="likes"
+    >loading</span
+  >
+  <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg></span></span>
+</span>
+<span class="px-2 text-primary-500">&middot;</span><span>
+  <button
+    id="button_likes"
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    <span id="button_likes_heart" class="inline-block align-text-bottom hidden"
+      ><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg></span>
+    </span>
+    <span id="button_likes_emtpty_heart" class="inline-block align-text-bottom"
+      ><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z"/></svg></span></span
+    >
+    <span id="button_likes_text">&nbsp;Like</span>
+  </button>
+</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/linux/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Linux
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    驱动开发
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    字符设备
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
+  
+
+  
+  
+
+
+
+      </div>
+      
+        
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="Can"
+        src="/img/Can.jpg"
+        data-zoom-src="/img/Can.jpg">
+    
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        Can
+      </div>
+    
+    
+      <div class="text-sm text-neutral-700 dark:text-neutral-400">A little bit about you</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/rycCJ"
+          target="_blank"
+          aria-label="Github"
+          title="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-5"></div>
+  
+
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+          <div class="toc ps-5 print:hidden lg:sticky lg:top-10">
+            
+              <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#-前置知识控制-led-的三把钥匙">🕵️‍♂️ 前置知识：控制 LED 的三把钥匙</a></li>
+        <li><a href="#-第一步准备手册">📘 第一步：准备手册</a></li>
+        <li><a href="#-第二步寻找复用寄存器-iomux">🔍 第二步：寻找“复用寄存器” (IOMUX)</a>
+          <ul>
+            <li><a href="#1-查找基地址-base-address">1. 查找基地址 (Base Address)</a></li>
+            <li><a href="#2-查找偏移量-offset">2. 查找偏移量 (Offset)</a></li>
+            <li><a href="#3-计算物理地址">3. 计算物理地址</a></li>
+            <li><a href="#4-怎么设置值">4. 怎么设置值？</a></li>
+          </ul>
+        </li>
+        <li><a href="#-第三步寻找方向寄存器-ddr">🚦 第三步：寻找“方向寄存器” (DDR)</a>
+          <ul>
+            <li><a href="#1-查找-gpio0-的基地址第一章的-address-mapping">1. 查找 GPIO0 的基地址（第一章的 Address Mapping）</a></li>
+            <li><a href="#2-查找-ddr-的偏移量">2. 查找 DDR 的偏移量</a></li>
+            <li><a href="#3-计算物理地址-1">3. 计算物理地址</a></li>
+          </ul>
+        </li>
+        <li><a href="#第四步寻找数据寄存器-dr">第四步：寻找“数据寄存器” (DR)</a></li>
+        <li><a href="#-总结我们找到的藏宝图">📝 总结：我们找到的藏宝图</a></li>
+        <li><a href="#-代码实战如何在驱动里用这些地址">💻 代码实战：如何在驱动里用这些地址？</a>
+          <ul>
+            <li><a href="#驱动代码片段-led_drvc">驱动代码片段 (led_drv.c)</a></li>
+          </ul>
+        </li>
+        <li><a href="#-重点提示避坑指南">🔥 重点提示（避坑指南）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg -ms-5 ps-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#-前置知识控制-led-的三把钥匙">🕵️‍♂️ 前置知识：控制 LED 的三把钥匙</a></li>
+        <li><a href="#-第一步准备手册">📘 第一步：准备手册</a></li>
+        <li><a href="#-第二步寻找复用寄存器-iomux">🔍 第二步：寻找“复用寄存器” (IOMUX)</a>
+          <ul>
+            <li><a href="#1-查找基地址-base-address">1. 查找基地址 (Base Address)</a></li>
+            <li><a href="#2-查找偏移量-offset">2. 查找偏移量 (Offset)</a></li>
+            <li><a href="#3-计算物理地址">3. 计算物理地址</a></li>
+            <li><a href="#4-怎么设置值">4. 怎么设置值？</a></li>
+          </ul>
+        </li>
+        <li><a href="#-第三步寻找方向寄存器-ddr">🚦 第三步：寻找“方向寄存器” (DDR)</a>
+          <ul>
+            <li><a href="#1-查找-gpio0-的基地址第一章的-address-mapping">1. 查找 GPIO0 的基地址（第一章的 Address Mapping）</a></li>
+            <li><a href="#2-查找-ddr-的偏移量">2. 查找 DDR 的偏移量</a></li>
+            <li><a href="#3-计算物理地址-1">3. 计算物理地址</a></li>
+          </ul>
+        </li>
+        <li><a href="#第四步寻找数据寄存器-dr">第四步：寻找“数据寄存器” (DR)</a></li>
+        <li><a href="#-总结我们找到的藏宝图">📝 总结：我们找到的藏宝图</a></li>
+        <li><a href="#-代码实战如何在驱动里用这些地址">💻 代码实战：如何在驱动里用这些地址？</a>
+          <ul>
+            <li><a href="#驱动代码片段-led_drvc">驱动代码片段 (led_drv.c)</a></li>
+          </ul>
+        </li>
+        <li><a href="#-重点提示避坑指南">🔥 重点提示（避坑指南）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+
+<script>
+  (function () {
+    'use strict'
+
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
+
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) {
+          return anchors[i].id
+        }
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = true
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
+      const config = {
+        toc,
+        anchors,
+        links,
+        scrollOffset: SCROLL_OFFSET_RATIO,
+        collapseInactive
+      }
+
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', initTOC)
+      : initTOC()
+  })()
+</script>
+
+
+            
+          </div>
+        </div>
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          <p>虽然现在的 Linux（如 RK3568）通常推荐使用设备树（Device Tree）和 GPIO 子系统（pinctrl/gpiod）来控制 LED，但为了学习<strong>字符设备驱动</strong>的底层原理，我们需要回归最原始的方法：<strong>直接操作寄存器</strong>。</p>
+<p>这就好比现在的车都是自动挡（GPIO 子系统），但我们要学开车原理，得先学手动挡（直接操作寄存器）。</p>
+<p>我将以 <strong>RK3568</strong> 为例，控制的 LED 接在 <strong><code>GPIO0_B7</code></strong> 这个引脚上</p>
+<hr>
+
+<h3 class="relative group">🕵️‍♂️ 前置知识：控制 LED 的三把钥匙
+    <div id="-前置知识控制-led-的三把钥匙" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e5%89%8d%e7%bd%ae%e7%9f%a5%e8%af%86%e6%8e%a7%e5%88%b6-led-%e7%9a%84%e4%b8%89%e6%8a%8a%e9%92%a5%e5%8c%99" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>要控制一个 LED，我们需要操作三个寄存器（就像三把钥匙）：</p>
+<ol>
+<li><strong>复用寄存器 (IOMUX)</strong>：决定这个引脚是干嘛的。引脚可以做串口、PWM，也可以做普通 GPIO。我们要把它设置为 <strong>GPIO 模式</strong>。</li>
+<li><strong>方向寄存器 (DDR - Data Direction Register)</strong>：决定数据是进还是出。LED 是发光，所以要设置为 <strong>输出 (Output)</strong>。</li>
+<li><strong>数据寄存器 (DR - Data Register)</strong>：决定输出电平的高低。写 1 灯亮，写 0 灯灭（或者反过来）。</li>
+</ol>
+<hr>
+
+<h3 class="relative group">📘 第一步：准备手册
+    <div id="-第一步准备手册" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e7%ac%ac%e4%b8%80%e6%ad%a5%e5%87%86%e5%a4%87%e6%89%8b%e5%86%8c" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>你需要两份核心文档（RK3568 官方资料）：</p>
+<ol>
+<li><strong>RK3568 底板原理图</strong>：查看引脚</li>
+</ol>
+<ul>
+<li>D:\study file\01<em>iTOP-RK3568 硬件资料\02</em>底板资料\01<em>原理图\02</em>底板原理图\iTOP_RK3568_C_MAIN_V191.pdf</li>
+</ul>
+<ol start="2">
+<li><strong>RK3568 TRM (Technical Reference Manual)</strong>（技术参考手册）：这是重点，用来查寄存器地址。<strong>一定要 Part1 和 Part2 都备好</strong>。</li>
+</ol>
+<ul>
+<li>D:\study file\01<em>iTOP-RK3568 硬件资料\01</em>核心板资料\07_RK3568 技术参考手册\Rockchip RK3568 TRM Part1 V1.1-20210301.pdf</li>
+</ul>
+<hr>
+
+<h3 class="relative group">🔍 第二步：寻找“复用寄存器” (IOMUX)
+    <div id="-第二步寻找复用寄存器-iomux" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e7%ac%ac%e4%ba%8c%e6%ad%a5%e5%af%bb%e6%89%be%e5%a4%8d%e7%94%a8%e5%af%84%e5%ad%98%e5%99%a8-iomux" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p><strong>目标</strong>：找到 <code>GPIO0_C0</code> 的复用寄存器地址，并设置为 GPIO 模式。</p>
+<p>在 RK3568 中，复用寄存器通常归 <strong>GRF (General Register Files)</strong> 管理。</p>
+<ul>
+<li><strong>注意</strong>：<code>GPIO0</code> 比较特殊，它属于 <strong>PMU 电源域</strong>，所以它的复用寄存器在 <strong>PMU_GRF</strong> 里。</li>
+<li>其他 GPIO（如 GPIO1, 2, 3&hellip;）通常在 <strong>SYS_GRF</strong> 里。</li>
+</ul>
+
+<h4 class="relative group">1. 查找基地址 (Base Address)
+    <div id="1-查找基地址-base-address" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e6%9f%a5%e6%89%be%e5%9f%ba%e5%9c%b0%e5%9d%80-base-address" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>打开 <strong>TRM Part 1</strong>，搜索关键字 <code>Memory Map</code>（内存映射表）。在表中寻找 <code>PMU_GRF</code>：</p>
+<ul>
+<li><strong>PMU_GRF Base Address = <code>0xFDC20000</code></strong></li>
+</ul>
+
+<h4 class="relative group">2. 查找偏移量 (Offset)
+    <div id="2-查找偏移量-offset" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e6%9f%a5%e6%89%be%e5%81%8f%e7%a7%bb%e9%87%8f-offset" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>打开 <strong>TRM Part 1</strong> 的 <code>GRF</code> 章节，搜索 <code>GPIO0B</code> 或 <code>IOMUX</code>。
+你会找到一个寄存器叫 <code>PMU_GRF_GPIO0B_IOMUX_H</code> (L 代表低位，控制 B0-B3；H 代表高位，控制 B4-B7)。</p>
+<ul>
+<li><strong>PMU_GRF_GPIO0B_IOMUX_H Offset: `0x000C</strong></li>
+</ul>
+
+<h4 class="relative group">3. 计算物理地址
+    <div id="3-计算物理地址" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#3-%e8%ae%a1%e7%ae%97%e7%89%a9%e7%90%86%e5%9c%b0%e5%9d%80" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<blockquote>
+<p><strong>复用寄存器地址 = 基地址 + 偏移量</strong> &gt; <code>0xFDC20000</code> + <code>0x000C</code> = <strong><code>0xFDC2000c</code></strong></p></blockquote>
+
+<h4 class="relative group">4. 怎么设置值？
+    <div id="4-怎么设置值" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#4-%e6%80%8e%e4%b9%88%e8%ae%be%e7%bd%ae%e5%80%bc" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>往下翻，查看对应的：<code>PMU_GRF_GPIO0B_IOMUX_H</code>
+Address: Operational Base + offset (0x000C)
+查看想要的 <code>GPIO0_B7</code>，控制 LED 灯需要将引脚复用设置为 GPIO0_B7，</p>
+<p><code>bit[12:14]</code> 控制 <code>GPIO0_B7</code>。手册会写：</p>
+<ul>
+<li><code>3'h0</code>: <code>GPIO0_C0</code> (这是我们要的)</li>
+<li><code>3'h1</code>: PWM*M0 &hellip;</li>
+</ul>
+<p>所以，我们要把低 4 位设置为 <code>0</code>。</p>
+<p>*(注：Rockchip 寄存器通常有写保护，高 16 位对应写使能，后面代码里会讲)_</p>
+<p>使用<code>io -r -4 0xFDC2000C</code> 命令可以查看此寄存器的默认值,可以看出复用寄存器值为 00000001,此时[14:12]位为 000,此时 GPIO0_B7 引脚默认为 gpio 功能。因此无需在设置引脚复用为 gpio 功能</p>
+<hr>
+
+<h3 class="relative group">🚦 第三步：寻找“方向寄存器” (DDR)
+    <div id="-第三步寻找方向寄存器-ddr" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e7%ac%ac%e4%b8%89%e6%ad%a5%e5%af%bb%e6%89%be%e6%96%b9%e5%90%91%e5%af%84%e5%ad%98%e5%99%a8-ddr" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>这两个寄存器属于 <strong>GPIO 控制器</strong> 内部。</p>
+
+<h4 class="relative group">1. 查找 GPIO0 的基地址（第一章的 Address Mapping）
+    <div id="1-查找-gpio0-的基地址第一章的-address-mapping" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e6%9f%a5%e6%89%be-gpio0-%e7%9a%84%e5%9f%ba%e5%9c%b0%e5%9d%80%e7%ac%ac%e4%b8%80%e7%ab%a0%e7%9a%84-address-mapping" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li><code>GPIO0   0xFDD60000</code></li>
+</ul>
+
+<h4 class="relative group">2. 查找 DDR 的偏移量
+    <div id="2-查找-ddr-的偏移量" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e6%9f%a5%e6%89%be-ddr-%e7%9a%84%e5%81%8f%e7%a7%bb%e9%87%8f" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>Part 1 的 GPIO 章节（第十六章节）</p>
+<ul>
+<li><strong>GPIO_SWPORT_DDR_L</strong> 0x0008</li>
+<li><strong>GPIO_SWPORT_DDR_H</strong> 0x000C
+GPIOA0<del>GPIOA7, GPIOB0</del>GPIOB7 对应的方向寄存器偏移地址为 GPIO_SWPORT_DDR_L，
+GPIOC0<del>GPIOC7, GPIOD0</del>GPIOD7 对应的方向寄存器偏移地址为 GPIO_SWPORT_DDR_H。
+因此 GPIO0_B7 引脚方向寄存器的偏移地址为 <strong>GPIO_SWPORT_DDR_L</strong>，即 <strong>0x0008</strong></li>
+</ul>
+
+<h4 class="relative group">3. 计算物理地址
+    <div id="3-计算物理地址-1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#3-%e8%ae%a1%e7%ae%97%e7%89%a9%e7%90%86%e5%9c%b0%e5%9d%80-1" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>找到具体的 GPIO_SWPORT_DDR_L 描述：</p>
+<pre tabindex="0"><code>31:16 （高16位使能低16位,对应 GPIOA0~GPIOA7、GPIOB0~GPIOB7 引脚方向控制位的写使能）
+Write enable for lower 16 bits, each bit is individual.
+1&#39;b0: Write access disable
+1&#39;b1: Write access enable
+
+
+15:0 （低 16 位控制方向,对应 GPIOA0~GPIOA7, GPIOB0~GPIOB7 方向控制位）
+Data direction for the lower 16 bits of I/O Port, each bit is individual.
+1&#39;b0: Input
+1&#39;b1: Output
+
+GPIO0_A0 ~ A7 (0-7)
+GPIO0_B0 ~ B7 (8-15) -&gt; 第 16 个引脚 B7 对应 bit15
+GPIO0_C0 ~ C7 (16-23)
+</code></pre><ul>
+<li>使能 bit15：对应 bit31 写 1</li>
+<li>控制方向：bit15 写 1 对应输出，0 对应输入
+<strong>方向寄存器的地址（DDR）</strong> = 基地址+偏移地址=<code>0xFDD60000</code> + <code>0x0008</code> = <strong><code>0xFDD60008</code></strong>
+使用 <code>io -r -4 0xfdd60008</code> 命令查看方向寄存器的默认值，方向寄存器第 15 位默认为 1，因此 GPIO0_B7 默认输出。所以无需在设置 GPIO0_B7 方向</li>
+</ul>
+<hr>
+
+<h3 class="relative group">第四步：寻找“数据寄存器” (DR)
+    <div id="第四步寻找数据寄存器-dr" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%ac%ac%e5%9b%9b%e6%ad%a5%e5%af%bb%e6%89%be%e6%95%b0%e6%8d%ae%e5%af%84%e5%ad%98%e5%99%a8-dr" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p><strong>GPIO_SWPORT_DR_L</strong> 0x0000
+<strong>GPIO_SWPORT_DR_H</strong> 0x0004
+同上方向寄存器，我们要找的是 <strong>低位寄存器 (High)</strong>：</p>
+<ul>
+<li><strong>数据寄存器 (DR)</strong>: <code>GPIO_SWPORT_DR_L</code>，偏移量是 <strong><code>0x0000</code></strong>
+<strong>数据寄存器的地址（DR）</strong>：基地址+偏移地址=<code>0xFDD60000</code> + <code>0x0000</code> = <strong><code>0xFDD60000</code></strong>
+使用<code>io -r -4 0xfdd60000</code>命令查看该寄存器的默认值,该寄存器默认值为 <strong><code>0x0000c040</code></strong>，接下来控制 <code>GPIO0_B7</code> 高低电平需要在此寄存器默认值的基础上进行控制。</li>
+</ul>
+<p>找到具体的 数据寄存器（GPIO_SWPORT_DR_L）的描述</p>
+<ul>
+<li>bit16-bit31 对应 GPIOA0<del>GPIOA7、GPIOB0</del>GPIOB7 引脚数据位的写使能。</li>
+<li>bit0-bit15 对应 GPIOA0<del>GPIOA7, GPIOB0</del>GPIOB7 数据位
+如果要设置 GPIO0_B7 输出电平，需要先将 GPIO0_B7 引脚对应的写使能为 bit31 写 1 使能，然后对 bit15 写入 0 即将 GPIO0_B7 引脚输出低电平，写入 1 则输出高电平。</li>
+</ul>
+<p>如果让 GPIO0_B7 输出<strong>高</strong>电平则需要向数据寄存器写入 <strong><code>0x8000c040</code></strong>
+如果输出<strong>低</strong>电平，需要设置第 15 位为 0 ，第 31 位为 1，那么向数据寄存器中写入**<code>0x80004040</code>**</p>
+
+<h3 class="relative group">📝 总结：我们找到的藏宝图
+    <div id="-总结我们找到的藏宝图" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e6%80%bb%e7%bb%93%e6%88%91%e4%bb%ac%e6%89%be%e5%88%b0%e7%9a%84%e8%97%8f%e5%ae%9d%e5%9b%be" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>针对 <strong>RK3568 GPIO0_B7</strong>：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">寄存器名称</th>
+          <th style="text-align: left">物理地址 (Physical Address)</th>
+          <th style="text-align: left">作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>PMU_GRF</code></td>
+          <td style="text-align: left"><code>0xFDC20000</code></td>
+          <td style="text-align: left">复用寄存器基地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>PMU_GRF_GPIO0B_IOMUX_H</code></td>
+          <td style="text-align: left"><code>0x000C</code></td>
+          <td style="text-align: left">复用寄存器的偏移量，B0-B3 是低位，B4-B7 是高位</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong><code>PMU_GRF_GPIO0C_IOMUX_H</code></strong></td>
+          <td style="text-align: left"><strong><code>0xFDC2000c</code></strong></td>
+          <td style="text-align: left"><strong>设为 GPIO 模式</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>GPIO0</code></td>
+          <td style="text-align: left"><code>0xFDD60000</code></td>
+          <td style="text-align: left">基于此设置 DR 和 DDR 寄存器，只需要加上偏移量即可</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>GPIO_SWPORT_DDR_L</code></td>
+          <td style="text-align: left"><code>0x0008</code></td>
+          <td style="text-align: left">方向寄存器的偏移地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong><code>GPIO_SWPORT_DDR_L</code></strong></td>
+          <td style="text-align: left"><strong><code>0xFDD60008</code></strong></td>
+          <td style="text-align: left"><strong>设为输出模式</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>GPIO_SWPORT_DR_L</code></td>
+          <td style="text-align: left"><code>0x0000</code></td>
+          <td style="text-align: left">数据寄存器的偏移地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong><code>GPIO0_SWPORT_DR_L</code></strong></td>
+          <td style="text-align: left"><strong><code>0xFDD60000</code></strong></td>
+          <td style="text-align: left"><strong>写 1 亮，写 0 灭</strong></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>除了这些，还有一些规则，具体在代码里面体现，主要是使用</strong>writel<strong>函数，在计算完方向/数据寄存器地址之后控制方向与数据</strong></p>
+<hr>
+
+<h3 class="relative group">💻 代码实战：如何在驱动里用这些地址？
+    <div id="-代码实战如何在驱动里用这些地址" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e4%bb%a3%e7%a0%81%e5%ae%9e%e6%88%98%e5%a6%82%e4%bd%95%e5%9c%a8%e9%a9%b1%e5%8a%a8%e9%87%8c%e7%94%a8%e8%bf%99%e4%ba%9b%e5%9c%b0%e5%9d%80" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>在 Linux 驱动中，我们<strong>不能直接操作物理地址</strong>（那是会报错的）。我们必须使用 <code>ioremap</code> 把物理地址映射成<strong>虚拟地址</strong>。
+主要设计函数 <strong>ioremap</strong> 、<strong>writel</strong>、 <strong>iounmap</strong>。
+在 init 函数中主要进行</p>
+<ol>
+<li>
+<p>映射地址；</p>
+</li>
+<li>
+<p>设置复用寄存器（目的是设置为 GPIO 模式）；</p>
+</li>
+<li>
+<p>设置方向寄存器（目的是设置为 Output）；</p>
+</li>
+<li>
+<p>初始化状态（关灯）</p>
+<p>而在 write 函数中，主要是通过判断传入的指令（开灯？关灯？），进而对数据寄存器进行不同的操作</p>
+</li>
+</ol>
+
+<h4 class="relative group">驱动代码片段 (led_drv.c)
+    <div id="驱动代码片段-led_drvc" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%a9%b1%e5%8a%a8%e4%bb%a3%e7%a0%81%e7%89%87%e6%ae%b5-led_drvc" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/init.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/module.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/fs.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/cdev.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/device.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/uaccess.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/slab.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/io.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义设备名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define CLA_NAME &#34;led_class&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define DEV_NAME &#34;led_device&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define DEV_NUM &#34;led_dev&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// 基地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define RK3568_PMU_GRF_BASE 0xFDC20000
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define RK3568_GPIO0_BASE 0xFDD60000
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 偏移量
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 复用寄存器：PMU_GRF_GPIO0B_IOMUX_H (控制 GPIO0_B0 ~ B7)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define PMU_GRF_GPIO0B_IOMUX_H_OFFSET 0x000C
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// 数据寄存器：GPIO0_B7 属于低16位 (Bit 15)，所以用 DR_L
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define GPIO_SWPORT_DR_L_OFFSET 0x0000
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// 方向寄存器：GPIO0_B7 属于低16位 (Bit 15)，所以用 DDR_L
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define GPIO_SWPORT_DDR_L_OFFSET 0x0008
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 规则
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 复用寄存器 需要把高16位对应的 bits [30:28] 置 1 来使能写操作  值: (0x7 &lt;&lt; 28) | (0x0 &lt;&lt; 12) = 0x7000 0000
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define PMU_REGULAR 0x70000000
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// 方向寄存器 Bit 15 + 16 = Bit 31 是写使能位  值: (1 &lt;&lt; 31) | (1 &lt;&lt; 15) = 0x80008000
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define DDR_REGULAR 0x80008000
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 开灯：Bit 31 置1(使能), Bit 15 置1(高电平) -&gt; 0x8000 8000
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define LED_OPEN_VAL 0x80008000
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// 关灯：Bit 31 置1(使能), Bit 15 置0(低电平) -&gt; 0x8000 0000
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define LED_CLOSE_VAL 0x80000000
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// LED控制
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define LED_CLOSE 0x80004040
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define LED_OPEN 0x8000c040
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">device_test</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* data */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">dev_t</span> <span class="n">dev</span><span class="p">;</span> <span class="c1">// 设备号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">major</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">minor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">cdev</span> <span class="n">my_cdev</span><span class="p">;</span> <span class="c1">//// 结构体和设备号关联起来
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">class</span> <span class="o">*</span><span class="n">my_class</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">device</span> <span class="o">*</span><span class="n">my_device</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">buff</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">__iomem</span> <span class="o">*</span><span class="n">vir_gpio0</span><span class="p">;</span>   <span class="c1">// 映射 GPIO0 基地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="n">__iomem</span> <span class="o">*</span><span class="n">vir_pmu_grf</span><span class="p">;</span> <span class="c1">// 用于复用控制
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">device_test</span> <span class="n">dev1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="nf">myopen</span><span class="p">(</span><span class="k">struct</span> <span class="n">inode</span> <span class="o">*</span><span class="n">inode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/*在使用时一般将设备结构体指向 file 结构体中 private_data 成员，此时设备结构体就变成了文件私有数据
+</span></span></span><span class="line"><span class="cl"><span class="cm">    对 file 结构体中 private_data 成员赋值一般是在文件操作集中的 open() 函数中赋值*/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">file</span><span class="o">-&gt;</span><span class="n">private_data</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">dev1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;-------------迅为RK3568: 设备被打开了</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">ssize_t</span> <span class="nf">mywrite</span><span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">loff_t</span> <span class="o">*</span><span class="n">ppos</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/*通 file 结构体可以将私有数据一路从 open()函数带到 read(), write()函数。接着就是可以在 read()、write()函数中使用文件私有数据。*/</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">device_test</span> <span class="o">*</span><span class="n">test_dev</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">device_test</span> <span class="o">*</span><span class="p">)</span><span class="n">file</span><span class="o">-&gt;</span><span class="n">private_data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">__iomem</span> <span class="o">*</span><span class="n">dr_addr</span> <span class="o">=</span> <span class="n">test_dev</span><span class="o">-&gt;</span><span class="n">vir_gpio0</span> <span class="o">+</span> <span class="n">GPIO_SWPORT_DR_L_OFFSET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="nf">copy_from_user</span><span class="p">(</span><span class="n">test_dev</span><span class="o">-&gt;</span><span class="n">buff</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span> <span class="c1">// 应用层将buff传入内核
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_ERR</span> <span class="s">&#34;******copy_from_user error!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 计算数据寄存器虚拟地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">buff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// 如果传入的是0  则关灯
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">writel</span><span class="p">(</span><span class="n">LED_CLOSE_VAL</span><span class="p">,</span> <span class="n">dr_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 对指针 “解引用”，访问指针指向的内存单元（即 GPIO 寄存器本身），可读写其值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;LED Driver: OFF (Write 0x%X)</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">LED_CLOSE_VAL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">buff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">// 如果传入的是1  则开灯
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">writel</span><span class="p">(</span><span class="n">LED_OPEN_VAL</span><span class="p">,</span> <span class="n">dr_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;LED Driver: ON (Write 0x%X)</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">LED_OPEN_VAL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;--------------写入数据到私有内存：%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">test_dev</span><span class="o">-&gt;</span><span class="n">buff</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">ssize_t</span> <span class="nf">myread</span><span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">loff_t</span> <span class="o">*</span><span class="n">ppos</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">device_test</span> <span class="o">*</span><span class="n">test_device</span> <span class="o">=</span> <span class="n">file</span><span class="o">-&gt;</span><span class="n">private_data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="nf">copy_to_user</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">test_device</span><span class="o">-&gt;</span><span class="n">buff</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;-----------------read error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;-------------从私有内存读取数据: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">test_device</span><span class="o">-&gt;</span><span class="n">buff</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// --- 4. 关闭设备 (退房) ---
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">myrealse</span><span class="p">(</span><span class="k">struct</span> <span class="n">inode</span> <span class="o">*</span><span class="n">inode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;-------------迅为RK3568: 设备被释放了</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">struct</span> <span class="n">file_operations</span> <span class="n">my_ops</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 顾客来了能做什么,定义商店的经营方法 */</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">THIS_MODULE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">open</span> <span class="o">=</span> <span class="n">myopen</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">read</span> <span class="o">=</span> <span class="n">myread</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">write</span> <span class="o">=</span> <span class="n">mywrite</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">release</span> <span class="o">=</span> <span class="n">myrealse</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="n">__init</span> <span class="nf">module_cdev_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="c1">// 驱动入口函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// --- 1.申请设备号 （动态申请）---
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">ret</span> <span class="o">=</span> <span class="nf">alloc_chrdev_region</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev1</span><span class="p">.</span><span class="n">dev</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">DEV_NUM</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;-----------------alloc_chrdev_region error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="c1">// 申请设备号失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;--------------alloc_chrdev_region succeed,major %d，minor %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="nf">MAJOR</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">dev</span><span class="p">),</span> <span class="nf">MINOR</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">dev</span><span class="p">));</span> <span class="c1">// 营业执照申请成功！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// --- 2. 注册字符设备 ---
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">cdev_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_cdev</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_ops</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 将 cdev 添加到内核
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">ret</span> <span class="o">=</span> <span class="nf">cdev_add</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_cdev</span><span class="p">,</span> <span class="n">dev1</span><span class="p">.</span><span class="n">dev</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 为什么是1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;------------------cdev_add error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="c1">// 注册经营范围失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">goto</span> <span class="n">free_dev</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;--------------cdev_add secceed</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="c1">// 经营范围已在工商局注册
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// --- 3. 创建设备节点 ---
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 创建一条“商业街”
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">dev1</span><span class="p">.</span><span class="n">my_class</span> <span class="o">=</span> <span class="nf">class_create</span><span class="p">(</span><span class="n">THIS_MODULE</span><span class="p">,</span> <span class="n">CLA_NAME</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">IS_ERR</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_class</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 错误处理...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_ERR</span> <span class="s">&#34;---------------class_create error</span><span class="se">\n</span><span class="s"> &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ret</span> <span class="o">=</span> <span class="nf">PTR_ERR</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_class</span><span class="p">);</span> <span class="c1">// 把指针错误转换成错误码(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 这里失败了，要撤销第二关(cdev)和第一关(设备号)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">goto</span> <span class="n">destroy_cdev</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;---------------private_class : 店铺已在 /sys/class/ 挂牌营业！</span><span class="se">\n</span><span class="s"> &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 在商业街上创建我们的“店面”，并取名 &#34;mydevice111&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 参数: 类, 父设备(NULL), 设备号, 私有数据(NULL), 设备名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">dev1</span><span class="p">.</span><span class="n">my_device</span> <span class="o">=</span> <span class="nf">device_create</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_class</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">dev1</span><span class="p">.</span><span class="n">dev</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">DEV_NAME</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">IS_ERR</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_device</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 错误处理...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_ERR</span> <span class="s">&#34;---------------device_create error</span><span class="se">\n</span><span class="s"> &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ret</span> <span class="o">=</span> <span class="nf">PTR_ERR</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_device</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 这里失败了，要撤销第三关(类)、第二关(cdev)、第一关(设备号)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">goto</span> <span class="n">destroy_class</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;---------------MyDevice : 店铺已在 / dev / mydevice111 挂牌营业！</span><span class="se">\n</span><span class="s"> &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/*添加*/</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// --- 硬件初始化 ---
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// A. 映射地址 (映射 4KB 足够覆盖寄存器)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">dev1</span><span class="p">.</span><span class="n">vir_gpio0</span> <span class="o">=</span> <span class="nf">ioremap</span><span class="p">(</span><span class="n">RK3568_GPIO0_BASE</span><span class="p">,</span> <span class="mi">4096</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dev1</span><span class="p">.</span><span class="n">vir_pmu_grf</span> <span class="o">=</span> <span class="nf">ioremap</span><span class="p">(</span><span class="n">RK3568_PMU_GRF_BASE</span><span class="p">,</span> <span class="mi">4096</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">dev1</span><span class="p">.</span><span class="n">vir_pmu_grf</span> <span class="o">||</span> <span class="o">!</span><span class="n">dev1</span><span class="p">.</span><span class="n">vir_gpio0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;ioremap error!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">goto</span> <span class="n">destroy_ioremap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// B. 设置复用 (IOMUX) -&gt; 设为 GPIO 模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 寄存器: PMU_GRF_GPIO0B_IOMUX_H (Offset 0x0C)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// GPIO0_B7 对应 bits [14:12]，模式 000 是 GPIO
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 写规则: 需要把高16位对应的 bits [30:28] 置 1 来使能写操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 值: (0x7 &lt;&lt; 28) | (0x0 &lt;&lt; 12) = 0x7000 0000
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">writel</span><span class="p">(</span><span class="n">PMU_REGULAR</span><span class="p">,</span> <span class="n">dev1</span><span class="p">.</span><span class="n">vir_pmu_grf</span> <span class="o">+</span> <span class="n">PMU_GRF_GPIO0B_IOMUX_H_OFFSET</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;LED Driver: IOMUX Set to GPIO</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// C. 设置方向 (DDR) -&gt; 设为 Output
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 寄存器: GPIO_SWPORT_DDR_L (Offset 0x08)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// GPIO0_B7 对应 Bit 15
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 写规则: Bit 15 + 16 = Bit 31 是写使能位
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 值: (1 &lt;&lt; 31) | (1 &lt;&lt; 15) = 0x80008000
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">writel</span><span class="p">(</span><span class="n">DDR_REGULAR</span><span class="p">,</span> <span class="n">dev1</span><span class="p">.</span><span class="n">vir_gpio0</span> <span class="o">+</span> <span class="n">GPIO_SWPORT_DDR_L_OFFSET</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;LED Driver: Direction Set to Output</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// D：默认关灯  操作数据寄存器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">writel</span><span class="p">(</span><span class="n">LED_CLOSE_VAL</span><span class="p">,</span> <span class="n">dev1</span><span class="p">.</span><span class="n">vir_gpio0</span> <span class="o">+</span> <span class="n">GPIO_SWPORT_DR_L_OFFSET</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;LED Driver: Init Success!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nl">destroy_ioremap</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">vir_pmu_grf</span><span class="p">)</span> <span class="c1">// 成功的才还  如果dev1.vir_pmu_grf成功，但是vir_gpio0失败，要销毁成功的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">iounmap</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">vir_pmu_grf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">vir_gpio0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">iounmap</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">vir_gpio0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">device_destroy</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_class</span><span class="p">,</span> <span class="n">dev1</span><span class="p">.</span><span class="n">dev</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nl">destroy_class</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">class_destroy</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_class</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nl">destroy_cdev</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">cdev_del</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_cdev</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nl">free_dev</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">unregister_chrdev_region</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">dev</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 驱动出口函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">void</span> <span class="n">__exit</span> <span class="nf">module_cdev_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 取消映射
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">iounmap</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">vir_pmu_grf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">iounmap</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">vir_gpio0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 3.销毁设备节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">device_destroy</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_class</span><span class="p">,</span> <span class="n">dev1</span><span class="p">.</span><span class="n">dev</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">class_destroy</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_class</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 2.注销字符设备
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">cdev_del</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dev1</span><span class="p">.</span><span class="n">my_cdev</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 1.归还设备号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">unregister_chrdev_region</span><span class="p">(</span><span class="n">dev1</span><span class="p">.</span><span class="n">dev</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;----------------MyDevice: 店铺已摘牌，打烊了！</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="c1">// MyDevice: 店铺已摘牌，打烊了！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">module_init</span><span class="p">(</span><span class="n">module_cdev_init</span><span class="p">);</span> <span class="c1">// 注册入口函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">module_exit</span><span class="p">(</span><span class="n">module_cdev_exit</span><span class="p">);</span> <span class="c1">// 注册出口函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL v2&#34;</span><span class="p">);</span>      <span class="c1">// 同意GPL开源协议
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&#34;Can&#34;</span><span class="p">);</span>          <span class="c1">// 作者信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                               <span class="c1">// 你的驱动已经可以在加载后自动创建 /dev/mydevice 文件了！
+</span></span></span></code></pre></div><hr>
+
+<h3 class="relative group">🔥 重点提示（避坑指南）
+    <div id="-重点提示避坑指南" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e9%87%8d%e7%82%b9%e6%8f%90%e7%a4%ba%e9%81%bf%e5%9d%91%e6%8c%87%e5%8d%97" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<ol>
+<li>
+<p><strong>写使能位（Write Mask）</strong>：这是 Rockchip 芯片最著名的特点！
+大多数寄存器（尤其是 GRF 和 GPIO），高 16 位是“写保护锁”。</p>
+<ul>
+<li>如果你想修改 bit 0，你必须同时把 bit 16 写为 1。</li>
+<li>如果你只写 bit 0 = 1，但 bit 16 = 0，硬件会忽略你的操作。</li>
+<li><strong>公式</strong>：<code>val = (1 &lt;&lt; (bit + 16)) | (value &lt;&lt; bit);</code></li>
+</ul>
+</li>
+<li>
+<p><strong>iomap 失败</strong>：
+如果 <code>ioremap</code> 失败，通常是因为这段地址已经被内核的其他驱动（比如原生的 GPIO 驱动）申请走了。在实验阶段，可以在设备树里把对应的 GPIO 节点 <code>status = &quot;disabled&quot;;</code> 掉，防止冲突。</p>
+</li>
+<li>
+<p><strong>H 和 L 的区分</strong>：
+RK3568 一个 GPIO Port 有 32 个引脚（A, B, C, D 各 8 个）。</p>
+<ul>
+<li><code>_L</code> 寄存器通常管 A 和 B (0-15)。</li>
+<li><code>_H</code> 寄存器通常管 C 和 D (16-31)。</li>
+<li>一定要数清楚你的引脚是第几个。</li>
+</ul>
+</li>
+</ol>
+<p>希望这个讲解能帮你顺利找到寄存器，点亮那颗 LED！</p>
+
+          
+          
+          
+            <strong class="block mt-8">
+              <a
+                target="_blank"
+                class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+                href="mailto:ryc1819009649@163.com?subject=Reply%20to%20%e5%ad%97%e7%ac%a6%e8%ae%be%e5%a4%87%e9%a9%b1%e5%8a%a8%20LED">
+                Reply by Email
+              </a>
+            </strong>
+          
+        </div>
+        
+        
+
+        
+
+        
+
+      </div>
+
+      
+      
+        
+        
+          
+          
+        
+        
+        
+        <script
+          type="text/javascript"
+          src="/js/page.min.54b6f4371722649edbe871e431d8670d670878c22be8f36e229fe53cc9b786fe25a834def5e6de621f7a3e37b72bc8cd73839aa5ed907ed6cbd45cd3e1b0fa20.js"
+          integrity="sha512-VLb0NxciZJ7b6HHkMdhnDWcIeMIr6PNuIp/lPMm3hv4lqDTe9ebeYh96Pje3K8jNc4Oape2QftbL1FzT4bD6IA=="
+          data-oid="views_notes\字符设备驱动_LED.md"
+          data-oid-likes="likes_notes\字符设备驱动_LED.md"></script>
+      
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/notes/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Linux驱动开发 字符设备
+              </span>
+            </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2025-11-17T15:53:29&#43;08:00">17 November 2025</time>
+              </span>
+            
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/notes/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_%E8%AE%BE%E5%A4%87%E6%A0%91/">
+              <span class="leading-6">
+                Linux驱动开发 平台总线&设备树&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+              </span>
+            </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2025-11-25T11:57:34&#43;08:00">25 November 2025</time>
+              </span>
+            
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
+  <a
+    href="#the-top"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+  
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      © 2025-2026 Can. All rights reserved.
+    </p>
+    
+    
+
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+  </div>
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="https://rycCJ.github.io/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>

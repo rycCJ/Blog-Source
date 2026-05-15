@@ -4,25 +4,32 @@
     <title>应用开发 on Can&#39;s Blog</title>
     <link>https://rycCJ.github.io/tags/%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/</link>
     <description>Recent content in 应用开发 on Can&#39;s Blog</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>ryc1819009649@163.com (Can)</managingEditor>
     <webMaster>ryc1819009649@163.com (Can)</webMaster>
-    <lastBuildDate>Thu, 09 Apr 2026 21:41:23 +0800</lastBuildDate>
-    <atom:link href="https://rycCJ.github.io/tags/%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2025-{year} Can. All rights reserved.</copyright>
+    <lastBuildDate>Thu, 09 Apr 2026 21:41:23 +0800</lastBuildDate><atom:link href="https://rycCJ.github.io/tags/%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Linux应用开发 命令</title>
       <link>https://rycCJ.github.io/notes/linux%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91_%E5%91%BD%E4%BB%A4/</link>
-      <pubDate>Thu, 09 Apr 2026 21:41:23 +0800</pubDate><author>ryc1819009649@163.com (Can)</author>
+      <pubDate>Thu, 09 Apr 2026 21:41:23 +0800</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
       <guid>https://rycCJ.github.io/notes/linux%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91_%E5%91%BD%E4%BB%A4/</guid>
       <description></description>
+      
     </item>
+    
     <item>
       <title>Linux应用开发 网络设备</title>
       <link>https://rycCJ.github.io/notes/linux%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91_%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>ryc1819009649@163.com (Can)</author>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>ryc1819009649@163.com (Can)</author>
       <guid>https://rycCJ.github.io/notes/linux%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91_%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87/</guid>
       <description></description>
+      
     </item>
+    
   </channel>
 </rss>

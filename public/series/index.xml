@@ -4,10 +4,12 @@
     <title>Series on Can&#39;s Blog</title>
     <link>https://rycCJ.github.io/series/</link>
     <description>Recent content in Series on Can&#39;s Blog</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>ryc1819009649@163.com (Can)</managingEditor>
     <webMaster>ryc1819009649@163.com (Can)</webMaster>
+    <copyright>© 2025-{year} Can. All rights reserved.</copyright>
     <atom:link href="https://rycCJ.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+    
   </channel>
 </rss>

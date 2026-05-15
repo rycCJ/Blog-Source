@@ -1,0 +1,2023 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="en">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  
+    <title>Linux驱动开发 Pinctrl子系统 &middot; Can&#39;s Blog</title>
+    <meta name="title" content="Linux驱动开发 Pinctrl子系统 &middot; Can&#39;s Blog">
+  
+
+  
+  
+    <meta name="description" content="Thoughts and conclusions about learning">
+  
+  
+    <meta name="keywords" content="Linux,驱动开发,">
+  
+  
+  
+  <link rel="canonical" href="https://rycCJ.github.io/notes/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_pinctrl%E5%AD%90%E7%B3%BB%E7%BB%9F/">
+  
+
+  
+  
+    <meta name="author" content="Can">
+  
+  
+    
+      
+        
+          <link href="https://github.com/rycCJ" rel="me">
+        
+      
+    
+  
+
+  
+  <meta property="og:url" content="https://rycCJ.github.io/notes/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_pinctrl%E5%AD%90%E7%B3%BB%E7%BB%9F/">
+  <meta property="og:site_name" content="Can&#39;s Blog">
+  <meta property="og:title" content="Linux驱动开发 Pinctrl子系统">
+  <meta property="og:description" content="Thoughts and conclusions about learning">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2025-12-05T19:24:02+08:00">
+    <meta property="article:modified_time" content="2025-12-05T19:24:02+08:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="驱动开发">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Linux驱动开发 Pinctrl子系统">
+  <meta name="twitter:description" content="Thoughts and conclusions about learning">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+  
+    
+      
+      
+        
+      
+      
+        <meta name="twitter:image" content="https://rycCJ.github.io/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
+        <meta property="og:image" content="https://rycCJ.github.io/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif">
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.80392c696498783b213c32422209a6e6d488c4223ad87175f4ee465fb691052895ba0e028ec31a51547697de0225643939c393c55f7741f12c05270f539c8916.css"
+    integrity="sha512-gDksaWSYeDshPDJCIgmm5tSIxCI62HF19O5GX7aRBSiVug4CjsMaUVR2l94CJWQ5OcOTxV93QfEsBScPU5yJFg==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.b4b722fcb5d42f34f52b30a92f3521b69f403ca9d96d0d6179eb537cb870f5d83fdf1fe836688d95d5c99fefbda4170487711006e56051fa67ea00da10521721.js" integrity="sha512-tLci/LXULzT1KzCpLzUhtp9APKnZbQ1heetTfLhw9dg/3x/oNmiNldXJn&#43;&#43;9pBcEh3EQBuVgUfpn6gDaEFIXIQ=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.f16cf48651044bc66625c8008eb5605cc702530530daa081ce7e495e50adf778bef6cd0747382983caf5e5cc745c819dd7a969e17e545119dff14346f4fcb977.js"
+      integrity="sha512-8Wz0hlEES8ZmJcgAjrVgXMcCUwUw2qCBzn5JXlCt93i&#43;9s0HRzgpg8r15cx0XIGd16lp4X5UURnf8UNG9Py5dw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
+  
+
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.03cb160e3cfdb2667a2e2c80d283bebcf63ff8bbc4b629c9ab2babf6fae1d0c07ad470edae783efa4fabda2ac01c58d60e63b98b3c336be8208460f08f4354f5.js" integrity="sha512-A8sWDjz9smZ6LiyA0oO&#43;vPY/&#43;LvEtinJqyur9vrh0MB61HDtrng&#43;&#43;k&#43;r2irAHFjWDmO5izwza&#43;gghGDwj0NU9Q=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Notes",
+    "name": "Linux驱动开发 Pinctrl子系统",
+    "headline": "Linux驱动开发 Pinctrl子系统",
+    
+    
+    "inLanguage": "en",
+    "url" : "https:\/\/rycCJ.github.io\/notes\/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_pinctrl%E5%AD%90%E7%B3%BB%E7%BB%9F\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Can"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-12-05T19:24:02\u002b08:00",
+    "datePublished": "2025-12-05T19:24:02\u002b08:00",
+    
+    "dateModified": "2025-12-05T19:24:02\u002b08:00",
+    
+    "keywords": ["Linux","驱动开发"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1232"
+  }]
+  </script>
+
+
+
+  
+  
+    
+
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        Skip to main content
+      </a>
+    </div>
+    
+    
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
+  
+  
+
+  <div class="flex flex-1 items-center justify-between">
+    <nav class="flex space-x-3">
+      
+        <a href="/" class="text-base font-medium">
+          Can&rsquo;s Blog
+        </a>
+      
+    </nav>
+    
+  <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+    
+      
+        
+  <a
+  href="/notes/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="Notes"
+  title="Notes">
+  
+  
+    <p class="text-base font-medium">
+      Notes
+    </p>
+  
+</a>
+
+
+
+      
+        
+  <a
+  href="/posts/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="Posts"
+  title="Posts">
+  
+  
+    <p class="text-base font-medium">
+      Posts
+    </p>
+  
+</a>
+
+
+
+      
+        
+  <a
+  href="https://github.com/rycCJ"
+  target="_blank"
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="GitHub"
+  title="">
+  
+    <span class="mr-1">
+      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+    </span>
+  
+  
+    <p class="text-base font-medium">
+      GitHub
+    </p>
+  
+</a>
+
+
+
+      
+    
+
+    
+
+    
+
+    
+      <button
+        id="search-button"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <div class=" flex items-center">
+        <button
+          id="appearance-switcher"
+          aria-label="Dark mode switcher"
+          type="button"
+          class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+          <div class="flex items-center justify-center dark:hidden">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+          </div>
+          <div class="items-center justify-center hidden dark:flex">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+          </div>
+        </button>
+      </div>
+    
+  </nav>
+
+    
+  <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+    <span></span>
+
+    
+
+    
+
+    
+      <button
+        id="search-button-mobile"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <button
+        id="appearance-switcher-mobile"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400 me-1">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    
+  </div>
+
+  </div>
+  
+  <div class="-my-2 md:hidden">
+    <div id="menu-button" class="block">
+      
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 pt-[5px]">
+          <ul
+            class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none text-end max-w-7xl">
+            <li id="menu-close-button">
+              <span
+                class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+                <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+              </span>
+            </li>
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/notes/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="Notes"
+    title="Notes">
+    
+    
+      <p class="text-bg font-bg">
+        Notes
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/posts/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="Posts"
+    title="Posts">
+    
+    
+      <p class="text-bg font-bg">
+        Posts
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="https://github.com/rycCJ"
+    
+      target="_blank"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="GitHub"
+    title="">
+    
+      <div class="mr-2">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+      </div>
+    
+    
+      <p class="text-bg font-bg">
+        GitHub
+      </p>
+    
+  </a>
+</li>
+
+
+
+            
+
+          </ul>
+          
+        </div>
+      
+    </div>
+  </div>
+
+</div>
+
+
+
+
+  <script>
+    (function () {
+      var $mainmenu = $(".main-menu");
+      var path = window.location.pathname;
+      $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+        $(e).children("p").addClass("active");
+      });
+    })();
+  </script>
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+      
+      
+      
+      
+        
+
+
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+  
+  
+    
+    
+  
+
+
+
+
+  
+    
+    
+  
+
+
+
+
+
+    <div id="hero" class="h-[150px] md:h-[200px]"></div>
+  
+  <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
+    
+    
+    
+    <img
+      id="background-image"
+      src="/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"
+      alt="Linux驱动开发 Pinctrl子系统"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
+    <div
+      class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal"></div>
+  </div>
+
+  
+    <div
+      id="background-blur"
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
+      integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
+      data-blur-id="background-blur"
+      data-image-id="background-image"
+      data-image-url="/img/lofi-girl-reading-book-while-its-raining-outside-pixel-moewalls-com-ezgif.com-video-to-gif-converter.gif"></script>
+  
+      
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Linux驱动开发 Pinctrl子系统
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2025-12-05T19:24:02&#43;08:00">5 December 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1232 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">6 mins</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span
+    id="views_notes\Linux驱动开发_Pinctrl子系统.md"
+    class="animate-pulse inline-block text-transparent max-h-3 rounded-full -mt-[2px] align-middle bg-neutral-300 dark:bg-neutral-400"
+    title="views"
+    >loading</span
+  >
+  <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></span>
+</span>
+<span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span
+    id="likes_notes\Linux驱动开发_Pinctrl子系统.md"
+    class="animate-pulse inline-block text-transparent max-h-3 rounded-full -mt-[2px] align-middle bg-neutral-300 dark:bg-neutral-400"
+    title="likes"
+    >loading</span
+  >
+  <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg></span></span>
+</span>
+<span class="px-2 text-primary-500">&middot;</span><span>
+  <button
+    id="button_likes"
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    <span id="button_likes_heart" class="inline-block align-text-bottom hidden"
+      ><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg></span>
+    </span>
+    <span id="button_likes_emtpty_heart" class="inline-block align-text-bottom"
+      ><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z"/></svg></span></span
+    >
+    <span id="button_likes_text">&nbsp;Like</span>
+  </button>
+</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/linux/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Linux
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    驱动开发
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
+  
+
+  
+  
+
+
+
+      </div>
+      
+        
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="Can"
+        src="/img/Can.jpg"
+        data-zoom-src="/img/Can.jpg">
+    
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        Can
+      </div>
+    
+    
+      <div class="text-sm text-neutral-700 dark:text-neutral-400">A little bit about you</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/rycCJ"
+          target="_blank"
+          aria-label="Github"
+          title="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-5"></div>
+  
+
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+          <div class="toc ps-5 print:hidden lg:sticky lg:top-10">
+            
+              <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-相关文件">📂 相关文件</a></li>
+    <li><a href="#-第一部分pinctrl-子系统在讲什么全局观">🗺️ 第一部分：Pinctrl 子系统在讲什么？（全局观）</a></li>
+    <li><a href="#-第二部分概念与源码对应硬核知识通俗化">⚙️ 第二部分：概念与源码对应（硬核知识通俗化）</a>
+      <ul>
+        <li><a href="#1-pin-group-和-function">1. Pin, Group 和 Function</a></li>
+        <li><a href="#2-核心结构体pinctrl_map">2. 核心结构体：<code>pinctrl_map</code></a></li>
+        <li><a href="#3-从-dts-到-mapdt_node_to_map">3. 从 DTS 到 Map：<code>dt_node_to_map</code></a></li>
+        <li><a href="#dt_node_to_map函数详细讲解"><code>dt_node_to_map</code>函数详细讲解</a>
+          <ul>
+            <li><a href="#0-核心背景数据从哪来">0. 核心背景：数据从哪来？</a></li>
+            <li><a href="#1-代码逐行拆解与实战映射">1. 代码逐行拆解与实战映射</a></li>
+            <li><a href="#第一步找到对应的-group-查户口">第一步：找到对应的 Group (查户口)</a></li>
+            <li><a href="#第二步计算内存大小-算账">第二步：计算内存大小 (算账)</a></li>
+            <li><a href="#第三步构建-mux-map-填第一张表复用">第三步：构建 MUX Map (填第一张表：复用)</a></li>
+            <li><a href="#第四步构建-config-map-填剩下的表电气配置">第四步：构建 CONFIG Map (填剩下的表：电气配置)</a></li>
+            <li><a href="#2-总结数据流向图">2. 总结：数据流向图</a></li>
+            <li><a href="#3-形象比喻">3.💡 形象比喻</a></li>
+            <li><a href="#4-分析建议">4. 分析建议</a></li>
+          </ul>
+        </li>
+        <li><a href="#-第四部分实战--怎么用consumer-角度">💻 第四部分：实战 —— 怎么用？（Consumer 角度）</a>
+          <ul>
+            <li><a href="#场景-1最常见的自动生效">场景 1：最常见的“自动生效”</a></li>
+            <li><a href="#场景-2手动切换状态">场景 2：手动切换状态</a></li>
+          </ul>
+        </li>
+        <li><a href="#-第五部分调试方法">🕵️‍♂️ 第五部分：调试方法</a></li>
+        <li><a href="#-总结与练习建议">🚀 总结与练习建议</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg -ms-5 ps-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-相关文件">📂 相关文件</a></li>
+    <li><a href="#-第一部分pinctrl-子系统在讲什么全局观">🗺️ 第一部分：Pinctrl 子系统在讲什么？（全局观）</a></li>
+    <li><a href="#-第二部分概念与源码对应硬核知识通俗化">⚙️ 第二部分：概念与源码对应（硬核知识通俗化）</a>
+      <ul>
+        <li><a href="#1-pin-group-和-function">1. Pin, Group 和 Function</a></li>
+        <li><a href="#2-核心结构体pinctrl_map">2. 核心结构体：<code>pinctrl_map</code></a></li>
+        <li><a href="#3-从-dts-到-mapdt_node_to_map">3. 从 DTS 到 Map：<code>dt_node_to_map</code></a></li>
+        <li><a href="#dt_node_to_map函数详细讲解"><code>dt_node_to_map</code>函数详细讲解</a>
+          <ul>
+            <li><a href="#0-核心背景数据从哪来">0. 核心背景：数据从哪来？</a></li>
+            <li><a href="#1-代码逐行拆解与实战映射">1. 代码逐行拆解与实战映射</a></li>
+            <li><a href="#第一步找到对应的-group-查户口">第一步：找到对应的 Group (查户口)</a></li>
+            <li><a href="#第二步计算内存大小-算账">第二步：计算内存大小 (算账)</a></li>
+            <li><a href="#第三步构建-mux-map-填第一张表复用">第三步：构建 MUX Map (填第一张表：复用)</a></li>
+            <li><a href="#第四步构建-config-map-填剩下的表电气配置">第四步：构建 CONFIG Map (填剩下的表：电气配置)</a></li>
+            <li><a href="#2-总结数据流向图">2. 总结：数据流向图</a></li>
+            <li><a href="#3-形象比喻">3.💡 形象比喻</a></li>
+            <li><a href="#4-分析建议">4. 分析建议</a></li>
+          </ul>
+        </li>
+        <li><a href="#-第四部分实战--怎么用consumer-角度">💻 第四部分：实战 —— 怎么用？（Consumer 角度）</a>
+          <ul>
+            <li><a href="#场景-1最常见的自动生效">场景 1：最常见的“自动生效”</a></li>
+            <li><a href="#场景-2手动切换状态">场景 2：手动切换状态</a></li>
+          </ul>
+        </li>
+        <li><a href="#-第五部分调试方法">🕵️‍♂️ 第五部分：调试方法</a></li>
+        <li><a href="#-总结与练习建议">🚀 总结与练习建议</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+
+<script>
+  (function () {
+    'use strict'
+
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
+
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) {
+          return anchors[i].id
+        }
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = true
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
+      const config = {
+        toc,
+        anchors,
+        links,
+        scrollOffset: SCROLL_OFFSET_RATIO,
+        collapseInactive
+      }
+
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', initTOC)
+      : initTOC()
+  })()
+</script>
+
+
+            
+          </div>
+        </div>
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          <ul>
+<li><strong>GPIO 子系统</strong>：管<strong>电平</strong>（高低/输入输出）。</li>
+<li><strong>Pinctrl 子系统</strong>：管<strong>模式</strong>（这个脚是作 GPIO 用，还是作 I2C 用？）和<strong>特性</strong>（上拉、下拉、驱动能力）。</li>
+</ul>
+<p>在 RK3568 这种复杂的 SoC 上，Pinctrl 尤为重要。我将结合你提供的目录结构，为你拆解这个子系统。</p>
+
+<h2 class="relative group">📂 相关文件
+    <div id="-相关文件" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e7%9b%b8%e5%85%b3%e6%96%87%e4%bb%b6" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>想要有能力自己分析问题，你必须知道代码在哪。对于 RK3568：</p>
+<ol>
+<li>
+<p><strong>Pinctrl 核心框架（Linux 官方写的，也就是教程里分析的通用的部分）</strong>：</p>
+<ul>
+<li>路径：<code>drivers/pinctrl/core.c</code> (核心逻辑)</li>
+<li>路径：<code>drivers/pinctrl/pinmux.c</code> (复用逻辑)</li>
+<li>路径：<code>drivers/pinctrl/pinconf.c</code> (配置逻辑)</li>
+<li><em>作用：制定标准，提供 <code>pinctrl_register</code> 等 API。</em></li>
+</ul>
+</li>
+<li>
+<p><strong>RK3568 平台驱动（Rockchip 厂家写的，负责操作硬件寄存器）</strong>：</p>
+<ul>
+<li>路径：<code>drivers/pinctrl/pinctrl-rockchip.c</code></li>
+<li><em>作用：这是最重要的文件！它读取 DTS，解析 RK 特有的属性，并真正去写 RK3568 的硬件寄存器。</em></li>
+</ul>
+</li>
+<li>
+<p><strong>设备树配置（我们修改的地方）</strong>：</p>
+<ul>
+<li>路径：<code>arch/arm64/boot/dts/rockchip/rk3568-pinctrl.dtsi</code></li>
+<li><em>作用：定义了 RK3568 所有引脚的预设配置。</em></li>
+</ul>
+</li>
+</ol>
+<hr>
+<hr>
+
+<h2 class="relative group">🗺️ 第一部分：Pinctrl 子系统在讲什么？（全局观）
+    <div id="-第一部分pinctrl-子系统在讲什么全局观" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e7%ac%ac%e4%b8%80%e9%83%a8%e5%88%86pinctrl-%e5%ad%90%e7%b3%bb%e7%bb%9f%e5%9c%a8%e8%ae%b2%e4%bb%80%e4%b9%88%e5%85%a8%e5%b1%80%e8%a7%82" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>想象 RK3568 是一个拥有几百个引脚的“瑞士军刀”。同一个引脚（比如 GPIO0_B7），既可以是普通的刀片（GPIO），也可以是剪刀（PWM），还可以是螺丝刀（UART）。</p>
+<p><strong>Pinctrl 子系统就是那个“选择机构”</strong>：</p>
+<ol>
+<li><strong>复用（Muxing）</strong>：决定把这个引脚连到芯片内部的哪个模块（GPIO 控制器？PWM 控制器？）。</li>
+<li><strong>配置（Conf）</strong>：决定这个引脚的电气属性（上拉、下拉、驱动电流大小）。</li>
+</ol>
+<hr>
+
+<h2 class="relative group">⚙️ 第二部分：概念与源码对应（硬核知识通俗化）
+    <div id="-第二部分概念与源码对应硬核知识通俗化" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%e6%a6%82%e5%bf%b5%e4%b8%8e%e6%ba%90%e7%a0%81%e5%af%b9%e5%ba%94%e7%a1%ac%e6%a0%b8%e7%9f%a5%e8%af%86%e9%80%9a%e4%bf%97%e5%8c%96" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+
+<h3 class="relative group">1. Pin, Group 和 Function
+    <div id="1-pin-group-和-function" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-pin-group-%e5%92%8c-function" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<ul>
+<li><strong>Pin (引脚)</strong>：芯片上最基本的物理焊盘。</li>
+<li><strong>Group (引脚组)</strong>：有时一个功能需要多个引脚（比如 UART 需要 TX 和 RX）。这几个引脚这就叫一个 Group。</li>
+<li><strong>Function (功能)</strong>：这个 Group 要干什么？是做 &ldquo;uart&rdquo; 还是做 &ldquo;gpio&rdquo;？</li>
+</ul>
+<p><strong>在代码中（<code>pinctrl-rockchip.c</code>）：</strong>
+厂家驱动里会定义一堆数组，把物理引脚编号和名字对应起来。</p>
+
+<h3 class="relative group">2. 核心结构体：<code>pinctrl_map</code>
+    <div id="2-核心结构体pinctrl_map" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e6%a0%b8%e5%bf%83%e7%bb%93%e6%9e%84%e4%bd%93pinctrl_map" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>这是最关键的概念。<strong>Map（映射）</strong> 就像是一个“订单”。
+当我们在设备树里写下配置时，内核会把它解析成一张张 <code>map</code>。</p>
+<ul>
+<li><strong>Map 包含什么？</strong>
+<ol>
+<li><strong>设备名</strong>：谁要用这个引脚？（比如 <code>&amp;uart1</code>）</li>
+<li><strong>状态名</strong>：这是什么状态下的配置？（比如 <code>default</code> 或 <code>sleep</code>）</li>
+<li><strong>控制类型</strong>：是复用（MUX）还是配置（CONFIG）？</li>
+</ol>
+</li>
+</ul>
+
+<h3 class="relative group">3. 从 DTS 到 Map：<code>dt_node_to_map</code>
+    <div id="3-从-dts-到-mapdt_node_to_map" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#3-%e4%bb%8e-dts-%e5%88%b0-mapdt_node_to_map" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>这是驱动初始化的核心流程。
+<strong>函数位置</strong>：<code>drivers/pinctrl/pinctrl-rockchip.c</code> 中的 <code>rockchip_dt_node_to_map</code>。</p>
+<p><strong>流程解析：</strong></p>
+<ol>
+<li>内核启动，解析设备树。</li>
+<li>遇到 Pinctrl 节点。</li>
+<li>调用 <code>dt_node_to_map</code>。</li>
+<li>这个函数会把 DTS 里的 <code>&lt;&amp;gpio0 RK_PB7 RK_FUNC_GPIO &amp;pcfg_pull_up&gt;</code> 解析出来，生成内核能看懂的配置表。</li>
+</ol>
+
+<h3 class="relative group"><code>dt_node_to_map</code>函数详细讲解
+    <div id="dt_node_to_map函数详细讲解" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#dt_node_to_map%e5%87%bd%e6%95%b0%e8%af%a6%e7%bb%86%e8%ae%b2%e8%a7%a3" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>个人感觉只需知道是干嘛的就行，细节可以等学完再抠。
+简单来说，<strong><code>rockchip_dt_node_to_map</code> 是一个“翻译官”</strong>。</p>
+<p>它的工作是：将 Rockchip 驱动内部自定义的 <strong>Group（引脚组）结构体</strong>，转换成 Linux Pinctrl 子系统通用的 <strong>Map（映射）结构体</strong>。</p>
+<p>我们结合你提供的代码和 RK3568 的 DTS 实例，把这几行代码像剥洋葱一样拆解开来。</p>
+<hr>
+
+<h4 class="relative group">0. 核心背景：数据从哪来？
+    <div id="0-核心背景数据从哪来" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#0-%e6%a0%b8%e5%bf%83%e8%83%8c%e6%99%af%e6%95%b0%e6%8d%ae%e4%bb%8e%e5%93%aa%e6%9d%a5" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>在分析代码前，必须先明白一个<strong>隐藏的前提</strong>。
+在这个函数被调用之前，Rockchip 的驱动（<code>pinctrl-rockchip.c</code>）其实已经干了一件大事：<strong>预解析</strong>。</p>
+<p>驱动在初始化时，已经扫描了设备树里的 <code>rockchip,pins</code> 属性，把每一个 pinctrl 节点（比如 <code>i2c0_xfer</code>）解析成了一个 <code>rockchip_pin_group</code> 结构体，存放在 <code>info</code> 里了。</p>
+<ul>
+<li><strong><code>grp</code> (Rockchip 内部结构)</strong>：已经存好了“这个组有哪些引脚”、“每个引脚要配什么电平”。</li>
+<li><strong><code>map</code> (Linux 通用结构)</strong>：是这个函数要生成的目标。</li>
+</ul>
+<hr>
+
+<h4 class="relative group">1. 代码逐行拆解与实战映射
+    <div id="1-代码逐行拆解与实战映射" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e4%bb%a3%e7%a0%81%e9%80%90%e8%a1%8c%e6%8b%86%e8%a7%a3%e4%b8%8e%e5%ae%9e%e6%88%98%e6%98%a0%e5%b0%84" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>假设我们的 DTS 是这样的（I2C0 的例子）：</p>
+<pre tabindex="0"><code class="language-dts" data-lang="dts">/* rk3568-pinctrl.dtsi */
+&amp;pinctrl {
+    /* 父节点：代表 Function (功能) */
+    i2c0 {
+        /* 子节点：代表 Group (组) */
+        i2c0_xfer: i2c0-xfer {
+            /* 具体的配置数据 */
+            rockchip,pins =
+                /* 0号控制器, PB1引脚, 功能1(I2C), 无上拉 */
+                &lt;0 RK_PB1 1 &amp;pcfg_pull_none&gt;,
+                /* 0号控制器, PB2引脚, 功能1(I2C), 无上拉 */
+                &lt;0 RK_PB2 1 &amp;pcfg_pull_none&gt;;
+        };
+    };
+};
+</code></pre><p>现在内核要解析 <code>i2c0_xfer</code> 这个节点，传入的参数 <code>np</code> 就是 <code>i2c0-xfer</code> 的节点指针。</p>
+
+<h4 class="relative group">第一步：找到对应的 Group (查户口)
+    <div id="第一步找到对应的-group-查户口" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%ac%ac%e4%b8%80%e6%ad%a5%e6%89%be%e5%88%b0%e5%af%b9%e5%ba%94%e7%9a%84-group-%e6%9f%a5%e6%88%b7%e5%8f%a3" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">	<span class="cm">/* 通过节点名字，在已加载的驱动数据中找到对应的 group 结构体 */</span>
+</span></span><span class="line"><span class="cl">	<span class="n">grp</span> <span class="o">=</span> <span class="nf">pinctrl_name_to_group</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">np</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">grp</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ... 报错 ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span></code></pre></div><ul>
+<li><strong>解析</strong>：<code>np-&gt;name</code> 是 <code>&quot;i2c0-xfer&quot;</code>。驱动在之前已经把这个名字注册过一遍了。这里就是通过名字把之前解析好的数据（包含那是哪几个引脚、配置值是多少）拿出来，赋值给 <code>grp</code>。</li>
+<li><strong>此时 <code>grp</code> 里有什么</strong>：
+<ul>
+<li><code>grp-&gt;name</code>: &ldquo;i2c0-xfer&rdquo;</li>
+<li><code>grp-&gt;npins</code>: 2 (因为 <code>rockchip,pins</code> 里写了两行)</li>
+<li><code>grp-&gt;pins</code>: [GPIO0_B1 的编号, GPIO0_B2 的编号]</li>
+<li><code>grp-&gt;data</code>: [预存的配置值 1, 预存的配置值 2]</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">第二步：计算内存大小 (算账)
+    <div id="第二步计算内存大小-算账" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%ac%ac%e4%ba%8c%e6%ad%a5%e8%ae%a1%e7%ae%97%e5%86%85%e5%ad%98%e5%a4%a7%e5%b0%8f-%e7%ae%97%e8%b4%a6" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">	<span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * map_num 初始为 1，是为了放 &#34;MUX Map&#34; (复用映射)。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 加上 grp-&gt;npins，是为了放 &#34;CONFIG Map&#34; (电气配置映射)。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 每个引脚都需要单独的一个 CONFIG Map。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">	<span class="n">map_num</span> <span class="o">+=</span> <span class="n">grp</span><span class="o">-&gt;</span><span class="n">npins</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 申请内存数组 */</span>
+</span></span><span class="line"><span class="cl">	<span class="n">new_map</span> <span class="o">=</span> <span class="nf">kcalloc</span><span class="p">(</span><span class="n">map_num</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">new_map</span><span class="p">),</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+</span></span></code></pre></div><ul>
+<li><strong>对应 DTS</strong>：我们有两个引脚。所以 <code>map_num</code> = 1 (Mux) + 2 (Configs) = 3。</li>
+<li><strong>为什么分开算？</strong> 因为 Linux 规定，“把这一组引脚切到 I2C 模式”是一个动作（MUX），而“把 PB1 设为无上拉”、“把 PB2 设为无上拉”是针对具体引脚的独立动作（CONFIG）。</li>
+</ul>
+
+<h4 class="relative group">第三步：构建 MUX Map (填第一张表：复用)
+    <div id="第三步构建-mux-map-填第一张表复用" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%ac%ac%e4%b8%89%e6%ad%a5%e6%9e%84%e5%bb%ba-mux-map-%e5%a1%ab%e7%ac%ac%e4%b8%80%e5%bc%a0%e8%a1%a8%e5%a4%8d%e7%94%a8" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>这是最关键的一步，决定了引脚的<strong>功能</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">	<span class="cm">/* 获取父节点，也就是 DTS 里的 &#34;i2c0&#34; 节点 */</span>
+</span></span><span class="line"><span class="cl">	<span class="n">parent</span> <span class="o">=</span> <span class="nf">of_get_parent</span><span class="p">(</span><span class="n">np</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="cm">/* 设置类型为 MUX_GROUP (复用组) */</span>
+</span></span><span class="line"><span class="cl">	<span class="n">new_map</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">type</span> <span class="o">=</span> <span class="n">PIN_MAP_TYPE_MUX_GROUP</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="cm">/* 重点！Function 的名字来源于父节点的名字 */</span>
+</span></span><span class="line"><span class="cl">	<span class="n">new_map</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">data</span><span class="p">.</span><span class="n">mux</span><span class="p">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">parent</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">;</span> <span class="c1">// &#34;i2c0&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="cm">/* Group 的名字来源于当前节点的名字 */</span>
+</span></span><span class="line"><span class="cl">	<span class="n">new_map</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">data</span><span class="p">.</span><span class="n">mux</span><span class="p">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">np</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">;</span>        <span class="c1">// &#34;i2c0-xfer&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="nf">of_node_put</span><span class="p">(</span><span class="n">parent</span><span class="p">);</span>
+</span></span></code></pre></div><ul>
+<li><strong>逻辑揭秘</strong>：这里解释了为什么 Rockchip 的 pinctrl DTS 结构必须是两层！
+<ul>
+<li><strong>父节点名</strong>（<code>i2c0</code>）自动变成了 Linux Pinctrl 里的 <strong>Function Name</strong>。</li>
+<li><strong>子节点名</strong>（<code>i2c0-xfer</code>）自动变成了 Linux Pinctrl 里的 <strong>Group Name</strong>。</li>
+</ul>
+</li>
+<li><strong>结果</strong>：<code>new_map[0]</code> 告诉核心层：“请把 <code>i2c0-xfer</code> 这一组引脚，切到 <code>i2c0</code> 这个功能上去。”</li>
+</ul>
+
+<h4 class="relative group">第四步：构建 CONFIG Map (填剩下的表：电气配置)
+    <div id="第四步构建-config-map-填剩下的表电气配置" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%ac%ac%e5%9b%9b%e6%ad%a5%e6%9e%84%e5%bb%ba-config-map-%e5%a1%ab%e5%89%a9%e4%b8%8b%e7%9a%84%e8%a1%a8%e7%94%b5%e6%b0%94%e9%85%8d%e7%bd%ae" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">	<span class="cm">/* 指针后移，跳过刚才填好的第0个 map，开始填第1, 2...个 */</span>
+</span></span><span class="line"><span class="cl">	<span class="n">new_map</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 遍历每一个引脚 (PB1, PB2) */</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grp</span><span class="o">-&gt;</span><span class="n">npins</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/* 类型是针对单个引脚的配置 */</span>
+</span></span><span class="line"><span class="cl">		<span class="n">new_map</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">type</span> <span class="o">=</span> <span class="n">PIN_MAP_TYPE_CONFIGS_PIN</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/* 1. 获取这个引脚的名字 (如 &#34;GPIO0_B1&#34;) */</span>
+</span></span><span class="line"><span class="cl">		<span class="n">new_map</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="p">.</span><span class="n">configs</span><span class="p">.</span><span class="n">group_or_pin</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">pin_get_name</span><span class="p">(</span><span class="n">pctldev</span><span class="p">,</span> <span class="n">grp</span><span class="o">-&gt;</span><span class="n">pins</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/* 2. 把之前预解析好的配置值 (&amp;pcfg_pull_none) 塞进去 */</span>
+</span></span><span class="line"><span class="cl">		<span class="n">new_map</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="p">.</span><span class="n">configs</span><span class="p">.</span><span class="n">configs</span> <span class="o">=</span> <span class="n">grp</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">configs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">new_map</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="p">.</span><span class="n">configs</span><span class="p">.</span><span class="n">num_configs</span> <span class="o">=</span> <span class="n">grp</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">nconfigs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span></code></pre></div><ul>
+<li><strong>操作</strong>：它从 <code>grp</code> 结构体里把之前从 <code>rockchip,pins</code> 解析出来的配置值（比如上拉、驱动能力）直接复制到了 <code>map</code> 里。</li>
+<li><strong>结果</strong>：
+<ul>
+<li><code>new_map[1]</code> 告诉核心层：“把 <code>GPIO0_B1</code> 这个引脚，配置成 <code>pcfg_pull_none</code>。”</li>
+<li><code>new_map[2]</code> 告诉核心层：“把 <code>GPIO0_B2</code> 这个引脚，配置成 <code>pcfg_pull_none</code>。”</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+<h4 class="relative group">2. 总结：数据流向图
+    <div id="2-总结数据流向图" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e6%80%bb%e7%bb%93%e6%95%b0%e6%8d%ae%e6%b5%81%e5%90%91%e5%9b%be" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>为了让你看透彻，我们画个数据流向：</p>
+<ol>
+<li>
+<p><strong>DTS 源文件</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">i2c0 {                 &lt;-- 父节点名
+</span></span><span class="line"><span class="cl">    i2c0_xfer {        &lt;-- 子节点名
+</span></span><span class="line"><span class="cl">         rockchip,pins = &lt;...配置数据...&gt;;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Rockchip 驱动预处理 (<code>rockchip_pinctrl_parse_groups</code>)</strong>:
+drivers/pinctrl/pinctrl-rockchip.c，入口函数：rockchip_pinctrl_probe</p>
+<ul>
+<li>生成 <code>struct rockchip_pin_group grp</code>:
+<ul>
+<li><code>name</code> = &ldquo;i2c0-xfer&rdquo;</li>
+<li><code>pins</code> = [PB1, PB2]</li>
+<li><code>configs</code> = [NoPull, NoPull]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>本函数 (<code>rockchip_dt_node_to_map</code>) 的转换</strong>:</p>
+<ul>
+<li>读取 <code>grp</code> 和 <code>父节点名</code>。</li>
+<li><strong>生成 Map 数组</strong>:
+<ul>
+<li><strong>Map[0] (MUX)</strong>:
+<ul>
+<li>Function: &ldquo;i2c0&rdquo; (来自父节点名)</li>
+<li>Group: &ldquo;i2c0-xfer&rdquo; (来自子节点名)</li>
+</ul>
+</li>
+<li><strong>Map[1] (CONFIG)</strong>:
+<ul>
+<li>Pin: &ldquo;GPIO0_B1&rdquo;</li>
+<li>Config: NoPull</li>
+</ul>
+</li>
+<li><strong>Map[2] (CONFIG)</strong>:
+<ul>
+<li>Pin: &ldquo;GPIO0_B2&rdquo;</li>
+<li>Config: NoPull</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>现在我们把所有知识串起来：</p>
+<ol>
+<li>
+<p><strong>系统启动 (Probe 阶段)</strong>：</p>
+<ul>
+<li>执行 <code>rockchip_pinctrl_parse_groups</code>。</li>
+<li>它把 DTS 里的 <code>&lt;0 RK_PB1 1 &amp;pcfg_pull_none&gt;</code> <strong>读</strong> 出来。</li>
+<li><strong>存</strong> 到了 <code>info-&gt;groups</code> 这个链表里。</li>
+<li><em>注意：此时还没有生成 pinctrl_map，只是把数据从 DTS 搬到了内存里备用。</em></li>
+</ul>
+</li>
+<li>
+<p><strong>I2C 驱动加载 (Bind 阶段)</strong>：</p>
+<ul>
+<li>I2C 驱动说：“我要用 <code>i2c0-xfer</code>”。</li>
+<li>内核核心层调用 <code>rockchip_dt_node_to_map</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>生成映射 (转换阶段 - 上一个问题的内容)</strong>：</p>
+<ul>
+<li><code>rockchip_dt_node_to_map</code> 调用 <code>pinctrl_name_to_group</code>。</li>
+<li><strong>去哪里找？</strong> 就去 <strong>第 1 步</strong> 生成的那个 <code>info-&gt;groups</code> 链表里找！</li>
+<li>找到后，把这些内部数据，填入 Linux 标准的 <code>map</code> 结构体返回。</li>
+</ul>
+</li>
+</ol>
+
+<h4 class="relative group">3.💡 形象比喻
+    <div id="3-形象比喻" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#3-%e5%bd%a2%e8%b1%a1%e6%af%94%e5%96%bb" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p><strong>Pinctrl 节点解析流程 = 搬运工 + 翻译官</strong></p>
+<ol>
+<li><strong>搬运工 (Probe 时)</strong>：<code>rockchip_pinctrl_parse_groups</code> 负责把 DTS 里那串难懂的数字（<code>rockchip,pins</code>），一个个抠出来，整理好，放在家里的仓库（<code>rockchip_pin_group</code> 结构体）里。</li>
+<li><strong>翻译官 (被调用时)</strong>：<code>rockchip_dt_node_to_map</code> 负责当有人来要数据时，去仓库里把数据拿出来，翻译成普通话（Linux 标准 <code>pinctrl_map</code>），填到表格里交出去。</li>
+</ol>
+
+<h4 class="relative group">4. 分析建议
+    <div id="4-分析建议" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#4-%e5%88%86%e6%9e%90%e5%bb%ba%e8%ae%ae" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>下次如果你想自己分析这种函数，抓住这两个重点：</p>
+<ol>
+<li><strong>输入输出是什么？</strong>
+<ul>
+<li>这里输入是 <code>device_node</code> (DTS 节点)，输出是 <code>pinctrl_map</code> (Linux 标准结构)。所以这肯定是一个转换函数。</li>
+</ul>
+</li>
+<li><strong>DTS 的层级结构对应代码的哪个变量？</strong>
+<ul>
+<li>看到 <code>parent = of_get_parent(np)</code> 和 <code>parent-&gt;name</code> 赋值给 <code>function</code>，你就应该恍然大悟：<strong>“原来 Rockchip 强制要求写两层节点，是因为它把父节点名字当成了功能名！”</strong></li>
+</ul>
+</li>
+</ol>
+
+<h3 class="relative group">💻 第四部分：实战 —— 怎么用？（Consumer 角度）
+    <div id="-第四部分实战--怎么用consumer-角度" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e7%ac%ac%e5%9b%9b%e9%83%a8%e5%88%86%e5%ae%9e%e6%88%98--%e6%80%8e%e4%b9%88%e7%94%a8consumer-%e8%a7%92%e5%ba%a6" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>作为一个驱动工程师，我们通常是 <strong>Consumer（消费者）</strong>。</p>
+
+<h4 class="relative group">场景 1：最常见的“自动生效”
+    <div id="场景-1最常见的自动生效" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%9c%ba%e6%99%af-1%e6%9c%80%e5%b8%b8%e8%a7%81%e7%9a%84%e8%87%aa%e5%8a%a8%e7%94%9f%e6%95%88" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>你可能会问：“我写 Platform 驱动时，没调用任何 pinctrl 函数，为什么引脚就自动配好了？”</p>
+<p><strong>秘密在于</strong>：Linux 的驱动核心模型（Driver Core）在调用你的 <code>probe</code> 函数之前，会自动处理 Pinctrl。</p>
+<p><strong>DTS 写法</strong>：</p>
+<pre tabindex="0"><code class="language-dts" data-lang="dts">/* 在你的设备节点里 */
+my_device {
+    compatible = &#34;my,device&#34;;
+
+    /* 核心魔法 */
+    pinctrl-names = &#34;default&#34;;  /* 状态名字叫 default */
+    pinctrl-0 = &lt;&amp;my_pin_config&gt;; /* 对应具体的引脚配置节点 */
+};
+
+/* 在 pinctrl 节点里 (通常在 rk3568-pinctrl.dtsi 或你的 dts 底部) */
+&amp;pinctrl {
+    my_pins {
+        /*
+        my_pin_config (冒号前)：这是给编译器看的标签（类似于 C 语言里的变量名）。这个名字你可以随便起，叫 abc、led_cfg 都行。
+        my-pin-config(冒号后)：这是最终生成在 /proc/device-tree 里的节点名。
+        */
+        my_pin_config: my-pin-config {
+            /*
+             * 格式：&lt;控制器号 引脚号 复用功能 配置&gt;
+            第一个数：0（GPIO控制器编号）
+            第二个数：RK_PB7（引脚编号）
+            第三个数：RK_FUNC_GPIO/0（GPIO功能） 查数据手册（7：属于高位，0123属于低位）
+            第四个数：&amp;pcfg_pull_up（电气配置）
+            这些名字不是随便写的，它们定义在 arch/arm64/boot/dts/rockchip/rk3568-pinctrl.dtsi 文件底部。
+            常用的有这几个（死记硬背即可）：
+            &amp;pcfg_pull_up：开启内部上拉电阻（默认高电平）。
+            &amp;pcfg_pull_down：开启内部下拉电阻（默认低电平）。
+            &amp;pcfg_pull_none：无上下拉（浮空，通常用于输出模式或外部已有上拉）。
+            &amp;pcfg_output_high：设为输出且默认高。
+            &amp;pcfg_output_low：设为输出且默认低。
+             */
+            rockchip,pins = &lt;0 RK_PB7 RK_FUNC_GPIO &amp;pcfg_pull_up&gt;;
+
+        };
+    };
+};
+</code></pre><p><strong>原理：</strong></p>
+<ol>
+<li>内核加载你的驱动。</li>
+<li>在执行 <code>probe</code> <strong>之前</strong>，内核核心层调用 <code>pinctrl_bind_pins</code>。</li>
+<li>它发现 DTS 里有 <code>pinctrl-names = &quot;default&quot;</code>。</li>
+<li>自动把引脚切换到 <code>pinctrl-0</code> 定义的状态。</li>
+<li><strong>进入你的 <code>probe</code> 函数时，引脚已经是你想要的状态了！</strong></li>
+</ol>
+
+<h4 class="relative group">场景 2：手动切换状态
+    <div id="场景-2手动切换状态" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%9c%ba%e6%99%af-2%e6%89%8b%e5%8a%a8%e5%88%87%e6%8d%a2%e7%8a%b6%e6%80%81" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>如果你想在驱动运行过程中，把一个引脚从 GPIO 模式切成 PWM 模式（比如为了省电或分时复用）。或者：控制一个引脚让它在两种状态之间动态切换（以此为例）</p>
+<ul>
+<li>状态 A (Default)：配置为 GPIO 模式，且 上拉 (Pull Up)。</li>
+<li>状态 B (Sleep)：配置为 GPIO 模式，但 下拉 (Pull Down)。</li>
+</ul>
+<p><strong>C 代码实战</strong></p>
+<ol>
+<li>在 <code>&amp;pinctrl</code> 节点下定义两种“施工方案”</li>
+</ol>
+<pre tabindex="0"><code class="language-dts" data-lang="dts">&amp;pinctrl {
+    /* 自定义一个子节点 */
+    my_pinctrl_test {
+
+        /* 方案 1: 上拉 */
+        my_pin_active: my-pin-active {
+            /* &lt;控制器号 引脚号 复用功能 配置phandle&gt; */
+            /* 1 = RK_FUNC_GPIO, &amp;pcfg_pull_up 是内核预定义的节点 */
+            rockchip,pins = &lt;0 RK_PB7 1 &amp;pcfg_pull_up&gt;;
+        };
+
+        /* 方案 2: 下拉 */
+        my_pin_sleep: my-pin-sleep {
+            /* &amp;pcfg_pull_down 是内核预定义的节点 */
+            rockchip,pins = &lt;0 RK_PB7 1 &amp;pcfg_pull_down&gt;;
+        };
+    };
+};
+</code></pre><ol start="2">
+<li>在你的设备节点里“引用”这些方案</li>
+</ol>
+<pre tabindex="0"><code class="language-dts" data-lang="dts">my_pinctrl_drv {
+    compatible = &#34;my,pinctrl_test&#34;;
+
+    /*
+     * 关键！这里定义了两个状态的名字。
+     * 这里的名字对应代码里 pinctrl_lookup_state 的参数。
+     */
+    pinctrl-names = &#34;default&#34;, &#34;my_sleep&#34;;
+
+    /* 对应上面的方案 */
+    pinctrl-0 = &lt;&amp;my_pin_active&gt;; /* 使用标签名，而非节点名。对应 default */
+    pinctrl-1 = &lt;&amp;my_pin_sleep&gt;;  /* 对应 my_sleep */
+
+    status = &#34;okay&#34;;
+};
+</code></pre><ol start="3">
+<li>编写驱动代码</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/module.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/platform_device.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/pinctrl/consumer.h&gt; /* 必须包含：Pinctrl 消费者头文件 */</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/delay.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">pinctrl</span> <span class="o">*</span><span class="n">my_pinctrl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">pinctrl_state</span> <span class="o">*</span><span class="n">state_default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">pinctrl_state</span> <span class="o">*</span><span class="n">state_sleep</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="nf">my_probe</span><span class="p">(</span><span class="k">struct</span> <span class="n">platform_device</span> <span class="o">*</span><span class="n">pdev</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;========== Pinctrl Test Probe ==========</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 1. 获取 Pinctrl 句柄 */</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 这步会把该设备的所有 Pinctrl 信息读进来 */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">my_pinctrl</span> <span class="o">=</span> <span class="nf">devm_pinctrl_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">IS_ERR</span><span class="p">(</span><span class="n">my_pinctrl</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">&#34;Failed to get pinctrl</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">PTR_ERR</span><span class="p">(</span><span class="n">my_pinctrl</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 2. 查找我们在 DTS 里定义的状态 */</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* &#34;default&#34; 对应 pinctrl-0 */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">state_default</span> <span class="o">=</span> <span class="nf">pinctrl_lookup_state</span><span class="p">(</span><span class="n">my_pinctrl</span><span class="p">,</span> <span class="s">&#34;default&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">IS_ERR</span><span class="p">(</span><span class="n">state_default</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">&#34;Could not find default state</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">PTR_ERR</span><span class="p">(</span><span class="n">state_default</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* &#34;my_sleep&#34; 对应 pinctrl-1 */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">state_sleep</span> <span class="o">=</span> <span class="nf">pinctrl_lookup_state</span><span class="p">(</span><span class="n">my_pinctrl</span><span class="p">,</span> <span class="s">&#34;my_sleep&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">IS_ERR</span><span class="p">(</span><span class="n">state_sleep</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">&#34;Could not find sleep state</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">PTR_ERR</span><span class="p">(</span><span class="n">state_sleep</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 3. 开始表演：切换状态 */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 刚进来时，内核应该已经自动帮我们设为 default (上拉) 了 */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;Current State: DEFAULT (Pull-Up)</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 你可以在这里测量电压，或者看 debugfs */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">msleep</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span> <span class="cm">/* 延时5秒，让你有时间反应 */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 切换到 Sleep (下拉) */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;Switching to: SLEEP (Pull-Down)...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ret</span> <span class="o">=</span> <span class="nf">pinctrl_select_state</span><span class="p">(</span><span class="n">my_pinctrl</span><span class="p">,</span> <span class="n">state_sleep</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">dev_err</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="s">&#34;Failed to select sleep state</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;Switch Success! Check your pin now.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="nf">my_remove</span><span class="p">(</span><span class="k">struct</span> <span class="n">platform_device</span> <span class="o">*</span><span class="n">pdev</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printk</span><span class="p">(</span><span class="s">&#34;Driver Removed</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">of_device_id</span> <span class="n">my_match</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="p">.</span><span class="n">compatible</span> <span class="o">=</span> <span class="s">&#34;my,pinctrl_test&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_DEVICE_TABLE</span><span class="p">(</span><span class="n">of</span><span class="p">,</span> <span class="n">my_match</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">struct</span> <span class="n">platform_driver</span> <span class="n">my_driver</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">probe</span> <span class="o">=</span> <span class="n">my_probe</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">remove</span> <span class="o">=</span> <span class="n">my_remove</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">driver</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;my_pinctrl_test&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">of_match_table</span> <span class="o">=</span> <span class="n">my_match</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">module_platform_driver</span><span class="p">(</span><span class="n">my_driver</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
+</span></span></code></pre></div><p>验证：</p>
+<ol>
+<li>编译并加载：</li>
+</ol>
+<pre tabindex="0"><code>insmod pinctrl_test_drv.ko
+</code></pre><p>观察串口打印，你会看到它先是 Default，5 秒后变成 Sleep。 2. 验证方法一：使用万用表
+如果引脚悬空，Pull-Up 时应该是高电平（3.3V）。Pull-Down 时应该是低电平（0V）。
+现象：加载驱动 5 秒后，电压跳变。</p>
+<ol>
+<li>验证方法二：使用 Debugfs
+在切换发生前（或注释掉切换代码），执行：</li>
+</ol>
+<pre tabindex="0"><code>cat /sys/kernel/debug/pinctrl/pinctrl-rockchip-pinctrl/pinconf-pins | grep 23
+(假设 GPIO0_B7 的全局 ID 是 23，具体ID你要自己算一下或者搜一下)
+</code></pre><p>你应该能看到类似 pull up 的字样。在切换发生后，再次执行上面的命令：
+你应该能看到它变成了 pull down。</p>
+<hr>
+
+<h3 class="relative group">🕵️‍♂️ 第五部分：调试方法
+    <div id="-第五部分调试方法" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e7%ac%ac%e4%ba%94%e9%83%a8%e5%88%86%e8%b0%83%e8%af%95%e6%96%b9%e6%b3%95" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>如果引脚没反应，或者电压不对，不要瞎猜，用 <strong>Debugfs</strong> 查看内核的真实情况。</p>
+<p><strong>1. 查看所有引脚的当前状态</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /sys/kernel/debug/pinctrl/pinctrl-rockchip-pinctrl/pins
+</span></span></code></pre></div><ul>
+<li><em>分析方法</em>：搜索你的引脚号（如 GPIO0_B7 对应的编号）。看它的 owner 是谁？如果是 <code>(null)</code> 说明没申请成功；如果是 <code>my_device</code> 说明被你的驱动占用了。</li>
+</ul>
+<p><strong>2. 查看引脚的复用功能 (Mux)</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /sys/kernel/debug/pinctrl/pinctrl-rockchip-pinctrl/pinmux-pins
+</span></span></code></pre></div><ul>
+<li><em>分析方法</em>：看右边的功能。是 <code>gpio</code> 还是 <code>pwm</code>？</li>
+</ul>
+<p><strong>3. 查看引脚的电气配置 (Conf)</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /sys/kernel/debug/pinctrl/pinctrl-rockchip-pinctrl/pinconf-pins
+</span></span></code></pre></div><ul>
+<li><em>分析方法</em>：这能看到更底层的寄存器配置，比如 <code>pull up/down</code> 是否生效。</li>
+</ul>
+<p><strong>4. 查看 Maps (设备树解析结果)</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /sys/kernel/debug/pinctrl/pinctrl-rockchip-pinctrl/pinmux-maps
+</span></span></code></pre></div><ul>
+<li><em>分析方法</em>：如果你在 DTS 里写了但没生效，查查这里有没有生成对应的 map。如果没有，说明 DTS 语法或节点位置写错了。</li>
+</ul>
+<hr>
+
+<h3 class="relative group">🚀 总结与练习建议
+    <div id="-总结与练习建议" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#-%e6%80%bb%e7%bb%93%e4%b8%8e%e7%bb%83%e4%b9%a0%e5%bb%ba%e8%ae%ae" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p><strong>Pinctrl 的核心流程：</strong>
+DTS (编写配置) -&gt; <code>pinctrl-rockchip.c</code> (解析并注册) -&gt; Driver Core (在 Probe 前自动应用) -&gt; 硬件生效。</p>
+<p><strong>建议的练习步骤：</strong></p>
+<ol>
+<li><strong>只改 DTS</strong>：找一个没用的引脚，在设备树里配置它为 GPIO 模式，加一个上拉（pull-up）。</li>
+<li><strong>验证</strong>：启动板子，不写驱动，直接用万用表量那个脚。如果是高电平（3.3V），说明 Pinctrl 生效了（因为默认可能是悬空或下拉）。</li>
+<li><strong>写驱动</strong>：按照“场景 2”的代码，写一个简单的驱动，每隔 5 秒切换一次状态（比如改变驱动能力 strength，或者在 GPIO 和特殊功能间切换），用示波器或万用表观察变化。</li>
+</ol>
+<p>掌握了 <code>pinctrl-names</code>、<code>pinctrl-0</code> 和 <code>/sys/kernel/debug/pinctrl</code>，你就掌握了 Pinctrl 的精髓！</p>
+
+          
+          
+          
+            <strong class="block mt-8">
+              <a
+                target="_blank"
+                class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+                href="mailto:ryc1819009649@163.com?subject=Reply%20to%20Linux%e9%a9%b1%e5%8a%a8%e5%bc%80%e5%8f%91%20Pinctrl%e5%ad%90%e7%b3%bb%e7%bb%9f">
+                Reply by Email
+              </a>
+            </strong>
+          
+        </div>
+        
+        
+
+        
+
+        
+
+      </div>
+
+      
+      
+        
+        
+          
+          
+        
+        
+        
+        <script
+          type="text/javascript"
+          src="/js/page.min.54b6f4371722649edbe871e431d8670d670878c22be8f36e229fe53cc9b786fe25a834def5e6de621f7a3e37b72bc8cd73839aa5ed907ed6cbd45cd3e1b0fa20.js"
+          integrity="sha512-VLb0NxciZJ7b6HHkMdhnDWcIeMIr6PNuIp/lPMm3hv4lqDTe9ebeYh96Pje3K8jNc4Oape2QftbL1FzT4bD6IA=="
+          data-oid="views_notes\Linux驱动开发_Pinctrl子系统.md"
+          data-oid-likes="likes_notes\Linux驱动开发_Pinctrl子系统.md"></script>
+      
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/notes/linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91_%E8%AE%BE%E5%A4%87%E6%A0%91/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Linux驱动开发 平台总线&设备树
+              </span>
+            </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2025-11-25T11:57:34&#43;08:00">25 November 2025</time>
+              </span>
+            
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/notes/makefile/">
+              <span class="leading-6">
+                Makefile&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+              </span>
+            </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2026-04-08T17:18:00&#43;08:00">8 April 2026</time>
+              </span>
+            
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
+  <a
+    href="#the-top"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+  
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      © 2025-2026 Can. All rights reserved.
+    </p>
+    
+    
+
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+  </div>
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="https://rycCJ.github.io/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>
