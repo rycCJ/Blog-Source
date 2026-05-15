@@ -1,1 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Makefile on Can's Blog</title><link>https://rycCJ.github.io/tags/makefile/</link><description>Recent content in Makefile on Can's Blog</description><generator>Hugo</generator><language>en</language><managingEditor>ryc1819009649@163.com (Can)</managingEditor><webMaster>ryc1819009649@163.com (Can)</webMaster><lastBuildDate>Wed, 08 Apr 2026 17:18:00 +0800</lastBuildDate><atom:link href="https://rycCJ.github.io/tags/makefile/index.xml" rel="self" type="application/rss+xml"/><item><title>Makefile</title><link>https://rycCJ.github.io/notes/makefile/</link><pubDate>Wed, 08 Apr 2026 17:18:00 +0800</pubDate><author>ryc1819009649@163.com (Can)</author><guid>https://rycCJ.github.io/notes/makefile/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Makefile on Can&#39;s Blog</title>
+    <link>http://localhost:1313/tags/makefile/</link>
+    <description>Recent content in Makefile on Can&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <managingEditor>ryc1819009649@163.com (Can)</managingEditor>
+    <webMaster>ryc1819009649@163.com (Can)</webMaster>
+    <lastBuildDate>Wed, 08 Apr 2026 17:18:00 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/makefile/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Makefile</title>
+      <link>http://localhost:1313/notes/makefile/</link>
+      <pubDate>Wed, 08 Apr 2026 17:18:00 +0800</pubDate><author>ryc1819009649@163.com (Can)</author>
+      <guid>http://localhost:1313/notes/makefile/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
