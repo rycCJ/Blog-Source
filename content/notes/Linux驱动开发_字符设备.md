@@ -28,7 +28,7 @@ location: "广州"
     - **主设备号**：代表行业（比如“这是 LED 行业”）。
     - **次设备号**：代表具体分店（比如“这是 LED 1 号店，那是 LED 2 号店”）。
     - _静态申请设备号_：`register_chrdev_region`（申请前需要`MKDEV(major, minor)`传入主次设备号）。
-    - _动态申请设备号_：`alloc_chrdev_region`（让内核自动分配一个没被占用的号码，更安全）。
+      - _动态申请设备号_：`alloc_chrdev_region`（让内核自动分配一个没被占用的号码，更安全）。
 2.  **关联具体操作与营业执照**：
 
     - 拿到执照后，你要告诉工商局(内核)，顾客来了能做什么。比如，可以“开门”(`open`)，“读取商品信息”(`read`)，“下单”(write)。这些操作的集合，就是一个 `file_operations` 结构体。我们需要把这个结构体和设备号关联起来，这个过程叫注册字符设备 (`cdev`)。
@@ -187,8 +187,15 @@ Linux 为了安全，把内存划分为**用户空间**（APP）和**内核空�
 
 // size (数量)：要拿多少个苹果。
 ```
+当 应用程序 调用 write() 函数，想要写入或者发送数据给设备时。
+怎么运作的？驱动.ko ─── 找到 fops.write ───> 执行 my_write() ───> 动用 copy_from_user
+ my_write 被触发，copy_from_user(&text[*off], user_buf, to_copy) 把用户提交的 user_buf 数据，安全地复制并写入到内核的 text 数组中。
 
 - **驱动发数据给 APP (`read`)**：驱动必须用 `copy_to_user` 把数据扔到墙外去。仓库（内核）把东西给顾客（用户）。
+
+什么时候起作用？ 当 应用程序 调用 read() 函数，想要读取设备数据时。
+
+怎么运作的？ 在你的代码中，my_read 被触发。内核里的数据存在 static char text[64] 数组中。copy_to_user(user_buf, &text[*off], to_copy) 把内核 text 数组里的内容，安全地复制到应用程序的 user_buf 缓冲区中。
 
 - `copy_from_user` 和 `copy_to_user` 是对驱动而言；`read` 和 `write` 是对用户而言
 
@@ -814,3 +821,186 @@ MODULE_LICENSE("GPL");
 **只要前面的步骤成功了，当前步骤失败了，就必须用 `goto` 跳到对应的错误处理段，把之前吃进去的资源全部吐出来。**
 
 ---
+[YouTube教学视频](https://www.youtube.com/watch?v=hbSSi4bHF8E&list=PLCGpd0Do5-I3b5TtyqeF1UdyD4C-S-dMa&index=6)
+[作者GitHub](https://github.com/Johannes4Linux/Linux_Driver_Tutorial)
+cat /proc/devices //产看设备属于Character devices还是Block devices ，查看设备号
+
+hexdump /dev/mmcblk0 | head //查看设备节点的前10行
+mknod mymmc b 179 0 //创建设备节点 b 类型，设备号 179:0
+ls -lh mymmc //查看设备节点的详细信息
+
+major = register_chrdev(unsigned int major,"hello_cdev",&fops);
+//major:major device number or 0 for dynamic allocation
+
+```c hello_cdev.c
+#include <linux/module.h>
+#include <linux/init.h>
+#include <linux/fs.h>
+
+static int major;
+static char text[64];
+
+static ssize_t my_read(struct file *filp, char __user *user_buf, size_t len, loff_t *off)
+{
+	int not_copied, delta, to_copy = (len + *off) < sizeof(text) ? len : (sizeof(text) - *off);
+
+	pr_info("hello_cdev - Read is called, we want to read %ld bytes, but actually only copying %d bytes. The offset is %lld\n", len, to_copy, *off);
+
+	if (*off >= sizeof(text))
+		return 0;
+
+	not_copied = copy_to_user(user_buf, &text[*off], to_copy);
+	delta = to_copy - not_copied;
+	if (not_copied) 
+		pr_warn("hello_cdev - Could only copy %d bytes\n", delta);
+
+	*off += delta;
+
+	return delta;
+}
+
+static ssize_t my_write(struct file *filp, const char __user *user_buf, size_t len, loff_t *off)
+{
+	int not_copied, delta, to_copy = (len + *off) < sizeof(text) ? len : (sizeof(text) - *off);
+
+	pr_info("hello_cdev - Write is called, we want to write %ld bytes, but actually only copying %d bytes. The offset is %lld\n", len, to_copy, *off);
+
+	if (*off >= sizeof(text))
+		return 0;
+
+	not_copied = copy_from_user(&text[*off], user_buf, to_copy);
+	delta = to_copy - not_copied;
+	if (not_copied) 
+		pr_warn("hello_cdev - Could only copy %d bytes\n", delta);
+
+	*off += delta;
+	return delta;
+}
+
+static struct file_operations fops = {
+	.read = my_read,
+	.write = my_write
+};
+
+static int __init my_init(void)
+{
+	major = register_chrdev(0, "hello_cdev", &fops);
+	if (major < 0) {
+		pr_err("hello_cdev - Error registering chrdev\n");
+		return major;
+	}
+	printk("hello_cdev - Major Device Number: %d\n", major);
+	return 0;
+}
+
+static void __exit my_exit(void)
+{
+	unregister_chrdev(major, "hello_cdev");
+}
+
+module_init(my_init);
+module_exit(my_exit);
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Johannes 4Linux");
+MODULE_DESCRIPTION("A sample driver for registering a character device");
+```
+
+```c test.c
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+int main() 
+{
+	int fd;
+	char c;
+
+	fd = open("/dev/hello0", O_RDWR);
+
+	if (fd < 0) {
+		perror("open");
+		return fd;
+	}
+
+	while (read(fd, &c, 1))   //我要从这个文件读 1 个字节，帮我存到变量 c 的内存地址里
+		putchar(c);
+
+	close(fd);
+	return 0;
+}
+```
+```shell
+insmod hello_cdev.ko
+mknod /dev/hello0 236 0
+```
+insmod hello_cdev.ko 的作用：在内核内部注册了一个字符设备，告诉内核：“我是 hello_cdev，我的主设备号是 236，以后要是有人找 236 号设备，请执行我写好的 fops 函数集。”（但此时用户空间根本不知道怎么找到它）。
+
+mknod /dev/hello0 236 0 的作用：在用户空间（/dev 目录下）创建一个叫 hello0 的文件，并给它盖上一个印章：主设备号 236，次设备号 0。
+
+解惑： mknod 时名字叫 hello0 还是 hello_abc 根本无所谓，内核只认主设备号 236。当 test.c 打开 /dev/hello0 时，系统一看它的印章是 236，就会立刻转头去内核里找注册了 236 的那个驱动模块（也就是你的 hello_cdev）。
+
+
+copy_to_user（内核 -> 用户）
+什么时候起作用？ 当 test.c 调用 read() 函数，想要读取设备数据时。
+
+怎么运作的？ 在你的代码中，my_read 被触发。内核里的数据存在 static char text[64] 数组中。copy_to_user(user_buf, &text[*off], to_copy) 把内核 text 数组里的内容，安全地复制到应用程序的 user_buf 缓冲区中。
+
+copy_from_user（用户 -> 内核）
+什么时候起作用？ 当 test.c 调用 write() 函数，想要写入或者发送数据给设备时（虽然你的 test.c 没写这段，但如果写了就会触发）。
+
+怎么运作的？ my_write 被触发，copy_from_user(&text[*off], user_buf, to_copy) 把用户提交的 user_buf 数据，安全地复制并写入到内核的 text 数组中。
+
+
+步骤：
+
+1. 打开文件 ：test.c 执行 open("/dev/hello0", O_RDWR)。内核发现该文件的驱动主设备号是 236(可以使用grep hello /proc/devices 查看设备号)，于是把这个文件描述符 fd 和你的 fops（包含 my_read, my_write）绑定在一起。
+
+2. 发起读请求 ：test.c 执行 read(fd, &c, 1)，意思是：“我要从这个文件读 1 个字节，帮我存到变量 c 的内存地址里”
+3. 路由到驱动 : 内核的虚拟文件系统（VFS）收到请求，查到绑定关系，立刻调用驱动里的 my_read 函数，并把接收缓冲区的地址传给参数 user_buf（此时 user_buf 指向 test.c 里的变量 c）。
+4. 执行内核打印：驱动进入 my_read，执行 pr_info("hello_cdev - Read is called...")。这就是为什么你能看到“read函数被调用了”的内核日志。
+5. 跨空间搬运数据:驱动调用 copy_to_user，把内核中 text 数组的第 *off 个字符，精准地复制到用户空间的 user_buf（即变量 c）中。
+6. 返回并显示：用户态">my_read 函数返回 delta（实际复制的字节数，这里是 1）。test.c 的 read() 成功拿到 1，退出阻塞，执行 putchar(c) 把字符打印在终端上。
+
+
+
+如果不弄 class，你就必须在每次加载驱动后，手动在终端敲 mknod /dev/hello0 236 0。而弄了 class，驱动一加载，/dev/hello0 就会自动蹦出来。
+
+1. class_create("my_class")：在 /sys/class/ 目录下创建一个属于你这个驱动的分类文件夹（例如 /sys/class/my_class/）。
+
+2. device_create(.....,"hello0")：在这个分类文件夹下，创建一个设备节点信息，并向系统发送一个叫 uevent 的广播：“报告！有一个新设备诞生了，主设备号 XX，次设备号 XX，名字叫 hello0！” /sys/class/my_class/hello0
+
+3. udev 守护进程：在用户空间死死盯着内核的广播。一听到这个消息，udev 啪的一下站起来，自动在用户空间执行了类似于 mknod /dev/hello0 c 主设备号 次设备号 的操作。
+
+所以，class 和 device 的引入，本质上是内核向应用层**自动上报设备信息**的通道。
+
+'''shell
+
+sudo dmesg -W 
+# 监听 uevent 广播
+udevadm monitor
+'''
+
+**kmalloc & kzalloc**
+
+kmalloc 申请的内存空间，里面的残余数据是随机的（上一个用过这块内存的程序留下的垃圾）。在你的代码中，申请完内存后直接拿来用了，没有用 memset 清零。那堆 ELF... 字符串，其实是某个刚刚死掉的进程留在内存里的残余垃圾。
+```shell
+pi@raspberry:~/Programming/Linux_Driver_Tutorial/11_kmalloc
+$ echo "Hello World" | sudo tee //dev/hello0
+Hello World
+pi@raspberry:~/Programming/Linux_Driver_Tutorial/11_kmalloc
+$ sudo cat /dev/hello0
+ELF���������@8@pi@raspberry:~/Programming/Linux_Driver_Tutorial/11_kmalloc
+```
+
+1. 执行 echo "Hello World" | sudo tee /dev/hello0
+    - tee 进程打开了设备 ──> 触发 my_open，分配了 内存块 A。
+    - tee 进程将 "Hello World" 写入 ──> 触发 my_write，数据存入 内存块 A。
+    - tee 进程结束并关闭文件 ──> 触发 my_release，kfree 释放了内存块 A！ 你的 "Hello World" 瞬间灰飞烟灭。  
+
+2. 执行 sudo cat /dev/hello0
+    - cat 是一个全新的进程，它重新打开了设备 ──> 触发 my_open，分配了一块全新的内存块 B。
+    - cat 进程调用 read ──> 触发 my_read，把这堆乱七八糟的随机垃圾当成数据读了出来，显示在屏幕上！
+
+**lseek**
+lseek(fd, 0, SEEK_SET)，相当于强行把内核里的文件指针拨回到了最开头（0 的位置）。这样接下来的 read 才能老老实实地从 text[0] 开始重新读取。
