@@ -27,12 +27,12 @@ sys_sleep(void)
 {
   int n;
   uint ticks0;
-//刚开始：进程：RUNNING  锁：UNLOCKED
+  // 刚开始：进程：RUNNING  锁：UNLOCKED
   if(argint(0, &n) < 0)
     return -1;
   acquire(&tickslock);  //从用户态获取系统调用参数。执行此操作之后：tickslock变为LOCKED（已上锁），除非release（释放锁）,否则其他进程就不能直接拿到锁
-  //此时：进程：RUNNING   锁：LOCKED
-  //锁的目的就是:同一时刻只能让一个执行流进入临界区。
+  // 此时：进程：RUNNING   锁：LOCKED
+  // 锁的目的就是:同一时刻只能让一个执行流进入临界区。
   ticks0 = ticks;
   while(ticks - ticks0 < n){  
     if(myproc()->killed){         // myproc()获取当前进程
@@ -42,8 +42,8 @@ sys_sleep(void)
     sleep(&ticks, &tickslock);  //执行xv6 内核内部的进程睡眠函数。叫做：阻塞等待 / 睡眠
     // 作用：让当前进程进入 Sleeping 状态（不再占用 CPU），并等待 ticks 这个等待通道被唤醒。
     // 睡眠之前需要正确释放、唤醒后需要重新获取的锁。如果睡眠的时候不释放锁，其他进程想要锁的话 就得一直等待。
-// 此时：进程：SLEEPING   锁：UNLOCKED
-    //不使用while检查的原因（  while (ticks - ticks0 < n) {    // 什么都不做}  ）：会一直检查，占用CPU。使用while也叫忙等待
+    // 此时：进程：SLEEPING   锁：UNLOCKED
+    // 不使用while检查的原因（  while (ticks - ticks0 < n) {    // 什么都不做}  ）：会一直检查，占用CPU。使用while也叫忙等待
 
   }
   release(&tickslock);
