@@ -18,6 +18,7 @@ atoi(const char *s)
 }
  ```
  功能：把数字字符串转成整数
+*s ：如果输入atoi("123") 则第一次进while 时候 *s为 '1' 故值为 '1' 的ASCII 49;
  *s++：后置自增 先拿当前指针内容，指针再加一。
  *(++s)：指针先 + 1，再取新位置字符。
 
@@ -56,3 +57,107 @@ sys_sleep(void)
 其中：sched()，当前进程 A 已经不能继续运行了，请把 CPU 交给其他进程。当前进程放弃 CPU，进行上下文切换
 scheduler()调度器：寻找并切换到下一个可以运行的进程
 不同对象有不同的状态机。锁通常有“已占用/未占用”两种核心状态；进程则有 RUNNING、RUNNABLE、SLEEPING 等多种状态。对象的状态由对应的操作和系统事件改变，例如 acquire() / release() 改变锁状态，scheduler()、sleep()、wakeup()、exit() 等改变进程状态。
+
+```C user/ls.c
+#include "kernel/types.h"
+#include "kernel/stat.h"
+#include "user/user.h"
+#include "kernel/fs.h"  //DIRSIZ 是 xv6 中文件名部分允许保存的长度，通常为 14。
+
+char*
+fmtname(char *path)
+{
+  static char buf[DIRSIZ+1];
+  char *p;
+
+  // Find first character after last slash.
+  for(p=path+strlen(path); p >= path && *p != '/'; p--)
+    ;
+  p++;
+
+  // Return blank-padded name.
+  if(strlen(p) >= DIRSIZ)
+    return p;
+  memmove(buf, p, strlen(p));
+  memset(buf+strlen(p), ' ', DIRSIZ-strlen(p));
+  return buf;
+}
+
+void
+ls(char *path)
+{
+  char buf[512], *p;
+  int fd;
+  struct dirent de;
+  struct stat st;
+
+  if((fd = open(path, 0)) < 0){
+    fprintf(2, "ls: cannot open %s\n", path);
+    return;
+  }
+
+  if(fstat(fd, &st) < 0){
+    fprintf(2, "ls: cannot stat %s\n", path);
+    close(fd);
+    return;
+  }
+
+  switch(st.type){
+  case T_FILE:
+    printf("%s %d %d %l\n", fmtname(path), st.type, st.ino, st.size);
+    break;
+
+  case T_DIR:
+    if(strlen(path) + 1 + DIRSIZ + 1 > sizeof buf){
+      printf("ls: path too long\n");
+      break;
+    }
+    strcpy(buf, path);
+    p = buf+strlen(buf);
+    *p++ = '/';
+    while(read(fd, &de, sizeof(de)) == sizeof(de)){
+      if(de.inum == 0)
+        continue;
+      memmove(p, de.name, DIRSIZ);
+      p[DIRSIZ] = 0;
+      if(stat(buf, &st) < 0){
+        printf("ls: cannot stat %s\n", buf);
+        continue;
+      }
+      printf("%s %d %d %d\n", fmtname(buf), st.type, st.ino, st.size);
+    }
+    break;
+  }
+  close(fd);
+}
+
+int
+main(int argc, char *argv[])
+{
+  int i;
+
+  if(argc < 2){
+    ls(".");
+    exit(0);
+  }
+  for(i=1; i<argc; i++)
+    ls(argv[i]);
+  exit(0);
+}
+
+
+```
+函数
+struct dirent	目录中保存的简要目录项，主要有文件名和 inode 编号
+struct stat	文件的详细信息，包含类型、inode、大小等
+fd	进程访问已打开文件或目录时使用的编号
+stat(path, &st)	根据路径获取信息
+fstat(fd, &st)	根据已打开的文件描述符获取信息
+read(fd, &de, sizeof(de))	从目录文件中读取一个目录项
+流程：
+main 接收命令行路径，丢给 ls()；
+ls 打开路径，判断是文件还是目录；
+文件：直接格式化文件名打印属性；
+目录：拼接父路径 +/，循环读取目录内所有条目，拼成完整路径获取属性；
+fmtname 专门剥离路径最后的文件名、补齐空格对齐输出；
+全部处理完成关闭文件描述符，程序结束。
