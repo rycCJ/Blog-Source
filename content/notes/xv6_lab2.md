@@ -213,8 +213,9 @@ syscall的设计是：
 用户程序 ->  ecall ->  usertrap ->  syscall() ->  sys_open
 用户程序 ->  ecall ->  usertrap ->  syscall() ->  sys_read
 用户程序 ->  ecall ->  usertrap ->  syscall() ->  sys_write
+(每一次 syscall 都是一次完整的“用户态 → 内核态 → 用户态”往返。)
 
-即所有的所有syscall都要经过syscall()
+即所有的所有syscall都要经过syscall(),所有系统调用进入内核后的统一分发入口。
 num = p->trapframe->a7;
 ```c proc.c
 void
