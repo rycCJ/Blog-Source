@@ -188,3 +188,67 @@ int main()
 ```
 运行：$ hello
 流程：hello.c -> hello() -> usys.S ->  ecall -> usertrap() -> syscall() -> sys_hello() -> printf() -> 返回
+
+## trace作业
+让后面的程序运行时，把指定的 syscall 打印出来。
+例如：
+```shell
+$ trace 32 grep hello README
+```
+运行 grep 的过程中，如果发生：
+```shell
+read
+write
+open
+close
+```
+之类的系统调用，就打印：
+```shell
+3: syscall read
+3: syscall write
+...
+```
+比如 执行 ls ，要经历 open() read() write() close() 等,而每个函数（open(),read()）,都要经过syscall(), 进入各自函数（如：sys_read()，sys_write()，sys_open()）
+syscall的设计是：             
+用户程序 ->  ecall ->  usertrap ->  syscall() ->  sys_open
+用户程序 ->  ecall ->  usertrap ->  syscall() ->  sys_read
+用户程序 ->  ecall ->  usertrap ->  syscall() ->  sys_write
+
+即所有的所有syscall都要经过syscall()
+num = p->trapframe->a7;
+```c proc.c
+void
+syscall(void)
+{
+  int num;
+  struct proc *p = myproc();
+
+  num = p->trapframe->a7;
+  if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
+    p->trapframe->a0 = syscalls[num]();
+  } else {
+    printf("%d %s: unknown sys call %d\n",
+            p->pid, p->name, num);
+    p->trapframe->a0 = -1;
+  }
+}```
+这里：    ```num = p->trapframe->a7;```
+假设：```a7 = 22```  ; 那么：```num = 22```,  然后：```syscalls[22]() ``` 找到：```sys_hello```
+现在trace想做的是：
+```  num = p->trapframe->a7``` -> 这个 syscall 是不是我要追踪的？ -> 如果是  -> 打印 syscall 名字  -> 真正执行 syscall
+
+```mask =(1 << SYS_fork) | (1 << SYS_read)``` 其中：```SYS_fork  = 1  SYS_read  = 5```,则为：00100010 这样一个整数，就可以同时记录：
+
+哪些 syscall 要追踪。
+
+如何判断某个 syscall 是否需要 trace？
+
+```p->tracemask``` 保存当前进程的 mask; 得到：```num = p->trapframe->a7```, 使用 ```p->tracemask & (1 << num) ```判断即可.
+eg: ```tracemask = 00101000  num = 3```, 则有： ```1 << 3 = 00001000```,做:```00101000 & 00001000 = 00001000```结果非 0,syscall 3 被要求 trace
+struct proc 中要新增tracemask,这样，每个进程都有：自己的 trace 配置
+
+trace 设置后，exec 出来的程序还能继承，exec 不会创建一个全新的进程，是同一个proc
+
+fork产生两个进程，所以有 struct proc A 和 struct proc B;
+exec 之后还是当前进程，只是：用户程序，地址空间，代码，数据被替换。trace 的 mask 可以继续存在。
+要求：trace 设置应该被子进程继承 所以fork()创建子进程时，需要把：parent.tracemask  复制给： child.tracemask
