@@ -188,6 +188,8 @@ int main()
 ```
 运行：$ hello
 流程：hello.c -> hello() -> usys.S ->  ecall -> usertrap() -> syscall() -> sys_hello() -> printf() -> 返回
+这里sys_hello()是被 syscall() 调用的普通 C 函数。它执行完以后，要“返回”到调用它的 syscall().
+而 p 是你 syscall() 函数里的局部变量，不是 sys_hello() 的局部变量，所以在 sys_hello() 中 GDB 不认识 p。
 
 ## trace作业
 让后面的程序运行时，把指定的 syscall 打印出来。
@@ -253,3 +255,5 @@ trace 设置后，exec 出来的程序还能继承，exec 不会创建一个全�
 fork产生两个进程，所以有 struct proc A 和 struct proc B;
 exec 之后还是当前进程，只是：用户程序，地址空间，代码，数据被替换。trace 的 mask 可以继续存在。
 要求：trace 设置应该被子进程继承 所以fork()创建子进程时，需要把：parent.tracemask  复制给： child.tracemask
+
+trace(32); 的 32 是通过寄存器传给内核的。进入内核以后：p->trapframe->a0 = 32；p->trapframe->a7 = 23。然后：syscall()，然后syscalls[num]()（num为23的话，就调用函数sys_trace）在函数sys_trace中通过：argint(0, &mask);把把 a0 中的 32 ()取出来放入mask，把mask传给结构体p中的tracemask
