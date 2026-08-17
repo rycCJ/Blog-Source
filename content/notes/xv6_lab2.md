@@ -234,7 +234,8 @@ syscall(void)
             p->pid, p->name, num);
     p->trapframe->a0 = -1;
   }
-}```
+}
+```
 这里：    ```num = p->trapframe->a7;```
 假设：```a7 = 22```  ; 那么：```num = 22```,  然后：```syscalls[22]() ``` 找到：```sys_hello```
 现在trace想做的是：
