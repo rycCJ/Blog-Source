@@ -1,0 +1,8 @@
+# The Hugo content directory is the Obsidian vault. Keep the accidental
+# repository-root vault and machine-specific Obsidian state out of Git.
+/.obsidian/
+/content/.obsidian/workspace*.json
+/content/.obsidian/cache/
+
+# Obsidian Git can store local authentication details in this file.
+/content/.obsidian/plugins/obsidian-git/data.json
