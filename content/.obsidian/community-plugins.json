@@ -1,3 +1,7 @@
 [
-  "obsidian-git"
+  "obsidian-git",
+  "obsidian-weread-plugin",
+  "templater-obsidian",
+  "obsidian-tasks-plugin",
+  "notebook-navigator"
 ]
