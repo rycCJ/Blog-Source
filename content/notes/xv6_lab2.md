@@ -102,6 +102,237 @@ gdb-multiarch
 *   利用 `layout asm` 和 `si` 进行汇编级别的调试。
 *   `.gdbinit` 文件已经帮您自动加载了内核符号，所以您可以直接按函数名和变量名进行调试。
 
+
+## xv6 exec() 函数完整解析
+
+> exec：**加载ELF可执行程序，替换当前进程的用户地址空间，不创建新进程（PID不变）**，fork+exec 才是创建新程序的组合。 fork：复制进程；exec：把进程内容换成新程序。
+
+
+
+### 1. 打开可执行文件（inode）
+
+```
+ip = namei(path)   // 根据文件路径找到inode
+ilock(ip)
+```
+
+通过路径拿到磁盘上ELF程序的inode，加锁保证文件读写安全。
+
+### 2. 校验ELF文件头部
+
+```
+readi(ip, ... &elf ...)
+if(elf.magic != ELF_MAGIC) goto bad;
+```
+
+读文件头部，校验魔数，确认是合法 ELF 可执行文件，不是普通文本。
+
+### 3. 创建一份**临时新页表** `pagetable = proc_pagetable(p)`
+
+> ⚠️关键点：**不会直接修改正在运行进程的页表**，先建一份全新用户页表，全部加载成功之后，才替换；中途出错直接销毁这份临时页表，老进程不受破坏。
+
+### 4. 遍历ELF程序段（program header），把程序从磁盘加载到新虚拟地址空间
+
+```
+for(i=0, off=elf.phoff; i<elf.phnum; i++, off+=sizeof(ph)){
+    readi(ip,...&ph,...);   //读取一个段头
+    if(ph.type != ELF_PROG_LOAD) continue; //只处理需要加载到内存的段
+    
+    uvmalloc(pagetable, sz, ph.vaddr + ph.memsz); //分配虚拟内存、建立页表映射
+    loadseg(pagetable, ph.vaddr, ip, ph.off, ph.filesz); //把磁盘文件内容拷贝到用户虚拟地址
+}
+```
+
+- `ph.vaddr`：程序期望运行的虚拟地址
+- `filesz`：文件中实际存在的数据；`memsz`：内存需要占用大小（bss零区，文件没有，内存要补0）
+- `loadseg`：磁盘inode → 用户虚拟内存，完成代码、数据段加载。
+
+### 5. 分配用户栈（2个页面）
+
+```
+sz = PGROUNDUP(sz);
+uvmalloc(pagetable, sz, sz + 2*PGSIZE);
+uvmclear(pagetable, sz-2*PGSIZE); //清空第一页（守护页，不允许访问）
+sp = sz;
+stackbase = sp - PGSIZE;
+```
+
+> 两个页：
+> 
+> - 低地址那一页：**guard page（守护页）**，不映射，栈越界访问直接崩溃
+> - 高地址那一页：真正的用户栈，栈从高地址向低地址生长 `sp` 从栈顶往下压数据
+
+### 6. 把命令行参数 `argv` 压入**用户栈**（非常核心）
+
+exec运行时是内核态，`argv` 在内核内存，**不能直接给用户程序用**，要复制到用户虚拟栈：
+
+1. 循环每一个参数字符串，`copyout` 把字符串复制到用户栈，向下移动栈指针`sp`，记录每个字符串的地址存入内核数组`ustack[]`
+2. 在用户栈再压一层指针数组：`argv[0], argv[1], ... , NULL`
+3. 设置trapframe寄存器：
+    - `a0`：系统调用返回值，就是`argc`，作为main第一个参数
+    - `a1 = sp`：用户栈上argv指针数组的地址，作为main第二个参数
+        
+        > 用户程序 `main(int argc, char *argv[])` 的参数来源就在这里。
+        
+
+### 7. 替换进程上下文，正式切换到新程序运行
+
+```
+oldpagetable = p->pagetable;
+p->pagetable = pagetable;      //替换进程页表
+p->sz = sz;
+p->trapframe->epc = elf.entry;// epc = ELF入口地址，即用户程序第一条指令
+p->trapframe->sp = sp;        // 用户栈指针
+proc_freepagetable(oldpagetable, oldsz); //释放旧的用户地址空间
+```
+
+- `epc`：发生trap返回用户态时CPU从epc取指令，所以直接跳转到新程序入口。
+- 释放原来进程的用户页表；**内核栈、内核页表、pid保持不变！** exec不改变PID。
+
+```
+return argc;
+```
+
+返回`argc`，这个返回值会放到`a0`寄存器，就是main函数的`argc`。
+
+### 8. bad 错误分支
+
+只要中间任意一步失败（文件不存在、elf非法、内存分配失败）：销毁刚刚建好的临时页表，文件解锁，返回‑1，**进程继续运行原来的程序，不会崩溃**。
+
+### exec核心要点总结（考试重点）
+
+1. ✅ **不创建新进程，PID不变；只替换用户态地址空间，内核栈、内核页表保留**
+2. ✅ 采用“先构造完整新页表，成功才替换”策略，失败不会破坏旧进程。
+3. ✅ 从磁盘读取ELF，解析program‑header，把代码段、数据段加载到用户虚拟内存。
+4. ✅ 分配用户栈+guard守护页；把argv参数字符串、指针全部拷贝到**用户栈**，设置寄存器为main准备好参数。
+5. ✅ 修改trapframe：`epc`设为程序入口，`sp`设用户栈顶；替换页表，释放旧用户内存。
+6. ✅ trap返回之后CPU就跑新程序代码。
+7. ❗exec不会复制打开文件，默认文件描述符会继承（除非设置close‑on‑exec）。
+
+### 配套调用链路
+
+用户系统调用：`exec(path, argv)` → `sys_exec()` → 调用这个`exec()`函数。
+
+> 搭配：`fork()`复制进程，子进程调用`exec()`加载新程序，这就是shell运行程序的完整流程。
+
+exec()
+ │
+ ├── 创建新的 pagetable
+ │
+ ├── 加载 ELF
+ │
+ ├── 分配用户内存
+ │
+ ├── 建立用户映射
+ │
+ ├── 设置 stack
+ │
+ └── p->pagetable = new pagetable
+## xv6 `sbrk()`
+
+> 系统调用：`sbrk(n)`，**扩大/缩小进程堆内存**，修改进程的**brk断点（program break）**，也就是堆的边界。 C库：`void *sbrk(int incr)`；内核里面是 `sys_sbrk()`。
+
+进程虚拟地址空间布局（xv6）：
+
+```
+低地址 → 代码段 → 数据段 →【堆 heap】 ↑向上增长 → brk(断点) → 用户栈(高地址向下长)
+```
+
+`p->sz` 就是这个进程的**brk值**，代表用户空间当前最大虚拟地址。
+
+### 功能
+
+`sbrk(incr)`：把进程的堆边界 `brk += incr`
+
+1. `incr > 0`：**扩大堆，申请更多内存**
+2. `incr < 0`：**缩小堆，释放堆内存**
+3. 返回旧的brk地址（扩大前的堆末尾，就是新内存的起始地址）
+
+> 注意：xv6的`sbrk`**不会立刻物理内存**，只是修改虚拟地址边界`p->sz`；真正分配物理页是等到用户访问该虚拟地址，触发**缺页异常(page fault)**的时候，内核才分配物理页、建立PTE映射。
+
+### xv6 sys_sbrk内核源码逻辑（简化）
+
+```
+uint64
+sys_sbrk(void)
+{
+  int addr;
+  int n;
+
+  if(argint(0, &n) < 0)
+    return -1;
+  struct proc *p = myproc();
+  addr = p->sz;        //保存旧brk，作为返回值
+  if(n > 0){
+    if(uvmalloc(p->pagetable, p->sz, p->sz + n) == 0){
+      return -1;
+    }
+  } else if(n < 0){
+    uvmdealloc(p->pagetable, p->sz, p->sz + n);
+  }
+  p->sz += n;          // 修改进程的size(brk断点)
+  return addr;         // 返回原来的brk指针，用户拿到就可以使用这片新内存
+}
+```
+
+#### 两个关键函数
+
+1. `uvmalloc(pagetable, oldsz, newsz)`
+
+- 增大虚拟地址范围；**只建立页表，不一定分配物理内存**（xv6懒分配lazy allocation）
+- 当用户读写这个新虚拟地址，没有物理页，触发`page‑fault`，内核`trap()`里面检测到是合法堆地址，才调用`kalloc()`分配物理页，填PTE。
+
+2. `uvmdealloc(pagetable, oldsz, newsz)`
+
+- n为负数，堆收缩；释放对应虚拟地址的物理页，清除页表PTE。
+
+### 和exec、malloc的关系
+
+1. `malloc()`：用户态库函数，**在sbrk基础上实现**。
+    
+    ```
+    malloc → sbrk(增加堆大小) → 在堆上管理空闲内存块
+    ```
+    
+2. `exec()`：exec会重置p->sz，重新加载程序，堆会被完全重建。
+
+### 考试高频易错点
+
+1. 📌 **sbrk只是修改虚拟地址边界，不一定分配物理内存！懒分配！**
+    
+    > 调用`sbrk(1000000)`马上返回成功，但没有物理内存；访问这片内存才真正分配物理页。
+    
+2. 返回值：返回**修改之前的brk地址**，不是新的brk。
+
+```
+//举例：brk原来是0x400000
+void *p = sbrk(4096);
+// p = 0x400000（旧brk），新brk=0x401000
+// p指向新获得内存的起始位置
+```
+
+3. sbrk(0)：返回当前brk值，不修改大小，可以查询堆边界。
+4. 和栈区分：
+    - **堆heap：sbrk管理，向上增长**
+    - **用户栈：exec一次性分配2页，固定大小，向下增长，不由sbrk控制**
+
+### uvmalloc
+
+- `sbrk`：**系统调用，给用户程序用**，修改`proc->sz`
+- `uvmalloc`：**内核内部函数**，exec、sbrk底层都会调用，负责操作页表
+
+### 举个小例子
+
+```
+//用户态
+char *p = sbrk(4096);
+//此时虚拟地址p~p+4096属于本进程堆，但还没有物理页
+p[0] = 'A';  
+//访问，触发缺页异常，内核分配物理页，建立映射，赋值成功
+```
+
+> 拓展：xv6 lazy allocation实验就是修改sbrk/pagefault这一套逻辑。
+
 ## 练习1：实现 hello syscall
 
 我们想增加：

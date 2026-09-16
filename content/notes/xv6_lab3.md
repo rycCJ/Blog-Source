@@ -10,6 +10,233 @@ p->kpagetable  内核页表：内核映射 + 本进程内核栈 + 用户页镜�
 这也是官方实验的第二、第三部分。[实验说明](https://pdos.csail.mit.edu/6.S081/2020/labs/pgtbl.html)
 
 ---
+# 一些函数解读
+## mappages()
+
+✅ **对，就是建立虚拟地址 `va` → 物理地址 `pa` 的页表映射**，把连续的一段虚拟内存映射到连续的一段物理内存。
+
+> 注意：是**按页为单位**，一次处理多个页面。
+
+### 参数说明
+
+```
+int mappages(pagetable_t pagetable, uint64 va, uint64 size, uint64 pa, int perm)
+```
+
+1. `pagetable`：要操作的页表（根页表）
+2. `va`：**起始虚拟地址**
+3. `size`：要映射多大的内存（字节）
+4. `pa`：**起始物理地址**
+5. `perm`：权限位（PTE_R / PTE_W / PTE_X / PTE_U …）
+
+---
+
+### 逐行拆解
+
+```
+a = PGROUNDDOWN(va);
+last = PGROUNDDOWN(va + size - 1);
+```
+
+- `PGROUNDDOWN`：向下对齐到页边界（4096对齐）
+- 把传入的`va`、结束地址，都对齐到页，**mappages以整页为粒度工作**。哪怕你传入的va不是页对齐，它也从该页开头开始映射。
+
+```
+for(;;){
+    if((pte = walk(pagetable, a, 1)) == 0)
+        return -1;
+```
+
+- `walk(pagetable, a, 1)`：遍历Sv39三级页表；第3个参数`1`代表**如果中间页表不存在，就分配创建中间页表**。
+- 返回该虚拟地址`a`对应的PTE的指针。失败返回NULL。
+
+```
+if(*pte & PTE_V)
+    panic("mappages: remap");
+```
+
+- 安全检查：这个PTE已经有效（已经映射过），不能重复映射，直接panic。防止覆盖已有映射。
+
+```
+*pte = PA2PTE(pa) | perm | PTE_V;
+```
+
+核心一行：
+
+1. `PA2PTE(pa)`：把物理地址`pa`编码成PTE里面的物理页号位域
+2. `| perm`：加上读写执行用户等权限
+3. `| PTE_V`：标记PTE有效（valid）
+    
+    > ⚠️ 设置完这个，CPUMMU就可以把虚拟地址a翻译成物理地址pa。
+    
+
+```
+if(a == last)
+    break;
+a += PGSIZE;
+pa += PGSIZE;
+}
+```
+
+- 处理下一页：虚拟地址+4096，物理地址也+4096
+- **要求：虚拟页序列和物理页序列都必须是连续的！**
+
+```
+return 0;
+```
+
+全部页面映射成功返回0。
+
+---
+
+### 重要限制（考试常考）
+
+1. **要求虚拟地址段连续，物理地址段也必须连续**
+    
+    > va,va+4096,va+8192… ↔ pa,pa+4096,pa+8192… 不能做：va0→pa0，va1→pa100这种离散映射。
+    
+2. 输入的`va`内部会被向下页对齐；`size`不足一页也会映射完整一页。
+3. 不会分配物理内存！！
+    
+    > `pa`必须是**已经提前分配好的物理页**（kalloc()拿到的物理地址）。 mappages只是填页表，本身不调用kalloc。
+    
+4. 不能重复映射同一个虚拟页，否则panic。
+
+### 调用场景举例 xv6
+
+1. `uvmalloc`底层调用mappages：用户堆分配，把kalloc出来的物理页映射到用户虚拟地址。
+2. `loadseg`：加载ELF程序段，把磁盘读到的物理页映射到程序的虚拟地址。
+3. `kvminit`：内核初始化，建立内核高地址虚拟→物理映射。
+
+### 和walk的关系
+
+- `walk`：找PTE，可选择创建中间页表；**只找/建页表，不填PTE内容**
+- `mappages`：调用walk拿到pte，然后**填写PTE建立va‑pa映射**。
+
+### 举个简单例子
+
+```
+// pa是kalloc拿到的物理页，0x80001000
+mappages(pagetable, 0x00400000, 2*PGSIZE, 0x80001000, PTE_R|PTE_W|PTE_U);
+```
+
+- va=0x400000 → pa=0x80001000
+- va=0x401000 → pa=0x80002000 连续两页映射完成。
+
+如果你需要，我可以对比 `mappages / uvmunmap / freewalk` 三者分工。
+## `walk()` 流程
+### 两个核心概念
+- **硬件 CPU**：指的是芯片本身（硬件电路）。当 CPU 执行一条访存指令（如 `ld` 或 `sd`）时，CPU 内部的 **MMU（内存管理单元）** 会自动读取 `satp` 寄存器里的页表地址，在硬件电路层面自动完成虚拟地址到物理地址的转换。
+    
+- **软件（内核代码）**：指的是写在 C 语言文件里的代码逻辑（例如 `walk()` 函数）。它是操作系统开发者用 C 语言手写的程序，需要 CPU 执行多条指令来模拟硬件查页表的过程。
+### 存在两套页表
+1. **全局内核页表（`kernel_pagetable`）**：只有一个，里面映射了内核的代码、数据以及物理设备（如串口、磁盘）。**里面没有映射用户程序的数据**。
+    
+2. **独立的用户页表（`p->pagetable`）**：每个进程各有一个，里面只映射了该进程自己的代码、栈、堆等用户数据。
+### **当用户发起 `write(fd, buf, len)` 系统调用时，发生了什么？**
+
+1. **进入内核态**：CPU 陷入内核，`satp` 寄存器被切换为**全局内核页表**。
+    
+2. **遇到难题**：内核代码需要从 `buf`（用户虚拟地址）读取数据。但此时 CPU 处于内核态，使用的是**全局内核页表**。如果让硬件 CPU 直接去读 `buf`，硬件 MMU 会查全局内核页表，发现根本没有 `buf` 这个地址的映射，直接触发缺页异常崩溃。
+    
+3. **软件接管（调用 `walk()`）**：
+    
+    - 为了拿到数据，内核不能靠硬件 MMU 自动转换，只能用**软件**写好的 `walk()` 函数。
+        
+    - 内核把**进程独立的用户页表 `p->pagetable`** 作为参数传给 `walk()`。
+        
+    - `walk()` 在**软件层面**用 C 语言代码一层层读取 `p->pagetable` 的 L2、L1、L0 页表项（PTE），最后用 `PTE2PA` 计算出对应的物理地址 `pa`。
+        
+4. **硬件读物理地址**：内核拿到物理地址 `pa` 后，因为全局内核页表中对所有物理内存都有直接映射，此时硬件 CPU 就可以安全地去读取这个物理地址的数据了。
+## `userinit()` xv6源码解析
+
+> 作用：**创建系统第一个用户进程 PID=1（initcode进程），这是内核启动后第一个跑到用户态的程序**。 QEMU启动，内核先跑内核代码，没有任何用户进程；`userinit()` 负责把0号进程之后，把1号init进程准备好。
+
+### 逐行拆解
+
+```
+struct proc *p;
+p = allocproc();
+initproc = p;
+```
+
+- `allocproc()`：分配一个proc进程控制块，分配内核栈、trapframe，初始化页表，返回空闲的proc结构体。
+- `initproc` 全局变量，指向这个第一个用户进程。
+
+```
+uvminit(p->pagetable, initcode, sizeof(initcode));
+p->sz = PGSIZE;
+```
+
+- `initcode`：一小段汇编二进制，编译时直接链接进内核镜像，**存在内核的内存里**。就是initcode.S编译出来的机器码。
+- `uvminit`：给进程用户空间分配**1个用户页（4KB）**，把initcode二进制拷贝到这个用户页。
+- 用户虚拟地址0处存放initcode指令。
+- `p->sz = PGSIZE`：进程用户空间大小设为一页。
+
+```
+p->trapframe->epc = 0;      // user program counter
+p->trapframe->sp = PGSIZE;  // user stack pointer
+```
+
+`trapframe`：保存用户态寄存器，**用于 `usertrap()` 返回用户态时恢复寄存器**
+
+1. `epc = 0`：用户程序PC，回到用户态就从虚拟地址`0`取指令执行，也就是我们刚刚拷贝过去的initcode代码。
+2. `sp = PGSIZE`：用户栈指针，一页大小，栈从`0x1000`向下生长。
+    
+    > 这个进程只有1页用户内存：0~4095；代码放在0开始，栈指针设在页的最顶端`PGSIZE=4096`。
+    
+
+```
+safestrcpy(p->name, "initcode", sizeof(p->name));
+p->cwd = namei("/");
+```
+
+- 进程名字标记为initcode。
+- 当前工作目录设置为根目录`/`。
+
+```
+p->state = RUNNABLE;
+release(&p->lock);
+```
+
+进程状态置为可运行，调度器可以调度它运行；释放进程锁。
+
+### initcode 做什么（initcode.S）
+
+initcode是极其短小的用户程序，它的任务：
+
+1. 调用exec系统调用，运行`/init`程序
+2. 如果exec成功，就变成init用户程序；
+3. 如果失败就循环。
+
+> 所以PID=1一开始是initcode，exec之后就替换成 /init 进程。
+
+### 整体时序（系统启动顺序）
+
+1. `start`汇编 → `main()`
+2. `main()`调用 `userinit()`
+3. userinit创建好PID=1进程，状态RUNNABLE
+4. 调度器调度，执行`usertrapret()`，从内核态**第一次回到用户态**，执行initcode。
+5. initcode执行`exec("/init")`，进入exec函数，替换地址空间，运行真正的init程序，启动shell。
+
+### 关键考点总结
+
+1. `userinit`只在**内核启动的时候执行一次**，不是系统调用。
+2. 创建PID=1，系统第一个用户进程。
+3. `initcode`二进制**编译在内核内部**，不是磁盘上的文件；没有调用fork！直接手工构造进程。
+4. 手工设置`trapframe->epc=0`，这是**第一次内核→用户态跳转的源头**。
+5. 只有1页用户内存，代码和栈都在这一页。
+6. initcode通过exec加载磁盘上的`/init`，完成从内核内置代码到磁盘程序的切换。
+
+### 对比区分
+
+- `allocproc`：只是生成空的proc，没有用户程序；
+- `userinit`：调用allocproc，再手工填充页表、trapframe，造出第一个用户进程。
+- fork：复制已有进程；userinit不是fork，是手工构造。
+
+> 小坑：PID=0是idle进程（内核进程，永远在内核态，没有用户空间）；PID=1是第一个用户进程，由userinit构造。
+
+如果你需要，我可以梳理：`userinit → initcode → exec("/init")`完整链路。
 # Lab3_1:Print a page table ([easy](https://pdos.csail.mit.edu/6.S081/2020/labs/guidance.html))
 **中间节点（目录页）**：
 - 作用：存**下一级页表的物理地址**，MMU 拿到 PPN，去内存读取下一级页表，继续地址查找。
@@ -815,30 +1042,7 @@ usertests
 ```
 
 
-# `walk()` 流程
-## 两个核心概念
-- **硬件 CPU**：指的是芯片本身（硬件电路）。当 CPU 执行一条访存指令（如 `ld` 或 `sd`）时，CPU 内部的 **MMU（内存管理单元）** 会自动读取 `satp` 寄存器里的页表地址，在硬件电路层面自动完成虚拟地址到物理地址的转换。
-    
-- **软件（内核代码）**：指的是写在 C 语言文件里的代码逻辑（例如 `walk()` 函数）。它是操作系统开发者用 C 语言手写的程序，需要 CPU 执行多条指令来模拟硬件查页表的过程。
-## 存在两套页表
-1. **全局内核页表（`kernel_pagetable`）**：只有一个，里面映射了内核的代码、数据以及物理设备（如串口、磁盘）。**里面没有映射用户程序的数据**。
-    
-2. **独立的用户页表（`p->pagetable`）**：每个进程各有一个，里面只映射了该进程自己的代码、栈、堆等用户数据。
-## **当用户发起 `write(fd, buf, len)` 系统调用时，发生了什么？**
 
-1. **进入内核态**：CPU 陷入内核，`satp` 寄存器被切换为**全局内核页表**。
-    
-2. **遇到难题**：内核代码需要从 `buf`（用户虚拟地址）读取数据。但此时 CPU 处于内核态，使用的是**全局内核页表**。如果让硬件 CPU 直接去读 `buf`，硬件 MMU 会查全局内核页表，发现根本没有 `buf` 这个地址的映射，直接触发缺页异常崩溃。
-    
-3. **软件接管（调用 `walk()`）**：
-    
-    - 为了拿到数据，内核不能靠硬件 MMU 自动转换，只能用**软件**写好的 `walk()` 函数。
-        
-    - 内核把**进程独立的用户页表 `p->pagetable`** 作为参数传给 `walk()`。
-        
-    - `walk()` 在**软件层面**用 C 语言代码一层层读取 `p->pagetable` 的 L2、L1、L0 页表项（PTE），最后用 `PTE2PA` 计算出对应的物理地址 `pa`。
-        
-4. **硬件读物理地址**：内核拿到物理地址 `pa` 后，因为全局内核页表中对所有物理内存都有直接映射，此时硬件 CPU 就可以安全地去读取这个物理地址的数据了。
 # 默认 xv6 的 `copyin` 是如何工作的？
 在默认的 xv6 中，`copyin` 和 `copyinstr` 是内核用来**从用户空间安全读取数据到内核空间**的两个关键函数。理解它们的工作原理和性能痛点，是搞懂“每进程内核页表”这个实验的核心关键。
 ## `copyin` 是如何工作的
@@ -1414,6 +1618,7 @@ make qemu
 ```
 
 在 xv6 shell 中运行 `usertests`，若所有测试均通过（输出 `ALL TESTS PASSED`），则表明第一阶段实现无误。
+
 # **为每个进程独立分配一份内核页表**”
 
   ## **1. 操作系统中的“内核态”与“用户态”**
@@ -1608,3 +1813,28 @@ make qemu
 - 切换进程页表时，CPU 只需要切换当前的 PCID，而**不需要清空 TLB**。
     
 - 当 CPU 查询 TLB 时，只有虚拟地址和 PCID 同时匹配才算命中。这样既保证了不同进程间的内存隔离，又避免了清空 TLB 带来的性能损失。
+
+
+ A kernel page table per process
+
+procinit() 注释：p->kstack = KSTACK((int) (p - proc));
+把 kernel stack 的创建和映射从全局初始化阶段移动到了进程创建阶段。
+
+allocproc()  创建进程的 `kpagetable`(proc_kpagetable()函数)（映射全局硬件设备和内核代码段，UART0 VIRTIO0 PLIC Kernel text Kernel data TRAMPOLINE），给进程分配 kernel stack（多了Kernel stack A，这里的kernel stack A 在该进程地址空间中的虚拟地址。）Process structure + kernel page table + kernel stack
+
+scheduler()  就有：scheduler() │ ↓ 选择 Process A │ ↓ satp = kpagetable_A │ ↓ Process A 开始运行
+
+freeproc() ①**释放内核栈物理页并解映射**： walk PTE2PA `kfree(pa)` 释放。uvmunmap将内核栈从 `kpagetable` 中解绑  ②**销毁内核页表**：`uvmfree_kpt(p->kpagetable)`，递归释放 3 级页表树的中间节点，将 `kpagetable` 彻底清理。  将指针置空：`p->kpagetable = 0`，`p->kstack = 0`。
+① trapframe
+
+② kernel stack
+
+③ kpagetable
+
+④ user pagetable
+
+Simplify copyin/copyinstr
+
+userinit() 建立第一个用户进程   p->pagetable里面出现：VA 0x0000    ↓  用户程序物理页
+
+uvmmap_kpt()  p->pagetable中有0x0000 → PA A，但是p->kpagetable中没有：0x0000→ PA A，uvmmap_kpt之后这样第一个进程的两张页表就同步了。即把 `p->pagetable` 中的用户 VA→PA 映射，在 `p->kpagetable` 中再建立一份。
